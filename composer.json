@@ -1,0 +1,31 @@
+{
+    "name": "expectation/expectation",
+    "description": "",
+    "version": "1.0.0",
+    "keywords": [
+        "expect", "assert", "test"
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "v2e4lisp/preview": "2.*",
+        "jaz303/phake": "0.6.*",
+        "beberlei/assert": "2.0.*",
+        "phpspec/prophecy": "@stable",
+        "phpunit/php-code-coverage": "@stable",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Noritaka Horio",
+            "email": "holy.shared.design@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "expectation\\": "src/"
+        }
+    }
+}
