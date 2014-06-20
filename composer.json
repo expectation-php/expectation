@@ -6,7 +6,8 @@
         "expect", "assert", "test"
     ],
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "doctrine/annotations": "@stable"
     },
     "require-dev": {
         "v2e4lisp/preview": "2.*",
