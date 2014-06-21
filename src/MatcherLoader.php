@@ -13,9 +13,10 @@ namespace expectation;
 
 use Doctrine\Common\Annotations\Reader;
 use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 use FilesystemIterator;
 use ReflectionMethod;
-use SplStack;
+use ReflectionClass;
 use expectation\matcher\annotation\Lookup;
 
 class MatcherLoader
@@ -24,9 +25,14 @@ class MatcherLoader
     const MATCHER_PATTERN = "/Matcher\\.php$/";
 
     /**
-     * @var SplStack
+     * @var array
      */
-    private $container;
+    private $namespaces;
+
+    /**
+     * @var array
+     */
+    private $factories;
 
     /**
      * @var \Doctrine\Common\Annotations\Reader
@@ -38,8 +44,15 @@ class MatcherLoader
      */
     public function __construct(Reader $annotationReader)
     {
-        $this->container = new SplStack;
-        $this->annotationReader = $reader;
+        $this->namespaces = [];
+        $this->factories = [];
+        $this->annotationReader = $annotationReader;
+    }
+
+    public function registerNamespace($namespace, $directory)
+    {
+        $this->namespaces[$namespace] = $directory;
+        return $this;
     }
 
     /**
@@ -47,19 +60,21 @@ class MatcherLoader
      */
     public function load()
     {
-        $iterator = $this->getRecursiveIterator(__DIR__);
+        foreach ($this->namespaces as $namespace => $directory) {
+            $iterator = $this->getRecursiveIterator($directory);
 
-        foreach ($iterator as $matcherFile) {
-            $name = $matcherFile->getFilename();
+            foreach ($iterator as $matcherFile) {
+                $name = $matcherFile->getFilename();
 
-            if (preg_match(static::MATCHER_PATTERN, $name) === 0) {
-                continue;
+                if (preg_match(static::MATCHER_PATTERN, $name) === 0) {
+                    continue;
+                }
+                $className = str_replace(".php", "", $name);
+                $this->loadFactoriesFromClassName($namespace . "\\" . $className);
             }
-            $className = str_replace(".php", "", $name);
-            $this->loadFactoriesFromClassName($namespace . $className);
         }
 
-        return new MatcherContainer($this->container);
+        return new MatcherContainer($this->factories);
     }
 
     private function loadFactoriesFromClassName($className)
@@ -73,7 +88,8 @@ class MatcherLoader
             foreach ($annotations as $annotation) {
                 $registerName = $annotation->getLookupName();
                 $registerFactory = $annotation->getMatcherFactory($method);
-                $this->container->add($registerName, $registerFactory);
+
+                $this->factories[$registerName] = $registerFactory;
             }
         }
     }

@@ -15,6 +15,14 @@ use ReflectionMethod;
 use expectation\MatcherFactory;
 use expectation\matcher\AnnotationInterface;
 
+/**
+ * @Annotation
+ * @Target({"METHOD"})
+ * @Attributes(
+ *   @Attribute("name", required = true, type = "string")
+ * )
+ * @package expectation\matcher\annotation
+ */
 final class Lookup implements AnnotationInterface
 {
 

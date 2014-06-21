@@ -12,6 +12,7 @@
 namespace expectation\spec\fixture;
 
 use expectation\AbstractMatcher;
+use expectation\matcher\annotation\Lookup;
 
 class FixtureMatcher extends AbstractMatcher
 {
