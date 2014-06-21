@@ -11,15 +11,38 @@
 
 namespace expectation\matcher;
 
+use SplStack;
 
 class MatcherContainer implements MatcherContainerInterface
 {
+
+    /**
+     * @var SplStack
+     */
+    private $container;
+
+
+    public function __construct(SplStack $container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * @return \expectation\matcher\MatcherInterface
      */
     public function find($name, array $arguments)
     {
+        $this->container->rewind();
+
+        while($this->container->valid()) {
+            $lookUpKey = $this->container->key();
+            if ($lookUpKey !== $name) {
+                continue;
+            }
+            $factory = $this->container->current();
+        }
+
+        return $factory->newInstanceWtih($arguments);
     }
 
 }
