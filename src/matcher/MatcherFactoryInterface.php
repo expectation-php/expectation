@@ -14,6 +14,10 @@ namespace expectation\matcher;
 interface MatcherFactoryInterface
 {
 
-    public function newInstanceWtih(array $arguments);
+    /**
+     * @param array $arguments
+     * @return MatcherInterface
+     */
+    public function withArguments(array $arguments);
 
 }
