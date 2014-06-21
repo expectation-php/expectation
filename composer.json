@@ -29,7 +29,7 @@
             "expectation\\": "src/"
         },
         "files": [
-            "src/Package.php"
+            "src/Autoload.php"
         ]
     },
     "autoload-dev": {
