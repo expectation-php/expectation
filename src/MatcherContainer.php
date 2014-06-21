@@ -11,20 +11,20 @@
 
 namespace expectation;
 
-use SplStack;
+use ArrayObject;
+use ArrayIterator;
 
 class MatcherContainer implements MatcherContainerInterface
 {
 
     /**
-     * @var SplStack
+     * @var ArrayObject
      */
-    private $container;
+    private $values;
 
-
-    public function __construct(SplStack $container)
+    public function __construct(ArrayObject $values)
     {
-        $this->container = $container;
+        $this->values = $values;
     }
 
     /**
@@ -32,17 +32,20 @@ class MatcherContainer implements MatcherContainerInterface
      */
     public function find($name, array $arguments)
     {
-        $this->container->rewind();
+        $factory = null;
+        $iterator = new ArrayIterator($this->values);
 
-        while($this->container->valid()) {
-            $lookUpKey = $this->container->key();
+        while($iterator->valid()) {
+            $lookUpKey = $iterator->key();
+
             if ($lookUpKey !== $name) {
                 continue;
             }
-            $factory = $this->container->current();
+            $factory = $iterator->current();
+            break;
         }
 
-        return $factory->newInstanceWtih($arguments);
+        return $factory->withArguments($arguments);
     }
 
 }
