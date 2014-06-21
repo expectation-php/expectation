@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher;
+namespace expectation;
 
 use ReflectionMethod;
 

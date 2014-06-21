@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher\annotation;
+namespace expectation\matcher;
 
 interface AnnotationInterface
 {
