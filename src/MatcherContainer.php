@@ -11,20 +11,20 @@
 
 namespace expectation;
 
-use ArrayObject;
-use ArrayIterator;
-
 class MatcherContainer implements MatcherContainerInterface
 {
 
     /**
      * @var ArrayObject
      */
-    private $values;
+    private $factories;
 
-    public function __construct(ArrayObject $values)
+    /**
+     * @param array $factories
+     */
+    public function __construct(array $factories)
     {
-        $this->values = $values;
+        $this->factories = $factories;
     }
 
     /**
@@ -32,18 +32,10 @@ class MatcherContainer implements MatcherContainerInterface
      */
     public function find($name, array $arguments)
     {
-        $factory = null;
-        $iterator = new ArrayIterator($this->values);
-
-        while($iterator->valid()) {
-            $lookUpKey = $iterator->key();
-
-            if ($lookUpKey !== $name) {
-                continue;
-            }
-            $factory = $iterator->current();
-            break;
+        if (!isset($this->factories[$name])) {
+            throw new FactoryNotFoundException('{$name} is not found');
         }
+        $factory = $this->factories[$name];
 
         return $factory->withArguments($arguments);
     }
