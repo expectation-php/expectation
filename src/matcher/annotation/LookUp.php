@@ -21,7 +21,6 @@ use expectation\matcher\AnnotationInterface;
  * @Attributes(
  *   @Attribute("name", required = true, type = "string")
  * )
- * @package expectation\matcher\annotation
  */
 final class Lookup implements AnnotationInterface
 {

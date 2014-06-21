@@ -84,7 +84,7 @@ class MatcherLoader
         $methods = $reflection->getMethods();
 
         foreach($methods as $method) {
-            $this->getAnnotationsFromMethod($method);
+            $annotations = $this->getAnnotationsFromMethod($method);
             foreach ($annotations as $annotation) {
                 $registerName = $annotation->getLookupName();
                 $registerFactory = $annotation->getMatcherFactory($method);
