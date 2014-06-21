@@ -69,6 +69,7 @@ class MatcherLoader
                 if (preg_match(static::MATCHER_PATTERN, $name) === 0) {
                     continue;
                 }
+
                 $className = str_replace(".php", "", $name);
                 $this->loadFactoriesFromClassName($namespace . "\\" . $className);
             }
@@ -83,8 +84,7 @@ class MatcherLoader
         $methods = $reflection->getMethods();
 
         foreach($methods as $method) {
-            $annotations = $this->getAnnotationsFromMethod($method);
-
+            $this->getAnnotationsFromMethod($method);
             foreach ($annotations as $annotation) {
                 $registerName = $annotation->getLookupName();
                 $registerFactory = $annotation->getMatcherFactory($method);

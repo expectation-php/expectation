@@ -27,7 +27,10 @@
     "autoload": {
         "psr-4": {
             "expectation\\": "src/"
-        }
+        },
+        "files": [
+            "src/Package.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

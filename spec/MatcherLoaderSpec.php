@@ -13,14 +13,12 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use expectation\MatcherLoader;
 
 describe('MatcherLoader', function() {
 
     before(function() {
         $this->reader = new AnnotationReader();
-        AnnotationRegistry::registerAutoloadNamespace('expectation\\matcher\\annotation\\', realpath(__DIR__ . '/../'));
     });
 
     describe('load', function() {
@@ -31,6 +29,11 @@ describe('MatcherLoader', function() {
         });
         it('should return expectation\MatcherContainerInterface instance', function() {
             Assertion::isInstanceOf($this->container, 'expectation\MatcherContainerInterface');
+        });
+        it('should factory loaded', function() {
+            $matcher = $this->container->find('toEqual', [true]);
+            Assertion::same($matcher->expected, true);
+            Assertion::isInstanceOf($matcher, 'expectation\spec\fixture\FixtureMatcher');
         });
     });
 
