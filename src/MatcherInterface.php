@@ -14,5 +14,9 @@ namespace expectation;
 interface MatcherInterface
 {
 
+    /**
+     * @param mixed $expected
+     */
+    public function expected($expected);
 
 }

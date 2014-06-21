@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of expect package.
+ * This file is part of expectation package.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *

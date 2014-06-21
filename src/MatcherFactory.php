@@ -29,6 +29,10 @@ class MatcherFactory implements MatcherFactoryInterface
         $this->method = $method;
     }
 
+    /**
+     * @param array $arguments
+     * @return MatcherInterface
+     */
     public function withArguments(array $arguments) {
         $classReflection = $this->method->getDeclaringClass();
         $matcher = $classReflection->newInstance();
