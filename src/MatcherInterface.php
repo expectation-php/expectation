@@ -19,4 +19,6 @@ interface MatcherInterface
      */
     public function expected($expected);
 
+    public function positiveMatch($acutal);
+
 }

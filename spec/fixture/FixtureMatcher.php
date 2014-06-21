@@ -25,4 +25,9 @@ class FixtureMatcher extends AbstractMatcher
     {
     }
 
+    public function positiveMatch($acutal)
+    {
+
+    }
+
 }

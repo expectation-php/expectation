@@ -11,9 +11,9 @@
 
 namespace expectation;
 
-use expectation\matcher\MatcherContainerInterface;
-
-
+/**
+ * @package expectation
+ */
 class Expectation
 {
 
@@ -28,20 +28,27 @@ class Expectation
     private $negated = false;
 
     /**
-     * @var \expectation\matcher\MatcherContainerInterface
+     * @var \expectation\MatcherContainerInterface
      */
     private $container;
 
-    public function __constrcut(MatcherContainerInterface $container) {
+    public function __construct(MatcherContainerInterface $container) {
         $this->container = $container;
     }
 
+    /**
+     * @param mixed $actual
+     * @return $this
+     */
     public function that($actual)
     {
         $this->actual = $actual;
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function not()
     {
         $this->negated = true;
