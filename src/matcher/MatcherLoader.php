@@ -16,7 +16,7 @@ use RecursiveIteratorIterator;
 use FilesystemIterator;
 use ReflectionMethod;
 use SplStack;
-
+use expectation\matcher\annotation\Lookup;
 
 class MatcherLoader
 {
@@ -78,12 +78,23 @@ class MatcherLoader
         }
     }
 
+    /**
+     * @param ReflectionMethod $method
+     * @return array
+     */
     private function getAnnotationsFromMethod(ReflectionMethod $method)
     {
+        $results = [];
         $annotations = $this->annotationReader->getMethodAnnotations($method);
 
+        foreach($annotations as $annotation) {
+            if (!($annotation instanceof Lookup)) {
+                continue;
+            }
+            $results[] = $annotation;
+        }
 
-        return $annotations;
+        return $results;
     }
 
     /**
