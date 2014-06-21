@@ -14,7 +14,6 @@ namespace Preview\DSL\BDD;
 use Assert\Assertion;
 use ReflectionMethod;
 use expectation\matcher\annotation\Lookup;
-//use expectation\spec\FixtureMatcher;
 
 describe('Lookup', function() {
 
