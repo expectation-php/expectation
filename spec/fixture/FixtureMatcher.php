@@ -26,8 +26,4 @@ class FixtureMatcher extends AbstractMatcher
         return $actual === $this->expected;
     }
 
-    public function positiveMatch($acutal)
-    {
-    }
-
 }
