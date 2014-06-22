@@ -11,9 +11,12 @@
 
 namespace expectation;
 
-/**
- * @package expectation
- */
-class ConfigrationBuilder
+interface MatcherInterface
 {
+
+    /**
+     * @param mixed $expected
+     */
+    public function expected($expected);
+
 }

@@ -14,6 +14,11 @@ namespace expectation;
 /**
  * @package expectation
  */
-class ConfigrationBuilder
+trait ConfiguratorTrait
 {
+
+    public function configure()
+    {
+    }
+
 }

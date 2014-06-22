@@ -27,6 +27,16 @@
     "autoload": {
         "psr-4": {
             "expectation\\": "src/"
+        },
+        "files": [
+            "src/Autoload.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "expectation\\spec\\fixture\\": "spec/fixture/",
+            "expectation\\spec\\reporter\\": "spec/reporter/"
         }
     }
 }
+

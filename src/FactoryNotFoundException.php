@@ -11,9 +11,8 @@
 
 namespace expectation;
 
-/**
- * @package expectation
- */
-class ConfigrationBuilder
+use Exception;
+
+class FactoryNotFoundException extends Exception
 {
 }

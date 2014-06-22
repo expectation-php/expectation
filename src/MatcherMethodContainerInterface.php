@@ -11,9 +11,12 @@
 
 namespace expectation;
 
-/**
- * @package expectation
- */
-class ConfigrationBuilder
+interface MatcherMethodContainerInterface
 {
+
+    /**
+     * @return \expectation\matcher\MatcherInterface
+     */
+    public function find($name, array $arguments);
+
 }

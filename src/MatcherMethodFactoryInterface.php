@@ -11,9 +11,13 @@
 
 namespace expectation;
 
-/**
- * @package expectation
- */
-class ConfigrationBuilder
+interface MatcherMethodFactoryInterface
 {
+
+    /**
+     * @param array $arguments
+     * @return MatcherInterface
+     */
+    public function withArguments(array $arguments);
+
 }

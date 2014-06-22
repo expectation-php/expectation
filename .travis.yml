@@ -1,0 +1,12 @@
+language: php
+php:
+  - 5.6
+  - 5.5
+  - 5.4
+before_install:
+  - composer self-update
+  - composer install
+script:
+  - vendor/bin/preview -c config/coverage.php spec
+after_script:
+  - vendor/bin/coveralls -c .coveralls.yml --verbose

@@ -9,11 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace Preview\DSL\BDD;
 
-/**
- * @package expectation
- */
-class ConfigrationBuilder
-{
-}
+use Assert\Assertion;
+
+describe('ConfigrationBuilder', function() {
+});

@@ -13,22 +13,21 @@ namespace expectation;
 
 use BadMethodCallException;
 
-/**
- * @package expectation
- */
-class Configration
+abstract class AbstractMatcher implements MatcherInterface
 {
 
     /**
-     * @var MatcherMethodContainerInterface
+     * @var mixed
      */
-    private $methodContainer;
+    private $expected;
 
-    public function __construct(array $values)
+    /**
+     * @param mixed $expected
+     */
+    public function expected($expected)
     {
-        foreach($values as $name => $value) {
-            $this->$name = $value;
-        }
+        $this->expected = $expected;
+        return $this;
     }
 
     /**

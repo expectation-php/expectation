@@ -9,11 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\matcher;
 
-/**
- * @package expectation
- */
-class ConfigrationBuilder
+interface MatcherMethodInterface
 {
+
+    public function expected($expected);
+
+    public function positiveMatch($actual);
+
+    public function negativeMatch($actual);
+
 }
