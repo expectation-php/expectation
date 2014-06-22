@@ -12,7 +12,7 @@
 namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
-use expectation\MatcherContainer;
+use expectation\MatcherMethodContainer;
 use expectation\FactoryNotFoundException;
 use Prophecy\Prophet;
 
@@ -22,18 +22,18 @@ describe('MatcherMethodContainer', function() {
         before(function() {
             $this->prophet = new Prophet();
 
-            $this->matcher = $this->prophet->prophesize('expectation\MatcherInterface');
-            $this->matcher->expected()->withArguments([true]);
+            $this->method = $this->prophet->prophesize('expectation\matcher\MatcherMethodInterface');
+            $this->method->expected()->withArguments([true]);
 
-            $this->factory = $this->prophet->prophesize('expectation\MatcherFactoryInterface');
+            $this->factory = $this->prophet->prophesize('expectation\MatcherMethodFactoryInterface');
             $this->factory->withArguments()
                 ->withArguments([[true]])
-                ->willReturn($this->matcher->reveal());
+                ->willReturn($this->method->reveal());
 
             $this->values = [
                 'toEqual' => $this->factory->reveal()
             ];
-            $this->container = new MatcherContainer($this->values);
+            $this->container = new MatcherMethodContainer($this->values);
         });
 
         after(function() {
@@ -41,9 +41,9 @@ describe('MatcherMethodContainer', function() {
         });
 
         context('when factory registered', function() {
-            it('should return expectation\MatcherInterface', function() {
+            it('should return expectation\matcher\MatcherMethodInterface', function() {
                 $factory = $this->container->find('toEqual', [true]);
-                Assertion::isInstanceOf($factory, 'expectation\MatcherInterface');
+                Assertion::isInstanceOf($factory, 'expectation\matcher\MatcherMethodInterface');
             });
         });
         context('when factory not registered', function() {

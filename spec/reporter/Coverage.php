@@ -39,7 +39,7 @@ class Coverage extends Spec
         $directoryPath = getcwd();
         $writer = new PHP_CodeCoverage_Report_Clover;
         $writer->process($this->coverage, $directoryPath . '/clover.xml');
-
+//var_dump($results);
         parent::after_all($results);
     }
 
