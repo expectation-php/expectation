@@ -12,7 +12,7 @@
 namespace expectation\matcher\annotation;
 
 use ReflectionMethod;
-use expectation\MatcherFactory;
+use expectation\MatcherMethodFactory;
 use expectation\matcher\AnnotationInterface;
 
 /**
@@ -55,11 +55,11 @@ final class Lookup implements AnnotationInterface
     }
 
     /**
-     * @return \expectation\MatcherFactoryInterface
+     * @return \expectation\MatcherMethodFactoryInterface
      */
-    public function getMatcherFactory(ReflectionMethod $method)
+    public function getMatcherMethodFactory(ReflectionMethod $method)
     {
-        return new MatcherFactory($method);
+        return new MatcherMethodFactory($method);
     }
 
 }

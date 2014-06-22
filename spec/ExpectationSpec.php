@@ -25,7 +25,7 @@ describe('Expectation', function() {
             $this->matcher->expected()->withArguments([true]);
             $this->matcher->positiveMatch()->withArguments([true]);
 
-            $this->container = $this->prophet->prophesize('expectation\MatcherContainerInterface');
+            $this->container = $this->prophet->prophesize('expectation\MatcherMethodContainerInterface');
             $this->container->find()->withArguments(['toEqual', [true]])
                 ->willReturn($this->matcher->reveal());
 

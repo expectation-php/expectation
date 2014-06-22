@@ -11,7 +11,7 @@
 
 namespace expectation;
 
-interface MatcherFactoryInterface
+interface MatcherMethodFactoryInterface
 {
 
     /**

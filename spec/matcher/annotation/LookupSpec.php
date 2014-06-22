@@ -31,10 +31,10 @@ describe('Lookup', function() {
         });
     });
 
-    describe('getMatcherFactory', function() {
-        it('should return expectation\MatcherFactoryInterface', function() {
-            $factory = $this->annotation->getMatcherFactory($this->method);
-            Assertion::isInstanceOf($factory, "expectation\MatcherFactoryInterface");
+    describe('getMatcherMethodFactory', function() {
+        it('should return expectation\MatcherMethodFactoryInterface', function() {
+            $factory = $this->annotation->getMatcherMethodFactory($this->method);
+            Assertion::isInstanceOf($factory, "expectation\MatcherMethodFactoryInterface");
         });
     });
 

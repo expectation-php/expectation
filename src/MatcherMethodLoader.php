@@ -19,7 +19,7 @@ use ReflectionMethod;
 use ReflectionClass;
 use expectation\matcher\annotation\Lookup;
 
-class MatcherLoader
+class MatcherMethodLoader
 {
 
     const MATCHER_PATTERN = "/Matcher\\.php$/";
@@ -75,7 +75,7 @@ class MatcherLoader
             }
         }
 
-        return new MatcherContainer($this->factories);
+        return new MatcherMethodContainer($this->factories);
     }
 
     private function loadFactoriesFromClassName($className)
@@ -87,7 +87,7 @@ class MatcherLoader
             $annotations = $this->getAnnotationsFromMethod($method);
             foreach ($annotations as $annotation) {
                 $registerName = $annotation->getLookupName();
-                $registerFactory = $annotation->getMatcherFactory($method);
+                $registerFactory = $annotation->getMatcherMethodFactory($method);
 
                 $this->factories[$registerName] = $registerFactory;
             }

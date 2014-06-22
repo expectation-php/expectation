@@ -11,7 +11,7 @@
 
 namespace expectation;
 
-class MatcherContainer implements MatcherContainerInterface
+class MatcherMethodContainer implements MatcherMethodContainerInterface
 {
 
     /**

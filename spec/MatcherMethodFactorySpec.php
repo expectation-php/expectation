@@ -13,13 +13,13 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use ReflectionMethod;
-use expectation\MatcherFactory;
+use expectation\MatcherMethodFactory;
 
-describe('MatcherFactory', function() {
+describe('MatcherMethodFactory', function() {
 
     before(function() {
         $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\FixtureMatcher', 'match');
-        $this->factory = new MatcherFactory($this->method);
+        $this->factory = new MatcherMethodFactory($this->method);
     });
 
     describe('withArguments', function() {

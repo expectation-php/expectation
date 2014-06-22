@@ -14,7 +14,7 @@ namespace expectation;
 use ReflectionMethod;
 use expectation\matcher\MatcherMethod;
 
-class MatcherFactory implements MatcherFactoryInterface
+class MatcherMethodFactory implements MatcherMethodFactoryInterface
 {
 
     /**

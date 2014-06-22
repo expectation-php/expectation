@@ -13,9 +13,9 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
-use expectation\MatcherLoader;
+use expectation\MatcherMethodLoader;
 
-describe('MatcherLoader', function() {
+describe('MatcherMethodLoader', function() {
 
     before(function() {
         $this->reader = new AnnotationReader();
@@ -23,12 +23,12 @@ describe('MatcherLoader', function() {
 
     describe('load', function() {
         before(function() {
-            $this->loader = new MatcherLoader($this->reader);
+            $this->loader = new MatcherMethodLoader($this->reader);
             $this->loader->registerNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
             $this->container = $this->loader->load();
         });
-        it('should return expectation\MatcherContainerInterface instance', function() {
-            Assertion::isInstanceOf($this->container, 'expectation\MatcherContainerInterface');
+        it('should return expectation\MatcherMethodContainerInterface instance', function() {
+            Assertion::isInstanceOf($this->container, 'expectation\MatcherMethodContainerInterface');
         });
         it('should factory loaded', function() {
             $method = $this->container->find('toEqual', [true]);

@@ -28,11 +28,11 @@ class Expectation
     private $negated = false;
 
     /**
-     * @var \expectation\MatcherContainerInterface
+     * @var \expectation\MatcherMethodContainerInterface
      */
     private $container;
 
-    public function __construct(MatcherContainerInterface $container) {
+    public function __construct(MatcherMethodContainerInterface $container) {
         $this->container = $container;
     }
 

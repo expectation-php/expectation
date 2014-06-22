@@ -11,7 +11,7 @@
 
 namespace expectation;
 
-interface MatcherContainerInterface
+interface MatcherMethodContainerInterface
 {
 
     /**

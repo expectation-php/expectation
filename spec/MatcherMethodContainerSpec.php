@@ -16,7 +16,7 @@ use expectation\MatcherContainer;
 use expectation\FactoryNotFoundException;
 use Prophecy\Prophet;
 
-describe('MatcherContainer', function() {
+describe('MatcherMethodContainer', function() {
 
     describe('find', function() {
         before(function() {
