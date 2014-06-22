@@ -23,11 +23,11 @@ class FixtureMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
+        return $actual === $this->expected;
     }
 
     public function positiveMatch($acutal)
     {
-
     }
 
 }
