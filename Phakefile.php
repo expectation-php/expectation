@@ -13,7 +13,7 @@ group('spec', function() {
     task('all', function() {
         $command = new Command;
         $command->run(array(
-            '-c', 'preview.config.php',
+            '-c', 'config/default.php',
             'spec'
         ));
     });
@@ -24,7 +24,7 @@ group('spec', function() {
 
         $command = new Command;
         $command->run(array(
-            '-c', 'preview.config.php',
+            '-c', 'config/default.php',
             '-r', 'tree',
             realpath(__DIR__ . '/spec/' . $className . 'Spec.php')
         ));
