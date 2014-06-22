@@ -21,7 +21,7 @@ describe('Expectation', function() {
         before(function() {
             $this->prophet = new Prophet();
 
-            $this->matcher = $this->prophet->prophesize('expectation\MatcherInterface');
+            $this->matcher = $this->prophet->prophesize('expectation\matcher\MethodWrapperInterface');
             $this->matcher->expected()->withArguments([true]);
             $this->matcher->positiveMatch()->withArguments([true]);
 
@@ -35,7 +35,7 @@ describe('Expectation', function() {
             $this->prophet->checkPredictions();
         });
 
-        it('', function() {
+        it('should lookup matcher method', function() {
             $this->expectation->toEqual(true);
         });
     });
