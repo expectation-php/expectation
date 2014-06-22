@@ -21,7 +21,7 @@ describe('Expectation', function() {
         before(function() {
             $this->prophet = new Prophet();
 
-            $this->matcher = $this->prophet->prophesize('expectation\matcher\MethodWrapperInterface');
+            $this->matcher = $this->prophet->prophesize('expectation\matcher\MatcherMethodInterface');
             $this->matcher->expected()->withArguments([true]);
             $this->matcher->positiveMatch()->withArguments([true]);
 

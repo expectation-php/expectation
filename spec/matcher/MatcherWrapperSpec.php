@@ -13,9 +13,9 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use ReflectionMethod;
-use expectation\matcher\MethodWrapper;
+use expectation\matcher\MatcherMethod;
 
-describe('MethodWrapper', function() {
+describe('MatcherMethod', function() {
 
     before(function() {
         $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\FixtureMatcher', 'match');
@@ -23,10 +23,10 @@ describe('MethodWrapper', function() {
 
     describe('positiveMatch', function() {
         before(function() {
-            $this->wrapper = new MethodWrapper($this->method);
+            $this->matcherMethod = new MatcherMethod($this->method);
         });
         it('', function() {
-            $result = $this->wrapper->expected(true)
+            $result = $this->matcherMethod->expected(true)
                 ->positiveMatch(true);
             Assertion::true($result);
         });
@@ -34,10 +34,10 @@ describe('MethodWrapper', function() {
 
     describe('negativeMatch', function() {
         before(function() {
-            $this->wrapper = new MethodWrapper($this->method);
+            $this->matcherMethod = new MatcherMethod($this->method);
         });
         it('', function() {
-            $result = $this->wrapper->expected(false)
+            $result = $this->matcherMethod->expected(false)
                 ->negativeMatch(true);
             Assertion::true($result);
         });

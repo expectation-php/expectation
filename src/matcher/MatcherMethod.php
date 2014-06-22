@@ -13,7 +13,7 @@ namespace expectation\matcher;
 
 use ReflectionMethod;
 
-class MethodWrapper implements MethodWrapperInterface
+class MatcherMethod implements MatcherMethodInterface
 {
 
     /**

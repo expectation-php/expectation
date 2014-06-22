@@ -11,7 +11,7 @@
 
 namespace expectation\matcher;
 
-interface MethodWrapperInterface
+interface MatcherMethodInterface
 {
 
     public function expected($expected);

@@ -25,24 +25,24 @@ describe('MatcherFactory', function() {
     describe('withArguments', function() {
         context('when no arugments', function() {
             before(function() {
-                $this->wrapper = $this->factory->withArguments([]);
+                $this->matcherMethod = $this->factory->withArguments([]);
             });
             it('should expected is null', function() {
-                Assertion::same($this->wrapper->expected, null);
+                Assertion::same($this->matcherMethod->expected, null);
             });
-            it('should return expectation\MatcherInterface', function() {
-                Assertion::isInstanceOf($this->wrapper, '\expectation\matcher\MethodWrapperInterface');
+            it('should return \expectation\matcher\MatcherMethodInterface', function() {
+                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MatcherMethodInterface');
             });
         });
         context('when with arugments', function() {
             before(function() {
-                $this->wrapper = $this->factory->withArguments([true]);
+                $this->matcherMethod = $this->factory->withArguments([true]);
             });
             it('should has expected', function() {
-                Assertion::same($this->wrapper->expected, true);
+                Assertion::same($this->matcherMethod->expected, true);
             });
-            it('should return expectation\MatcherInterface', function() {
-                Assertion::isInstanceOf($this->wrapper, '\expectation\matcher\MethodWrapperInterface');
+            it('should return \expectation\matcher\MatcherMethodInterface', function() {
+                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MatcherMethodInterface');
             });
         });
     });
