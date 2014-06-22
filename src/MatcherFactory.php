@@ -12,6 +12,7 @@
 namespace expectation;
 
 use ReflectionMethod;
+use expectation\matcher\MethodWrapper;
 
 class MatcherFactory implements MatcherFactoryInterface
 {
@@ -31,17 +32,16 @@ class MatcherFactory implements MatcherFactoryInterface
 
     /**
      * @param array $arguments
-     * @return MatcherInterface
+     * @return \expectation\matcher\MethodWrapperInterface
      */
     public function withArguments(array $arguments) {
-        $classReflection = $this->method->getDeclaringClass();
-        $matcher = $classReflection->newInstance();
+        $wrapper = new MethodWrapper($this->method);
 
         if (!empty($arguments)) {
-            $matcher->expected($arguments[0]);
+            $wrapper->expected($arguments[0]);
         }
 
-        return $matcher;
+        return $wrapper;
     }
 
 }

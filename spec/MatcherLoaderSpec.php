@@ -31,9 +31,9 @@ describe('MatcherLoader', function() {
             Assertion::isInstanceOf($this->container, 'expectation\MatcherContainerInterface');
         });
         it('should factory loaded', function() {
-            $matcher = $this->container->find('toEqual', [true]);
-            Assertion::same($matcher->expected, true);
-            Assertion::isInstanceOf($matcher, 'expectation\spec\fixture\FixtureMatcher');
+            $wrapper = $this->container->find('toEqual', [true]);
+            Assertion::same($wrapper->expected, true);
+            Assertion::isInstanceOf($wrapper, 'expectation\matcher\MethodWrapperInterface');
         });
     });
 
