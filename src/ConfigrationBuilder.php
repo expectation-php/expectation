@@ -11,9 +11,53 @@
 
 namespace expectation;
 
+use Doctrine\Common\Annotations\AnnotationReader;
+
 /**
  * @package expectation
  */
 class ConfigrationBuilder
 {
+
+    /**
+     * @var array
+     */
+    private $matcherNamespaces;
+
+    public function __construct()
+    {
+        $this->matcherNamespaces = [];
+    }
+
+    /**
+     * @param string $namespace
+     * @param string $directory
+     * @return $this
+     */
+    public function registerMatcherNamespace($namespace, $directory)
+    {
+        $this->matcherNamespaces[$namespace] = $directory;
+        return $this;
+    }
+
+    public function matcherNamespaces()
+    {
+        return $this->matcherNamespaces;
+    }
+
+    public function build()
+    {
+        $loader = new MatcherMethodLoader(new AnnotationReader());
+
+        foreach ($this->matcherNamespaces as $namespace => $directory) {
+            $loader->registerNamespace($namespace, $directory);
+        }
+
+        $config = new Configration([
+            'methodContainer' => $loader->load()
+        ]);
+
+        return $config;
+    }
+
 }
