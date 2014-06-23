@@ -12,6 +12,29 @@
 namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
+use expectation\ConfigrationBuilder;
 
 describe('ConfigrationBuilder', function() {
+
+    describe('registerMatcherNamespace', function() {
+        before(function() {
+            $this->builder = new ConfigrationBuilder();
+            $this->builder->registerMatcherNamespace('expectation\matcher', __DIR__ . '/../src/matcher');
+        });
+        it('should return namespace', function() {
+            Assertion::same($this->builder->matcherNamespaces[0]['namespace'], 'expectation\matcher');
+        });
+    });
+
+    describe('build', function() {
+        before(function() {
+            $this->builder = new ConfigrationBuilder();
+            $this->builder->registerMatcherNamespace('expectation\matcher', __DIR__ . '/../src/matcher');
+            $this->configration = $this->builder->build();
+        });
+        it('should return expectation\MatcherMethodContainer instance', function() {
+            Assertion::isInstanceOf($this->configration->methodContainer, 'expectation\MatcherMethodContainer');
+        });
+    });
+
 });
