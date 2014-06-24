@@ -9,16 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\spec\fixture;
 
-/**
- * @package expectation
- */
-trait ConfiguratorTrait
+use expectation\ConfiguratorTrait;
+
+class FixtureExpectation
 {
 
-    public static function configure()
-    {
-    }
+    use ConfiguratorTrait;
 
 }

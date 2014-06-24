@@ -12,6 +12,18 @@
 namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
+use expectation\spec\fixture\FixtureExpectation;
+use expectation\ConfigrationBuilder;
 
 describe('ConfigrationTrait', function() {
+
+    describe('configure', function() {
+        before(function() {
+            FixtureExpectation::configure(function(ConfigrationBuilder $config) {
+                $config->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+            });
+        });
+        it('should assign configration');
+    });
+
 });
