@@ -23,7 +23,9 @@ describe('ConfigrationTrait', function() {
                 $config->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
             });
         });
-        it('should assign configration');
+        it('should create configration', function() {
+            Assertion::isInstanceOf(FixtureExpectation::configration(), 'expectation\Configration');
+        });
     });
 
 });

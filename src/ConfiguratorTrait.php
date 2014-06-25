@@ -17,8 +17,30 @@ namespace expectation;
 trait ConfiguratorTrait
 {
 
-    public static function configure()
+    /**
+     * @var \expectation\Configration
+     */
+    private static $configration;
+
+    /**
+     * @param callable $callback
+     */
+    public static function configure(callable $callback)
     {
+        if (!empty(static::$configration)) {
+            return;
+        }
+        $builder = new ConfigrationBuilder();
+        call_user_func_array($callback, [$builder]);
+        static::$configration = $builder->build();
+    }
+
+    /**
+     * @return \expectation\Configration
+     */
+    public static function configration()
+    {
+        return static::$configration;
     }
 
 }
