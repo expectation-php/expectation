@@ -12,8 +12,9 @@
 namespace expectation\spec\fixture;
 
 use expectation\Configurable;
+use expectation\ConfiguratorInterface;
 
-class FixtureExpectation
+class FixtureExpectation implements ConfiguratorInterface
 {
 
     use Configurable;
