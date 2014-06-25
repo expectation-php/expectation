@@ -11,11 +11,11 @@
 
 namespace expectation\spec\fixture;
 
-use expectation\ConfiguratorTrait;
+use expectation\Configurable;
 
 class FixtureExpectation
 {
 
-    use ConfiguratorTrait;
+    use Configurable;
 
 }

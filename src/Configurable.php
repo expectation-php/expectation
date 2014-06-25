@@ -14,7 +14,7 @@ namespace expectation;
 /**
  * @package expectation
  */
-trait ConfiguratorTrait
+trait Configurable
 {
 
     /**

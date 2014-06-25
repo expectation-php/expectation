@@ -15,7 +15,7 @@ use Assert\Assertion;
 use expectation\spec\fixture\FixtureExpectation;
 use expectation\ConfigrationBuilder;
 
-describe('ConfigrationTrait', function() {
+describe('Configurable', function() {
 
     describe('configure', function() {
         before(function() {
