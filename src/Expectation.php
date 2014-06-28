@@ -14,7 +14,7 @@ namespace expectation;
 /**
  * @package expectation
  */
-class Expectation
+class Expectation implements ExpectationInterface
 {
 
     /**

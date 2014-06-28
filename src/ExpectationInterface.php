@@ -13,4 +13,16 @@ namespace expectation;
 
 interface ExpectationInterface
 {
+
+    /**
+     * @param mixed $actual
+     * @return $this
+     */
+    public function that($actual);
+
+    /**
+     * @return $this
+     */
+    public function not();
+
 }
