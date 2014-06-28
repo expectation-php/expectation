@@ -54,7 +54,7 @@ class Method implements MethodInterface
     {
         $class = $this->method->getDeclaringClass();
 
-        $matcher = $class->newInstance();
+        $matcher = $class->newInstanceArgs([ new Formatter() ]);
         $matcher->expected($this->expected);
 
         return $this->method->invokeArgs($matcher, [$actual]);

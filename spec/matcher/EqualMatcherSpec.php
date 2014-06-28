@@ -13,12 +13,13 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use expectation\matcher\EqualMatcher;
+use expectation\matcher\Formatter;
 
 describe('EqualMatcher', function() {
 
     describe('match', function() {
         before_each(function() {
-            $this->matcher = new EqualMatcher();
+            $this->matcher = new EqualMatcher(new Formatter());
         });
         context('when same value', function() {
             it('should return true', function() {

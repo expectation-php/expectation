@@ -12,6 +12,7 @@
 namespace expectation;
 
 use BadMethodCallException;
+use expectation\matcher\Formatter;
 
 abstract class AbstractMatcher implements MatcherInterface
 {
@@ -20,6 +21,17 @@ abstract class AbstractMatcher implements MatcherInterface
      * @var mixed
      */
     private $expected;
+
+    /**
+     * @var Formatter
+     */
+    private $formatter;
+
+
+    public function __construct(Formatter $formatter)
+    {
+        $this->formatter = $formatter;
+    }
 
     /**
      * @param mixed $expected
