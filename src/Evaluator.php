@@ -30,7 +30,7 @@ class Evaluator implements EvaluatorInterface
     private $negated = false;
 
     /**
-     * @var \expectation\MatcherMethodContainerInterface
+     * @var \expectation\matcher\method\MethodContainerInterface
      */
     private $container;
 
