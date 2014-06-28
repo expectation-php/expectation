@@ -16,18 +16,7 @@ interface ExpectationInterface
 
     /**
      * @param mixed $actual
-     * @return $this
-     */
-    public function that($actual);
-
-    /**
-     * @return $this
-     */
-    public function not();
-
-    /**
-     * @param mixed $actual
-     * @return $this
+     * @return \expectation\Evaluator
      */
     public static function expect($actual);
 

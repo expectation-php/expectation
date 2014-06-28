@@ -14,7 +14,6 @@ namespace Preview\DSL\BDD;
 use Assert\Assertion;
 use expectation\Expectation;
 use expectation\ConfigrationBuilder;
-use Prophecy\Prophet;
 
 describe('Expectation', function() {
 
@@ -26,29 +25,6 @@ describe('Expectation', function() {
         });
         it('should lookup matcher method', function() {
             Expectation::expect(true)->equals(true);
-        });
-    });
-
-    describe('__call', function() {
-        before(function() {
-            $this->prophet = new Prophet();
-
-            $this->matcher = $this->prophet->prophesize('expectation\matcher\MatcherMethodInterface');
-            $this->matcher->expected()->withArguments([true]);
-            $this->matcher->positiveMatch()->withArguments([true]);
-
-            $this->container = $this->prophet->prophesize('expectation\MatcherMethodContainerInterface');
-            $this->container->find()->withArguments(['toEqual', [true]])
-                ->willReturn($this->matcher->reveal());
-
-            $this->expectation = new Expectation($this->container->reveal());
-        });
-        after(function() {
-            $this->prophet->checkPredictions();
-        });
-
-        it('should lookup matcher method', function() {
-            $this->expectation->toEqual(true);
         });
     });
 
