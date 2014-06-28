@@ -11,8 +11,6 @@
 
 namespace expectation\matcher\method;
 
-use expectation\FactoryNotFoundException;
-
 class MethodContainer implements MethodContainerInterface
 {
 

@@ -13,7 +13,7 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use expectation\matcher\method\MethodContainer;
-use expectation\FactoryNotFoundException;
+use expectation\matcher\method\FactoryNotFoundException;
 use Prophecy\Prophet;
 
 describe('MethodContainer', function() {
@@ -47,7 +47,7 @@ describe('MethodContainer', function() {
             });
         });
         context('when factory not registered', function() {
-            it('should return expectation\FactoryNotFoundException', function() {
+            it('should return expectation\matcher\method\FactoryNotFoundException', function() {
                 $throwException = null;
 
                 try {
@@ -55,7 +55,7 @@ describe('MethodContainer', function() {
                 } catch (FactoryNotFoundException $exception) {
                     $throwException = $exception;
                 }
-                Assertion::isInstanceOf($throwException, 'expectation\FactoryNotFoundException');
+                Assertion::isInstanceOf($throwException, 'expectation\matcher\method\FactoryNotFoundException');
             });
         });
     });
