@@ -28,7 +28,7 @@ class MethodContainer implements MethodContainerInterface
     }
 
     /**
-     * @return \expectation\matcher\MatcherInterface
+     * @return \expectation\matcher\MethodInterface
      */
     public function find($name, array $arguments)
     {
