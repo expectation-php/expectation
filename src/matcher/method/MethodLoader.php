@@ -88,7 +88,7 @@ class MethodLoader
             $annotations = $this->getAnnotationsFromMethod($method);
             foreach ($annotations as $annotation) {
                 $registerName = $annotation->getLookupName();
-                $registerFactory = $annotation->getMatcherMethodFactory($method);
+                $registerFactory = $annotation->getMethodFactory($method);
 
                 $this->factories[$registerName] = $registerFactory;
             }

@@ -57,7 +57,7 @@ final class Lookup implements AnnotationInterface
     /**
      * @return \expectation\matcher\method\MethodFactoryInterface
      */
-    public function getMatcherMethodFactory(ReflectionMethod $method)
+    public function getMethodFactory(ReflectionMethod $method)
     {
         return new MethodFactory($method);
     }
