@@ -20,6 +20,11 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @var mixed
      */
+    protected $actual;
+
+    /**
+     * @var mixed
+     */
     private $expected;
 
     /**

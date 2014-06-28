@@ -23,7 +23,52 @@ class EqualMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        return $this->expected === $actual;
+        $this->actual = $actual;
+        return $this->expected === $this->actual;
+    }
+
+    /**
+     * @Lookup(name="toBeTrue")
+     */
+    public function matchTrue($actual)
+    {
+        return $this->expected(true)->match($actual);
+    }
+
+    /**
+     * @Lookup(name="toBeFalse")
+     */
+    public function matchFalse($actual)
+    {
+        return $this->expected(false)->match($actual);
+    }
+
+    /**
+     * @Lookup(name="toBeNull")
+     */
+    public function matchNull($actual)
+    {
+        return $this->expected(null)->match($actual);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFailureMessage()
+    {
+        $actual = $this->formatter->toString($this->actual);
+        $expected = $this->formatter->toString($this->expected);
+        return "Expected {$actual} to be {$expected}";
+    }
+
+    /**
+     * @return string
+     */
+    public function getNegatedFailureMessage()
+    {
+        $actual = $this->formatter->toString($this->actual);
+        $expected = $this->formatter->toString($this->expected);
+        return "Expected {$actual} not to be {$expected}";
     }
 
 }
