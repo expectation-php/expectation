@@ -11,13 +11,18 @@
 
 namespace expectation;
 
-interface ExpectationInterface
+interface EvaluatorInterface
 {
 
     /**
      * @param mixed $actual
-     * @return \expectation\Evaluator
+     * @return $this
      */
-    public static function expect($actual);
+    public function that($actual);
+
+    /**
+     * @return $this
+     */
+    public function not();
 
 }

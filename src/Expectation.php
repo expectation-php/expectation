@@ -14,73 +14,20 @@ namespace expectation;
 /**
  * @package expectation
  */
-class Expectation implements ExpectationInterface
+class Expectation implements ExpectationInterface, ConfiguratorInterface
 {
 
     use Configurable;
 
     /**
-     * @var mixed
-     */
-    private $actual;
-
-    /**
-     * @var boolean
-     */
-    private $negated = false;
-
-    /**
-     * @var \expectation\MatcherMethodContainerInterface
-     */
-    private $container;
-
-    public function __construct(MatcherMethodContainerInterface $container) {
-        $this->container = $container;
-    }
-
-    /**
      * @param mixed $actual
-     * @return $this
-     */
-    public function that($actual)
-    {
-        $this->actual = $actual;
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function not()
-    {
-        $this->negated = true;
-        return $this;
-    }
-
-    /**
-     * @param mixed $actual
-     * @return $this
+     * @return \expectation\Evaluator
      */
     public static function expect($actual)
     {
         $config = static::configration();
-        $expectation = new static($config->methodContainer);
-        return $expectation->that($actual);
-    }
-
-    public function __call($name, array $arguments)
-    {
-        if (method_exists($this, $name)) {
-            return call_user_func_array([$this, $name], $arguments);
-        }
-
-        $matcher = $this->container->find($name, $arguments);
-
-        if ($this->negated) {
-            $matcher->negativeMatch($this->actual);
-        } else {
-            $matcher->positiveMatch($this->actual);
-        }
+        $evaluator = new Evaluator($config->methodContainer);
+        return $evaluator->that($actual);
     }
 
 }
