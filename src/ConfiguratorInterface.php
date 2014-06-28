@@ -14,11 +14,17 @@ namespace expectation;
 /**
  * @package expectation
  */
-trait ConfiguratorTrait
+interface ConfiguratorInterface
 {
 
-    public function configure()
-    {
-    }
+    /**
+     * @param callable $callback
+     */
+    public static function configure(callable $callback);
+
+    /**
+     * @return \expectation\Configration
+     */
+    public static function configration();
 
 }

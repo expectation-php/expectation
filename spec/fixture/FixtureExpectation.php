@@ -9,9 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
+namespace expectation\spec\fixture;
 
-use Assert\Assertion;
+use expectation\Configurable;
+use expectation\ConfiguratorInterface;
 
-describe('ConfigrationTrait', function() {
-});
+class FixtureExpectation implements ConfiguratorInterface
+{
+
+    use Configurable;
+
+}
