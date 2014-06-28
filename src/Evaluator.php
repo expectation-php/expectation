@@ -11,6 +11,8 @@
 
 namespace expectation;
 
+use expectation\matcher\method\MethodContainerInterface;
+
 /**
  * @package expectation
  */
@@ -33,9 +35,9 @@ class Evaluator implements EvaluatorInterface
     private $container;
 
     /**
-     * @param MatcherMethodContainerInterface $container
+     * @param MethodContainerInterface $container
      */
-    public function __construct(MatcherMethodContainerInterface $container) {
+    public function __construct(MethodContainerInterface $container) {
         $this->container = $container;
     }
 

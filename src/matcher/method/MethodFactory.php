@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\matcher\method;
 
 use ReflectionMethod;
-use expectation\matcher\MatcherMethod;
+use expectation\matcher\Method;
 
-class MatcherMethodFactory implements MatcherMethodFactoryInterface
+class MethodFactory implements MethodFactoryInterface
 {
 
     /**
@@ -32,10 +32,10 @@ class MatcherMethodFactory implements MatcherMethodFactoryInterface
 
     /**
      * @param array $arguments
-     * @return \expectation\matcher\MatcherMethod
+     * @return \expectation\matcher\Method
      */
     public function withArguments(array $arguments) {
-        $wrapper = new MatcherMethod($this->method);
+        $wrapper = new Method($this->method);
 
         if (!empty($arguments)) {
             $wrapper->expected($arguments[0]);

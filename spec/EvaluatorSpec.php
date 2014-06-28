@@ -20,11 +20,11 @@ describe('Evaluator', function() {
         before(function() {
             $this->prophet = new Prophet();
 
-            $this->matcher = $this->prophet->prophesize('expectation\matcher\MatcherMethodInterface');
+            $this->matcher = $this->prophet->prophesize('expectation\matcher\MethodInterface');
             $this->matcher->expected()->withArguments([true]);
             $this->matcher->positiveMatch()->withArguments([true]);
 
-            $this->container = $this->prophet->prophesize('expectation\MatcherMethodContainerInterface');
+            $this->container = $this->prophet->prophesize('expectation\matcher\method\MethodContainerInterface');
             $this->container->find()->withArguments(['toEqual', [true]])
                 ->willReturn($this->matcher->reveal());
 

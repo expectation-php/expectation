@@ -11,6 +11,7 @@
 
 namespace expectation;
 
+use expectation\matcher\method\MethodLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
 
 /**
@@ -47,7 +48,7 @@ class ConfigrationBuilder
 
     public function build()
     {
-        $loader = new MatcherMethodLoader(new AnnotationReader());
+        $loader = new MethodLoader(new AnnotationReader());
 
         foreach ($this->matcherNamespaces as $namespace => $directory) {
             $loader->registerNamespace($namespace, $directory);

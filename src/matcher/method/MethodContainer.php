@@ -9,9 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\matcher\method;
 
-class MatcherMethodContainer implements MatcherMethodContainerInterface
+use expectation\FactoryNotFoundException;
+
+class MethodContainer implements MethodContainerInterface
 {
 
     /**
