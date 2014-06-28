@@ -25,4 +25,10 @@ interface ExpectationInterface
      */
     public function not();
 
+    /**
+     * @param mixed $actual
+     * @return $this
+     */
+    public static function expect($actual);
+
 }
