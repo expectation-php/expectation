@@ -32,6 +32,12 @@ trait Configurable
         }
         $builder = new ConfigrationBuilder();
         call_user_func_array($callback, [$builder]);
+
+        $builder->registerMatcherNamespace(
+            '\\expectation\\matcher',
+            __DIR__ . '/matcher'
+        );
+
         static::$configration = $builder->build();
     }
 

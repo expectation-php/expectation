@@ -33,7 +33,7 @@ class MethodContainer implements MethodContainerInterface
     public function find($name, array $arguments)
     {
         if (!isset($this->factories[$name])) {
-            throw new FactoryNotFoundException('{$name} is not found');
+            throw new FactoryNotFoundException("{$name} is not found");
         }
         $factory = $this->factories[$name];
 

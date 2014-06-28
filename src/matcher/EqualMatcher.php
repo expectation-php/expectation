@@ -12,6 +12,7 @@
 namespace expectation\matcher;
 
 use expectation\AbstractMatcher;
+use expectation\matcher\annotation\Lookup;
 
 
 class EqualMatcher extends AbstractMatcher
