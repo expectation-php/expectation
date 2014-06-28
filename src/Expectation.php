@@ -17,6 +17,8 @@ namespace expectation;
 class Expectation implements ExpectationInterface
 {
 
+    use Configurable;
+
     /**
      * @var mixed
      */
@@ -53,6 +55,17 @@ class Expectation implements ExpectationInterface
     {
         $this->negated = true;
         return $this;
+    }
+
+    /**
+     * @param mixed $actual
+     * @return $this
+     */
+    public static function expect($actual)
+    {
+        $config = static::configration();
+        $expectation = new static($config->methodContainer);
+        return $expectation->that($actual);
     }
 
     public function __call($name, array $arguments)

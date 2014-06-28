@@ -13,9 +13,21 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use expectation\Expectation;
+use expectation\ConfigrationBuilder;
 use Prophecy\Prophet;
 
 describe('Expectation', function() {
+
+    describe('expect', function() {
+        before(function() {
+            Expectation::configure(function(ConfigrationBuilder $config) {
+                $config->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+            });
+        });
+        it('should lookup matcher method', function() {
+            Expectation::expect(true)->equals(true);
+        });
+    });
 
     describe('__call', function() {
         before(function() {

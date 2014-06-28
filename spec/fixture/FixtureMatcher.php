@@ -26,4 +26,13 @@ class FixtureMatcher extends AbstractMatcher
         return $actual === $this->expected;
     }
 
+    /**
+     * @Lookup(name="equals")
+     * @param mixed $actual
+     */
+    public function equals($actual)
+    {
+        return $this->match($actual);
+    }
+
 }
