@@ -13,13 +13,13 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use ReflectionMethod;
-use expectation\MatcherMethodFactory;
+use expectation\matcher\method\MethodFactory;
 
-describe('MatcherMethodFactory', function() {
+describe('MethodFactory', function() {
 
     before(function() {
         $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\FixtureMatcher', 'match');
-        $this->factory = new MatcherMethodFactory($this->method);
+        $this->factory = new MethodFactory($this->method);
     });
 
     describe('withArguments', function() {
@@ -30,8 +30,8 @@ describe('MatcherMethodFactory', function() {
             it('should expected is null', function() {
                 Assertion::same($this->matcherMethod->expected, null);
             });
-            it('should return \expectation\matcher\MatcherMethodInterface', function() {
-                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MatcherMethodInterface');
+            it('should return \expectation\matcher\MethodInterface', function() {
+                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');
             });
         });
         context('when with arugments', function() {
@@ -41,8 +41,8 @@ describe('MatcherMethodFactory', function() {
             it('should has expected', function() {
                 Assertion::same($this->matcherMethod->expected, true);
             });
-            it('should return \expectation\matcher\MatcherMethodInterface', function() {
-                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MatcherMethodInterface');
+            it('should return \expectation\matcher\MethodInterface', function() {
+                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');
             });
         });
     });

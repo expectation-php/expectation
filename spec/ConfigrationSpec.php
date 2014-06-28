@@ -21,7 +21,7 @@ describe('Configration', function() {
         before(function() {
             $this->prophet = new Prophet();
 
-            $this->container = $this->prophet->prophesize('expectation\MatcherMethodContainerInterface');
+            $this->container = $this->prophet->prophesize('expectation\matcher\method\MethodContainerInterface');
             $this->container->find()->shouldNotBeCalled();
             $this->methodContainer = $this->container->reveal();
 
