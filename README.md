@@ -8,6 +8,7 @@ This library inspired by [pho](https://github.com/danielstjules/pho) of bdd test
 [![Stories in Ready](https://badge.waffle.io/holyshared/expectation.png?label=ready&title=Ready)](https://waffle.io/holyshared/expectation)
 [![Coverage Status](https://coveralls.io/repos/holyshared/expectation/badge.png?branch=master)](https://coveralls.io/r/holyshared/expectation?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/holyshared/expectation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/holyshared/expectation/?branch=master)
+[![Dependencies Status](https://depending.in/holyshared/expectation.png)](http://depending.in/holyshared/expectation)
 
 Requirements
 ---------------------------
@@ -34,3 +35,35 @@ Basic matchers
     expect('foo')->toEqual('foo'); //pass
     expect(1)->toEqual(1); //pass
     expect(new stdClass())->toEqual(new stdClass()); //fail
+
+    expect(true)->toBeTrue();   //pass
+    expect(false)->toBeFalse();   //pass
+    expect(null)->toBeNull();   //pass
+
+### TypeMatcher
+
+    expect('foo')->toBeA('string');
+    expect('foo')->toBeAn('string');
+    expect('true')->toBeString();
+    expect(1)->toBeInteger();
+    expect(1.1)->toBeFloat();
+    expect(1.1)->toBeDouble();
+    expect(true)->toBeBoolean();
+
+### ExceptionMatcher
+
+    expect(function() {
+	    throw new RuntimeException();
+    })->toThrow('RuntimeException');
+
+### LengthMatcher
+
+    expect([1])->toHaveLength(1);
+    expect("a")->toHaveLength(1);
+    expect(new ArrayObject([1]))->toHaveLength(1);
+
+### PrintMatcher
+
+    expect(function() {
+	    echo 'foo';
+    })->toPrint('foo'); //pass

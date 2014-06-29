@@ -15,6 +15,9 @@ use Assert\Assertion;
 use expectation;
 use expectation\Expectation as AliasExpectation;
 use expectation\ConfigrationBuilder;
+use stdClass;
+use RuntimeException;
+use ArrayObject;
 
 describe('DSL', function() {
     before(function() {
@@ -25,7 +28,8 @@ describe('DSL', function() {
             );
         });
     });
-    describe('Equal matcher', function() {
+
+    describe('equal matcher', function() {
         describe('toEqual', function() {
             context('when result is true', function() {
                 it('should return true', function() {
@@ -51,6 +55,106 @@ describe('DSL', function() {
             context('when result is true', function() {
                 it('should return true', function() {
                     Assertion::true(expectation\expect(null)->toBeNull());
+                });
+            });
+        });
+    });
+
+
+    describe('type matcher', function() {
+        describe('toBeA', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect('foo')->toBeA('string'));
+                });
+            });
+        });
+        describe('toBeAn', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect('foo')->toBeAn('string'));
+                });
+            });
+        });
+        describe('toBeString', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect('true')->toBeString());
+                });
+            });
+        });
+        describe('toBeInteger', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(1)->toBeInteger());
+                });
+            });
+        });
+        describe('toBeFloat', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(1.1)->toBeFloat());
+                });
+            });
+        });
+        describe('toBeDouble', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(1.1)->toBeDouble());
+                });
+            });
+        });
+        describe('toBeBoolean', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(true)->toBeBoolean());
+                });
+            });
+        });
+    });
+
+    describe('instance matcher', function() {
+        describe('toBeAnInstanceOf', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(new stdClass())->toBeAnInstanceOf('stdClass'));
+                });
+            });
+        });
+    });
+
+    describe('exception matcher', function() {
+        describe('toThrow', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    $result = expectation\expect(function() {
+                        throw new RuntimeException();
+                    })->toThrow('RuntimeException');
+                    Assertion::true($result);
+                });
+            });
+        });
+    });
+
+    describe('length matcher', function() {
+        describe('toHaveLength', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect([1])->toHaveLength(1));
+                    Assertion::true(expectation\expect("a")->toHaveLength(1));
+                    Assertion::true(expectation\expect(new ArrayObject([1]))->toHaveLength(1));
+                });
+            });
+        });
+    });
+
+    describe('print matcher', function() {
+        describe('toPrint', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(function() {
+                        echo 'foo';
+                    })->toPrint('foo'));
                 });
             });
         });

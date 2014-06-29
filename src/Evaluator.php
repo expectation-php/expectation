@@ -15,6 +15,22 @@ use expectation\matcher\method\MethodContainerInterface;
 
 /**
  * @package expectation
+ * @method boolean toEqual() toEqual(mixed $expected)
+ * @method boolean toBeTrue() toBeTrue()
+ * @method boolean toBeFalse() toBeFalse()
+ * @method boolean toBeNull() toBeNull()
+ * @method boolean toBeA() toBeA(string $expected)
+ * @method boolean toBeAn() toBeAn(string $expected)
+ * @method boolean toBeString() toBeString()
+ * @method boolean toBeInteger() toBeInteger()
+ * @method boolean toBeFloat() toBeFloat()
+ * @method boolean toBeDouble() toBeDouble()
+ * @method boolean toBeBoolean() toBeBoolean()
+ * @method boolean toBeAnInstanceOf() toBeAnInstanceOf(string $expected)
+ * @method boolean toThrow() toThrow(string $expected)
+ * @method boolean toHaveLength() toHaveLength(integer $expected)
+ * @method boolean toBeEmpty() toBeEmpty()
+ * @method boolean toPrint() toPrint(string $expected)
  */
 class Evaluator implements EvaluatorInterface
 {
