@@ -11,6 +11,8 @@
 
 namespace expectation;
 
+use BadMethodCallException;
+
 trait AttributeAccessible
 {
 
@@ -34,7 +36,7 @@ trait AttributeAccessible
         $setterMethod = 'set' . ucfirst($name);
 
         if (!method_exists($this, $setterMethod)) {
-            throw new BadMethodCallException('accessor {$name} does not exist');
+            throw new BadMethodCallException("accessor '{$name}' does not exist");
         }
         $method = [$this, $setterMethod];
         $methodArguments = [$value];
