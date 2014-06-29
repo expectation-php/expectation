@@ -37,27 +37,18 @@ describe('EqualMatcher', function() {
     });
 
     describe('matchTrue', function() {
-//        before(function() {
-        //          $this->matcher = new EqualMatcher();
-        //});
         it('should return true', function() {
             Assertion::true($this->matcher->matchTrue(true));
         });
     });
 
     describe('matchFalse', function() {
-//        before(function() {
-        //          $this->matcher = new EqualMatcher();
-        //})//;
         it('should return true', function() {
             Assertion::true($this->matcher->matchFalse(false));
         });
     });
 
     describe('matchNull', function() {
-//        before(function() {
-        //          $this->matcher = new EqualMatcher();
-        //})//;
         it('should return true', function() {
             Assertion::true($this->matcher->matchNull(null));
         });
