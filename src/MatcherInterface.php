@@ -16,7 +16,18 @@ interface MatcherInterface
 
     /**
      * @param mixed $expected
+     * @return $this
      */
     public function expected($expected);
+
+    /**
+     * @return string
+     */
+    public function getFailureMessage();
+
+    /**
+     * @return string
+     */
+    public function getNegatedFailureMessage();
 
 }
