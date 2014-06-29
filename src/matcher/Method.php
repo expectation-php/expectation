@@ -12,6 +12,8 @@
 namespace expectation\matcher;
 
 use ReflectionMethod;
+use expectation\ExpectationException;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class Method implements MethodInterface
 {
@@ -25,6 +27,12 @@ class Method implements MethodInterface
      * @var mixed
      */
     private $expected;
+
+    /**
+     * @var \expectation\MatcherInterface
+     */
+    private $matcher;
+
 
     /**
      * @param ReflectionMethod $method
@@ -42,22 +50,40 @@ class Method implements MethodInterface
 
     public function positiveMatch($actual)
     {
-        return $this->call($actual);
+        if ($this->call($actual)) {
+            return true;
+        }
+        $this->throwFailureException();
     }
 
     public function negativeMatch($actual)
     {
-        return ($this->call($actual) === false);
+        if ($this->call($actual) === false) {
+            return true;
+        }
+        $this->throwNagativeFailureException();
     }
 
     private function call($actual)
     {
         $class = $this->method->getDeclaringClass();
 
-        $matcher = $class->newInstanceArgs([ new Formatter() ]);
-        $matcher->expected($this->expected);
+        $this->matcher = $class->newInstanceArgs([ new Formatter() ]);
+        $this->matcher->expected($this->expected);
 
-        return $this->method->invokeArgs($matcher, [$actual]);
+        return $this->method->invokeArgs($this->matcher, [$actual]);
+    }
+
+    private function throwFailureException()
+    {
+        $message = $this->matcher->getFailureMessage();
+        throw new ExpectationException($message);
+    }
+
+    private function throwNagativeFailureException()
+    {
+        $message = $this->matcher->getNegatedFailureMessage();
+        throw new ExpectationException($message);
     }
 
     /**

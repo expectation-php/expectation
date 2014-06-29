@@ -14,32 +14,57 @@ namespace Preview\DSL\BDD;
 use Assert\Assertion;
 use ReflectionMethod;
 use expectation\matcher\Method;
+use expectation\ExpectationException;
+
 
 describe('Method', function() {
 
-    before(function() {
+    before_each(function() {
         $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\FixtureMatcher', 'match');
+        $this->matcherMethod = new Method($this->method);
     });
 
     describe('positiveMatch', function() {
-        before(function() {
-            $this->matcherMethod = new Method($this->method);
+        context('when result is true', function() {
+            it('should return true', function() {
+                $result = $this->matcherMethod->expected(true)
+                    ->positiveMatch(true);
+                Assertion::true($result);
+            });
         });
-        it('', function() {
-            $result = $this->matcherMethod->expected(true)
-                ->positiveMatch(true);
-            Assertion::true($result);
+        context('when result is false', function() {
+            it('should throw expectation\ExpectationException', function() {
+                $throwException = false;
+                try {
+                    $this->matcherMethod->expected(false)
+                        ->positiveMatch(true);
+                } catch (ExpectationException $exception) {
+                    $throwException = $exception;
+                }
+                Assertion::isInstanceOf($throwException, 'expectation\ExpectationException');
+            });
         });
     });
 
     describe('negativeMatch', function() {
-        before(function() {
-            $this->matcherMethod = new Method($this->method);
+        context('when result is true', function() {
+            it('should return true', function() {
+                $result = $this->matcherMethod->expected(false)
+                    ->negativeMatch(true);
+                Assertion::true($result);
+            });
         });
-        it('', function() {
-            $result = $this->matcherMethod->expected(false)
-                ->negativeMatch(true);
-            Assertion::true($result);
+        context('when result is false', function() {
+            it('should throw expectation\ExpectationException', function() {
+                $throwException = false;
+                try {
+                    $this->matcherMethod->expected(false)
+                        ->negativeMatch(false);
+                } catch (ExpectationException $exception) {
+                    $throwException = $exception;
+                }
+                Assertion::isInstanceOf($throwException, 'expectation\ExpectationException');
+            });
         });
     });
 
