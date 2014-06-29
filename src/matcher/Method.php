@@ -49,7 +49,7 @@ class Method implements MethodInterface
      * @param ReflectionMethod $method
      * @return $this
      */
-    protected function setMethod(ReflectionMethod $method)
+    private function setMethod(ReflectionMethod $method)
     {
         $this->method = $method;
         return $this;
