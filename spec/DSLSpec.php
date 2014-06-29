@@ -15,7 +15,9 @@ use Assert\Assertion;
 use expectation;
 use expectation\Expectation as AliasExpectation;
 use expectation\ConfigrationBuilder;
+use expectation\ExpectationException;
 use stdClass;
+use RuntimeException;
 
 describe('DSL', function() {
     before(function() {
@@ -115,6 +117,17 @@ describe('DSL', function() {
         context('when result is true', function() {
             it('should return true', function() {
                 Assertion::true(expectation\expect(new stdClass())->toBeAnInstanceOf('stdClass'));
+            });
+        });
+    });
+
+    describe('toThrow', function() {
+        context('when result is true', function() {
+            it('should return true', function() {
+                $result = expectation\expect(function() {
+                    throw new RuntimeException();
+                })->toThrow('RuntimeException');
+                Assertion::true($result);
             });
         });
     });
