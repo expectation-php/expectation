@@ -148,4 +148,16 @@ describe('DSL', function() {
         });
     });
 
+    describe('print matcher', function() {
+        describe('toPrint', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(function() {
+                        echo 'foo';
+                    })->toPrint('foo'));
+                });
+            });
+        });
+    });
+
 });
