@@ -32,7 +32,7 @@ describe('MethodLoader', function() {
         });
         it('should factory loaded', function() {
             $method = $this->container->find('toEqual', [true]);
-            Assertion::same($method->expected, true);
+            Assertion::same($method->expectValue, true);
             Assertion::isInstanceOf($method, 'expectation\matcher\MethodInterface');
         });
     });

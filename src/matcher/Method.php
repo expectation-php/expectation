@@ -13,10 +13,13 @@ namespace expectation\matcher;
 
 use ReflectionMethod;
 use expectation\ExpectationException;
+use expectation\AttributeAccessible;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 class Method implements MethodInterface
 {
+
+    use AttributeAccessible;
 
     /**
      * @var \ReflectionMethod
@@ -26,7 +29,7 @@ class Method implements MethodInterface
     /**
      * @var mixed
      */
-    private $expected;
+    private $expectValue;
 
     /**
      * @var \expectation\MatcherInterface
@@ -42,12 +45,21 @@ class Method implements MethodInterface
         $this->method = $method;
     }
 
-    public function expected($expected)
+    /**
+     * @param $expected
+     * @return $this
+     */
+    public function setExpectValue($expected)
     {
-        $this->expected = $expected;
+        $this->expectValue = $expected;
         return $this;
     }
 
+    /**
+     * @param $actual
+     * @return boolean
+     * @throw \expectation\ExpectationException
+     */
     public function positiveMatch($actual)
     {
         if ($this->call($actual)) {
@@ -56,6 +68,11 @@ class Method implements MethodInterface
         $this->throwFailureException();
     }
 
+    /**
+     * @param $actual
+     * @return boolean
+     * @throw \expectation\ExpectationException
+     */
     public function negativeMatch($actual)
     {
         if ($this->call($actual) === false) {
@@ -69,7 +86,7 @@ class Method implements MethodInterface
         $class = $this->method->getDeclaringClass();
 
         $this->matcher = $class->newInstanceArgs([ new Formatter() ]);
-        $this->matcher->expected($this->expected);
+        $this->matcher->expected($this->expectValue);
 
         return $this->method->invokeArgs($this->matcher, [$actual]);
     }
@@ -84,25 +101,6 @@ class Method implements MethodInterface
     {
         $message = $this->matcher->getNegatedFailureMessage();
         throw new ExpectationException($message);
-    }
-
-    /**
-     * FIXME throw exception!!
-     */
-    public function __get($name)
-    {
-        if (!property_exists($this, $name)) {
-            return null;
-        }
-        return $this->$name;
-    }
-
-    public function __set($name, $value)
-    {
-        if (!method_exists($this, $name)) {
-            throw new BadMethodCallException('accessor {$name} does not exist');
-        }
-        return call_user_func_array([$this, $name], [$value]);
     }
 
 }

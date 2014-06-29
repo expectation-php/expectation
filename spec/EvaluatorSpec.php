@@ -21,7 +21,7 @@ describe('Evaluator', function() {
             $this->prophet = new Prophet();
 
             $this->matcher = $this->prophet->prophesize('expectation\matcher\MethodInterface');
-            $this->matcher->expected()->withArguments([true]);
+            $this->matcher->setExpectValue()->withArguments([true]);
             $this->matcher->positiveMatch()->withArguments([true]);
 
             $this->container = $this->prophet->prophesize('expectation\matcher\method\MethodContainerInterface');

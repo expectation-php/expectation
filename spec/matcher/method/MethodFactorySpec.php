@@ -28,7 +28,7 @@ describe('MethodFactory', function() {
                 $this->matcherMethod = $this->factory->withArguments([]);
             });
             it('should expected is null', function() {
-                Assertion::same($this->matcherMethod->expected, null);
+                Assertion::same($this->matcherMethod->expectValue, null);
             });
             it('should return \expectation\matcher\MethodInterface', function() {
                 Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');
@@ -39,7 +39,7 @@ describe('MethodFactory', function() {
                 $this->matcherMethod = $this->factory->withArguments([true]);
             });
             it('should has expected', function() {
-                Assertion::same($this->matcherMethod->expected, true);
+                Assertion::same($this->matcherMethod->expectValue, true);
             });
             it('should return \expectation\matcher\MethodInterface', function() {
                 Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');

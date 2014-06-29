@@ -23,7 +23,7 @@ describe('MethodContainer', function() {
             $this->prophet = new Prophet();
 
             $this->method = $this->prophet->prophesize('expectation\matcher\MethodInterface');
-            $this->method->expected()->withArguments([true]);
+            $this->method->setExpectValue()->withArguments([true]);
 
             $this->factory = $this->prophet->prophesize('expectation\matcher\method\MethodFactoryInterface');
             $this->factory->withArguments()

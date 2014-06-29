@@ -14,10 +14,24 @@ namespace expectation\matcher;
 interface MethodInterface
 {
 
-    public function expected($expected);
+    /**
+     * @param $expected
+     * @return $this
+     */
+    public function setExpectValue($expected);
 
+    /**
+     * @param $actual
+     * @return boolean
+     * @throw \expectation\ExpectationException
+     */
     public function positiveMatch($actual);
 
+    /**
+     * @param $actual
+     * @return boolean
+     * @throw \expectation\ExpectationException
+     */
     public function negativeMatch($actual);
 
 }
