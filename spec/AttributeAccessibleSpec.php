@@ -14,7 +14,6 @@ namespace Preview\DSL\BDD;
 use Assert\Assertion;
 use expectation\BadPropertyAccessException;
 use expectation\spec\fixture\FixtureObject;
-use BadMethodCallException;
 
 describe('AttributeAccessible', function() {
 
@@ -42,10 +41,10 @@ describe('AttributeAccessible', function() {
             it('should throw BadMethodCallException exception', function() {
                 try {
                     $this->object->not_found = 'foo';
-                } catch (BadMethodCallException $exception) {
+                } catch (BadPropertyAccessException $exception) {
                     $this->throwException = $exception;
                 }
-                Assertion::isInstanceOf($this->throwException, '\BadMethodCallException');
+                Assertion::isInstanceOf($this->throwException, '\expectation\BadPropertyAccessException');
             });
         });
     });
