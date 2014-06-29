@@ -18,7 +18,7 @@ interface MatcherInterface
      * @param mixed $expected
      * @return $this
      */
-    public function expected($expected);
+    public function setExpectValue($expected);
 
     /**
      * @return string

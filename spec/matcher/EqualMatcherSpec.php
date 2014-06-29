@@ -24,13 +24,13 @@ describe('EqualMatcher', function() {
     describe('match', function() {
         context('when same value', function() {
             it('should return true', function() {
-                $result = $this->matcher->expected(true)->match(true);
+                $result = $this->matcher->setExpectValue(true)->match(true);
                 Assertion::true($result);
             });
         });
         context('when not same value', function() {
             it('should return false', function() {
-                $result = $this->matcher->expected(false)->match(true);
+                $result = $this->matcher->setExpectValue(false)->match(true);
                 Assertion::false($result);
             });
         });
@@ -56,14 +56,14 @@ describe('EqualMatcher', function() {
 
     describe('getFailureMessage', function() {
         it('should return the message on failure', function() {
-            Assertion::false($this->matcher->expected('foo')->match('bar'));
+            Assertion::false($this->matcher->setExpectValue('foo')->match('bar'));
             Assertion::same($this->matcher->getFailureMessage(), "Expected 'bar' to be 'foo'");
         });
     });
 
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
-            Assertion::false($this->matcher->expected('foo')->match('bar'));
+            Assertion::false($this->matcher->setExpectValue('foo')->match('bar'));
             Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'bar' not to be 'foo'");
         });
     });

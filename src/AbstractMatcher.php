@@ -28,7 +28,7 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @var mixed
      */
-    private $expected;
+    private $expectValue;
 
     /**
      * @var Formatter
@@ -43,9 +43,9 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @param mixed $expected
      */
-    public function expected($expected)
+    public function setExpectValue($expected)
     {
-        $this->expected = $expected;
+        $this->expectValue = $expected;
         return $this;
     }
 

@@ -23,7 +23,7 @@ class FixtureMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        return $actual === $this->expected;
+        return $actual === $this->expectValue;
     }
 
     /**
@@ -41,7 +41,7 @@ class FixtureMatcher extends AbstractMatcher
     public function getFailureMessage()
     {
         $actual = $this->formatter->toString($this->actual);
-        $expected = $this->formatter->toString($this->expected);
+        $expected = $this->formatter->toString($this->expectValue);
         return "Expected {$actual} to be {$expected}";
     }
 
@@ -51,7 +51,7 @@ class FixtureMatcher extends AbstractMatcher
     public function getNegatedFailureMessage()
     {
         $actual = $this->formatter->toString($this->actual);
-        $expected = $this->formatter->toString($this->expected);
+        $expected = $this->formatter->toString($this->expectValue);
         return "Expected {$actual} not to be {$expected}";
     }
 
