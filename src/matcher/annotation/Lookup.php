@@ -12,6 +12,7 @@
 namespace expectation\matcher\annotation;
 
 use ReflectionMethod;
+use expectation\BadPropertyAccessException;
 use expectation\matcher\method\MethodFactory;
 use expectation\matcher\AnnotationInterface;
 
@@ -40,7 +41,7 @@ final class Lookup implements AnnotationInterface
     {
         foreach($values as $name => $value) {
             if (!property_exists($this, $name)) {
-                continue;
+                throw new BadPropertyAccessException($name);
             }
             $this->$name = $value;
         }
