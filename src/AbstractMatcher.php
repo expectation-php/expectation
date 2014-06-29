@@ -13,9 +13,12 @@ namespace expectation;
 
 use BadMethodCallException;
 use expectation\matcher\Formatter;
+use expectation\AttributeAccessible;
 
 abstract class AbstractMatcher implements MatcherInterface
 {
+
+    use AttributeAccessible;
 
     /**
      * @var mixed
@@ -32,7 +35,6 @@ abstract class AbstractMatcher implements MatcherInterface
      */
     private $formatter;
 
-
     public function __construct(Formatter $formatter)
     {
         $this->formatter = $formatter;
@@ -45,25 +47,6 @@ abstract class AbstractMatcher implements MatcherInterface
     {
         $this->expected = $expected;
         return $this;
-    }
-
-    /**
-     * FIXME throw exception!!
-     */
-    public function __get($name)
-    {
-        if (!property_exists($this, $name)) {
-            return null;
-        }
-        return $this->$name;
-    }
-
-    public function __set($name, $value)
-    {
-        if (!method_exists($this, $name)) {
-            throw new BadMethodCallException('accessor {$name} does not exist');
-        }
-        return call_user_func_array([$this, $name], [$value]);
     }
 
 }
