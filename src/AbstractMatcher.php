@@ -23,7 +23,7 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @var mixed
      */
-    protected $actual;
+    protected $actualValue;
 
     /**
      * @var mixed
@@ -38,6 +38,15 @@ abstract class AbstractMatcher implements MatcherInterface
     public function __construct(Formatter $formatter)
     {
         $this->formatter = $formatter;
+    }
+
+    /**
+     * @param mixed $actualValue
+     */
+    protected function setActualValue($actualValue)
+    {
+        $this->actualValue = $actualValue;
+        return $this;
     }
 
     /**
