@@ -69,9 +69,9 @@ class Evaluator implements EvaluatorInterface
         $matcher = $this->container->find($name, $arguments);
 
         if ($this->negated) {
-            $matcher->negativeMatch($this->actual);
+            return $matcher->negativeMatch($this->actual);
         } else {
-            $matcher->positiveMatch($this->actual);
+            return $matcher->positiveMatch($this->actual);
         }
     }
 
