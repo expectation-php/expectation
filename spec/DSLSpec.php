@@ -25,7 +25,8 @@ describe('DSL', function() {
             );
         });
     });
-    describe('Equal matcher', function() {
+
+    describe('equal matcher', function() {
         describe('toEqual', function() {
             context('when result is true', function() {
                 it('should return true', function() {
@@ -51,6 +52,59 @@ describe('DSL', function() {
             context('when result is true', function() {
                 it('should return true', function() {
                     Assertion::true(expectation\expect(null)->toBeNull());
+                });
+            });
+        });
+    });
+
+
+    describe('type matcher', function() {
+        describe('toBeA', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect('foo')->toBeA('string'));
+                });
+            });
+        });
+        describe('toBeAn', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect('foo')->toBeAn('string'));
+                });
+            });
+        });
+        describe('toBeString', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect('true')->toBeString());
+                });
+            });
+        });
+        describe('toBeInteger', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(1)->toBeInteger());
+                });
+            });
+        });
+        describe('toBeFloat', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(1.1)->toBeFloat());
+                });
+            });
+        });
+        describe('toBeDouble', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(1.1)->toBeDouble());
+                });
+            });
+        });
+        describe('toBeBoolean', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(true)->toBeBoolean());
                 });
             });
         });
