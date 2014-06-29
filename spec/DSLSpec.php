@@ -27,28 +27,28 @@ describe('DSL', function() {
     });
     describe('Equal matcher', function() {
         describe('toEqual', function() {
-            context('when pass', function() {
+            context('when result is true', function() {
                 it('should return true', function() {
                     Assertion::true(expectation\expect(true)->toEqual(true));
                 });
             });
         });
         describe('toBeTrue', function() {
-            context('when pass', function() {
+            context('when result is true', function() {
                 it('should return true', function() {
                     Assertion::true(expectation\expect(true)->toBeTrue());
                 });
             });
         });
         describe('toBeFalse', function() {
-            context('when pass', function() {
+            context('when result is true', function() {
                 it('should return true', function() {
                     Assertion::true(expectation\expect(false)->toBeFalse());
                 });
             });
         });
         describe('toBeNull', function() {
-            context('when pass', function() {
+            context('when result is true', function() {
                 it('should return true', function() {
                     Assertion::true(expectation\expect(null)->toBeNull());
                 });
