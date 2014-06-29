@@ -12,15 +12,41 @@
 namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
+use expectation\BadPropertyAccessException;
 use expectation\spec\fixture\FixtureObject;
+use BadMethodCallException;
 
 describe('AttributeAccessible', function() {
 
+    before_each(function() {
+        $this->object = new FixtureObject();
+        $this->throwException = false;
+    });
+
     describe('accessors', function() {
         it('should assign value', function() {
-            $object = new FixtureObject();
-            $object->name = 'foo';
-            Assertion::same($object->name, 'foo');
+            $this->object->name = 'foo';
+            Assertion::same($this->object->name, 'foo');
+        });
+        context('when not extist readable property access', function() {
+            it('should throw BadPropertyAccessException exception', function() {
+                try {
+                    $value = $this->object->not_found;
+                } catch (BadPropertyAccessException $exception) {
+                    $this->throwException = $exception;
+                }
+                Assertion::isInstanceOf($this->throwException, '\expectation\BadPropertyAccessException');
+            });
+        });
+        context('when not extist writable property access', function() {
+            it('should throw BadMethodCallException exception', function() {
+                try {
+                    $this->object->not_found = 'foo';
+                } catch (BadMethodCallException $exception) {
+                    $this->throwException = $exception;
+                }
+                Assertion::isInstanceOf($this->throwException, '\BadMethodCallException');
+            });
         });
     });
 
