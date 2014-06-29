@@ -34,3 +34,35 @@ Basic matchers
     expect('foo')->toEqual('foo'); //pass
     expect(1)->toEqual(1); //pass
     expect(new stdClass())->toEqual(new stdClass()); //fail
+
+    expect(true)->toBeTrue();   //pass
+    expect(false)->toBeFalse();   //pass
+    expect(null)->toBeNull();   //pass
+
+### TypeMatcher
+
+    expect('foo')->toBeA('string');
+    expect('foo')->toBeAn('string');
+    expect('true')->toBeString();
+    expect(1)->toBeInteger();
+    expect(1.1)->toBeFloat();
+    expect(1.1)->toBeDouble();
+    expect(true)->toBeBoolean();
+
+### ExceptionMatcher
+
+    expect(function() {
+	    throw new RuntimeException();
+    })->toThrow('RuntimeException');
+
+### LengthMatcher
+
+    expect([1])->toHaveLength(1);
+    expect("a")->toHaveLength(1);
+    expect(new ArrayObject([1]))->toHaveLength(1);
+
+### PrintMatcher
+
+    expect(function() {
+	    echo 'foo';
+    })->toPrint('foo'); //pass
