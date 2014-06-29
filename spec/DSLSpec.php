@@ -15,6 +15,7 @@ use Assert\Assertion;
 use expectation;
 use expectation\Expectation as AliasExpectation;
 use expectation\ConfigrationBuilder;
+use stdClass;
 
 describe('DSL', function() {
     before(function() {
@@ -106,6 +107,14 @@ describe('DSL', function() {
                 it('should return true', function() {
                     Assertion::true(expectation\expect(true)->toBeBoolean());
                 });
+            });
+        });
+    });
+
+    describe('toBeAnInstanceOf', function() {
+        context('when result is true', function() {
+            it('should return true', function() {
+                Assertion::true(expectation\expect(new stdClass())->toBeAnInstanceOf('stdClass'));
             });
         });
     });
