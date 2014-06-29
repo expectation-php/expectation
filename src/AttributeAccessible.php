@@ -20,7 +20,7 @@ trait AttributeAccessible
     public function __get($name)
     {
         if (!property_exists($this, $name)) {
-            return null;
+            throw new BadPropertyAccessException($name);
         }
         return $this->$name;
     }
@@ -31,13 +31,15 @@ trait AttributeAccessible
      */
     public function __set($name, $value)
     {
-        if (!method_exists($this, $name)) {
+        $setterMethod = 'set' . ucfirst($name);
+
+        if (!method_exists($this, $setterMethod)) {
             throw new BadMethodCallException('accessor {$name} does not exist');
         }
-        $method = [$this, $name];
-        $arguments = [$value];
+        $method = [$this, $setterMethod];
+        $methodArguments = [$value];
 
-        return call_user_func_array($method, $arguments);
+        return call_user_func_array($method, $methodArguments);
     }
 
 }
