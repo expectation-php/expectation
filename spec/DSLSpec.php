@@ -15,9 +15,9 @@ use Assert\Assertion;
 use expectation;
 use expectation\Expectation as AliasExpectation;
 use expectation\ConfigrationBuilder;
-use expectation\ExpectationException;
 use stdClass;
 use RuntimeException;
+use ArrayObject;
 
 describe('DSL', function() {
     before(function() {
@@ -113,21 +113,37 @@ describe('DSL', function() {
         });
     });
 
-    describe('toBeAnInstanceOf', function() {
-        context('when result is true', function() {
-            it('should return true', function() {
-                Assertion::true(expectation\expect(new stdClass())->toBeAnInstanceOf('stdClass'));
+    describe('instance matcher', function() {
+        describe('toBeAnInstanceOf', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(new stdClass())->toBeAnInstanceOf('stdClass'));
+                });
             });
         });
     });
 
-    describe('toThrow', function() {
-        context('when result is true', function() {
-            it('should return true', function() {
-                $result = expectation\expect(function() {
-                    throw new RuntimeException();
-                })->toThrow('RuntimeException');
-                Assertion::true($result);
+    describe('exception matcher', function() {
+        describe('toThrow', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    $result = expectation\expect(function() {
+                        throw new RuntimeException();
+                    })->toThrow('RuntimeException');
+                    Assertion::true($result);
+                });
+            });
+        });
+    });
+
+    describe('length matcher', function() {
+        describe('toHaveLength', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect([1])->toHaveLength(1));
+                    Assertion::true(expectation\expect("a")->toHaveLength(1));
+                    Assertion::true(expectation\expect(new ArrayObject([1]))->toHaveLength(1));
+                });
             });
         });
     });
