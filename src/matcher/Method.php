@@ -42,7 +42,17 @@ class Method implements MethodInterface
      */
     public function __construct(ReflectionMethod $method)
     {
+        $this->setMethod($method);
+    }
+
+    /**
+     * @param ReflectionMethod $method
+     * @return $this
+     */
+    protected function setMethod(ReflectionMethod $method)
+    {
         $this->method = $method;
+        return $this;
     }
 
     /**
