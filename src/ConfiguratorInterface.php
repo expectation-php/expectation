@@ -20,7 +20,7 @@ interface ConfiguratorInterface
     /**
      * @param callable $callback
      */
-    public static function configure(callable $callback);
+    public static function configure(callable $callback = null);
 
     /**
      * @return \expectation\Configration

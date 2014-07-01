@@ -18,13 +18,23 @@ use expectation\ConfigrationBuilder;
 describe('Configurable', function() {
 
     describe('configure', function() {
-        before(function() {
-            FixtureExpectation::configure(function(ConfigrationBuilder $config) {
-                $config->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+        context('when with configurator', function() {
+            before(function() {
+                FixtureExpectation::configure(function(ConfigrationBuilder $config) {
+                    $config->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+                });
+            });
+            it('should create configration', function() {
+                Assertion::isInstanceOf(FixtureExpectation::configration(), 'expectation\Configration');
             });
         });
-        it('should create configration', function() {
-            Assertion::isInstanceOf(FixtureExpectation::configration(), 'expectation\Configration');
+        context('when configurator empty', function() {
+            before(function() {
+                FixtureExpectation::configure();
+            });
+            it('should create configration', function() {
+                Assertion::isInstanceOf(FixtureExpectation::configration(), 'expectation\Configration');
+            });
         });
     });
 
