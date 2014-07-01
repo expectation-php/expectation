@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\matcher\method;
 
 use Doctrine\Common\Annotations\Reader;
 use RecursiveIteratorIterator;
@@ -19,7 +19,8 @@ use ReflectionMethod;
 use ReflectionClass;
 use expectation\matcher\annotation\Lookup;
 
-class MatcherMethodLoader
+
+class MethodLoader
 {
 
     const MATCHER_PATTERN = "/Matcher\\.php$/";
@@ -75,7 +76,7 @@ class MatcherMethodLoader
             }
         }
 
-        return new MatcherMethodContainer($this->factories);
+        return new MethodContainer($this->factories);
     }
 
     private function loadFactoriesFromClassName($className)
@@ -87,7 +88,7 @@ class MatcherMethodLoader
             $annotations = $this->getAnnotationsFromMethod($method);
             foreach ($annotations as $annotation) {
                 $registerName = $annotation->getLookupName();
-                $registerFactory = $annotation->getMatcherMethodFactory($method);
+                $registerFactory = $annotation->getMethodFactory($method);
 
                 $this->factories[$registerName] = $registerFactory;
             }

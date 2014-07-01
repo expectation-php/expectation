@@ -9,31 +9,31 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\spec\fixture;
+namespace expectation\matcher;
 
+use Countable;
 use expectation\AbstractMatcher;
 use expectation\matcher\annotation\Lookup;
 
-class FixtureMatcher extends AbstractMatcher
+/**
+ * @package expectation
+ * @author Noritaka Horio <holy.shared.design@gmail.com>
+ */
+class PrintMatcher extends AbstractMatcher
 {
 
     /**
-     * @Lookup(name="toEqual")
+     * @Lookup(name="toPrint")
      * @param mixed $actual
+     * @return boolean
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
-        return $this->actualValue === $this->expectValue;
-    }
+        ob_start();
+        $actual();
+        $this->actualValue = ob_get_clean();
 
-    /**
-     * @Lookup(name="equals")
-     * @param mixed $actual
-     */
-    public function equals($actual)
-    {
-        return $this->match($actual);
+        return ($this->actualValue === $this->expectValue);
     }
 
     /**
@@ -43,7 +43,7 @@ class FixtureMatcher extends AbstractMatcher
     {
         $actual = $this->formatter->toString($this->actualValue);
         $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} to be {$expected}";
+        return "Expected {$expected}, got {$actual}";
     }
 
     /**
@@ -51,9 +51,8 @@ class FixtureMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        $actual = $this->formatter->toString($this->actualValue);
         $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} not to be {$expected}";
+        return "Expected output other than {$expected}";
     }
 
 }

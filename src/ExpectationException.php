@@ -11,12 +11,11 @@
 
 namespace expectation;
 
-interface MatcherMethodContainerInterface
+use UnexpectedValueException;
+
+/**
+ * @package expectation
+ */
+class ExpectationException extends UnexpectedValueException
 {
-
-    /**
-     * @return \expectation\matcher\MatcherInterface
-     */
-    public function find($name, array $arguments);
-
 }

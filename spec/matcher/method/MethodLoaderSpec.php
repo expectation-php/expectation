@@ -13,9 +13,9 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
-use expectation\MatcherMethodLoader;
+use expectation\matcher\method\MethodLoader;
 
-describe('MatcherMethodLoader', function() {
+describe('MethodLoader', function() {
 
     before(function() {
         $this->reader = new AnnotationReader();
@@ -23,17 +23,17 @@ describe('MatcherMethodLoader', function() {
 
     describe('load', function() {
         before(function() {
-            $this->loader = new MatcherMethodLoader($this->reader);
-            $this->loader->registerNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+            $this->loader = new MethodLoader($this->reader);
+            $this->loader->registerNamespace('expectation\spec\fixture', __DIR__ . '/../../fixture');
             $this->container = $this->loader->load();
         });
-        it('should return expectation\MatcherMethodContainerInterface instance', function() {
-            Assertion::isInstanceOf($this->container, 'expectation\MatcherMethodContainerInterface');
+        it('should return expectation\matcher\method\MethodContainerInterface instance', function() {
+            Assertion::isInstanceOf($this->container, 'expectation\matcher\method\MethodContainerInterface');
         });
         it('should factory loaded', function() {
             $method = $this->container->find('toEqual', [true]);
-            Assertion::same($method->expected, true);
-            Assertion::isInstanceOf($method, 'expectation\matcher\MatcherMethodInterface');
+            Assertion::same($method->expectValue, true);
+            Assertion::isInstanceOf($method, 'expectation\matcher\MethodInterface');
         });
     });
 

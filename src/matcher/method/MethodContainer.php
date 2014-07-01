@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\matcher\method;
 
-class MatcherMethodContainer implements MatcherMethodContainerInterface
+class MethodContainer implements MethodContainerInterface
 {
 
     /**
@@ -28,12 +28,12 @@ class MatcherMethodContainer implements MatcherMethodContainerInterface
     }
 
     /**
-     * @return \expectation\matcher\MatcherInterface
+     * @return \expectation\matcher\MethodInterface
      */
     public function find($name, array $arguments)
     {
         if (!isset($this->factories[$name])) {
-            throw new FactoryNotFoundException('{$name} is not found');
+            throw new FactoryNotFoundException("{$name} is not found");
         }
         $factory = $this->factories[$name];
 

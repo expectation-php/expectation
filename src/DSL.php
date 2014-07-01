@@ -11,8 +11,7 @@
 
 namespace expectation;
 
-use Exception;
-
-class FactoryNotFoundException extends Exception
+function expect($actual)
 {
+    return Expectation::expect($actual);
 }

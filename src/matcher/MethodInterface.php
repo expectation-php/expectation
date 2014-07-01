@@ -9,25 +9,29 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\matcher;
 
-interface MatcherInterface
+interface MethodInterface
 {
 
     /**
-     * @param mixed $expected
+     * @param $expected
      * @return $this
      */
     public function setExpectValue($expected);
 
     /**
-     * @return string
+     * @param $actual
+     * @return boolean
+     * @throw \expectation\ExpectationException
      */
-    public function getFailureMessage();
+    public function positiveMatch($actual);
 
     /**
-     * @return string
+     * @param $actual
+     * @return boolean
+     * @throw \expectation\ExpectationException
      */
-    public function getNegatedFailureMessage();
+    public function negativeMatch($actual);
 
 }

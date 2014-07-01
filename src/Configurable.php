@@ -30,8 +30,9 @@ trait Configurable
         if (!empty(static::$configration)) {
             return;
         }
-        $builder = new ConfigrationBuilder();
+        $builder = static::builder();
         call_user_func_array($callback, [$builder]);
+
         static::$configration = $builder->build();
     }
 
@@ -41,6 +42,17 @@ trait Configurable
     public static function configration()
     {
         return static::$configration;
+    }
+
+    private static function builder()
+    {
+        $builder = new ConfigrationBuilder();
+        $builder->registerMatcherNamespace(
+            '\\expectation\\matcher',
+            __DIR__ . '/matcher'
+        );
+
+        return $builder;
     }
 
 }

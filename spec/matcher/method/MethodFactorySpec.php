@@ -13,13 +13,13 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use ReflectionMethod;
-use expectation\MatcherMethodFactory;
+use expectation\matcher\method\MethodFactory;
 
-describe('MatcherMethodFactory', function() {
+describe('MethodFactory', function() {
 
     before(function() {
         $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\FixtureMatcher', 'match');
-        $this->factory = new MatcherMethodFactory($this->method);
+        $this->factory = new MethodFactory($this->method);
     });
 
     describe('withArguments', function() {
@@ -28,10 +28,10 @@ describe('MatcherMethodFactory', function() {
                 $this->matcherMethod = $this->factory->withArguments([]);
             });
             it('should expected is null', function() {
-                Assertion::same($this->matcherMethod->expected, null);
+                Assertion::same($this->matcherMethod->expectValue, null);
             });
-            it('should return \expectation\matcher\MatcherMethodInterface', function() {
-                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MatcherMethodInterface');
+            it('should return \expectation\matcher\MethodInterface', function() {
+                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');
             });
         });
         context('when with arugments', function() {
@@ -39,10 +39,10 @@ describe('MatcherMethodFactory', function() {
                 $this->matcherMethod = $this->factory->withArguments([true]);
             });
             it('should has expected', function() {
-                Assertion::same($this->matcherMethod->expected, true);
+                Assertion::same($this->matcherMethod->expectValue, true);
             });
-            it('should return \expectation\matcher\MatcherMethodInterface', function() {
-                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MatcherMethodInterface');
+            it('should return \expectation\matcher\MethodInterface', function() {
+                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');
             });
         });
     });

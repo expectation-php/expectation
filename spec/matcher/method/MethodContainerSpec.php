@@ -12,20 +12,20 @@
 namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
-use expectation\MatcherMethodContainer;
-use expectation\FactoryNotFoundException;
+use expectation\matcher\method\MethodContainer;
+use expectation\matcher\method\FactoryNotFoundException;
 use Prophecy\Prophet;
 
-describe('MatcherMethodContainer', function() {
+describe('MethodContainer', function() {
 
     describe('find', function() {
         before(function() {
             $this->prophet = new Prophet();
 
-            $this->method = $this->prophet->prophesize('expectation\matcher\MatcherMethodInterface');
-            $this->method->expected()->withArguments([true]);
+            $this->method = $this->prophet->prophesize('expectation\matcher\MethodInterface');
+            $this->method->setExpectValue()->withArguments([true]);
 
-            $this->factory = $this->prophet->prophesize('expectation\MatcherMethodFactoryInterface');
+            $this->factory = $this->prophet->prophesize('expectation\matcher\method\MethodFactoryInterface');
             $this->factory->withArguments()
                 ->withArguments([[true]])
                 ->willReturn($this->method->reveal());
@@ -33,7 +33,7 @@ describe('MatcherMethodContainer', function() {
             $this->values = [
                 'toEqual' => $this->factory->reveal()
             ];
-            $this->container = new MatcherMethodContainer($this->values);
+            $this->container = new MethodContainer($this->values);
         });
 
         after(function() {
@@ -41,13 +41,13 @@ describe('MatcherMethodContainer', function() {
         });
 
         context('when factory registered', function() {
-            it('should return expectation\matcher\MatcherMethodInterface', function() {
+            it('should return expectation\matcher\MethodInterface', function() {
                 $factory = $this->container->find('toEqual', [true]);
-                Assertion::isInstanceOf($factory, 'expectation\matcher\MatcherMethodInterface');
+                Assertion::isInstanceOf($factory, 'expectation\matcher\MethodInterface');
             });
         });
         context('when factory not registered', function() {
-            it('should return expectation\FactoryNotFoundException', function() {
+            it('should return expectation\matcher\method\FactoryNotFoundException', function() {
                 $throwException = null;
 
                 try {
@@ -55,7 +55,7 @@ describe('MatcherMethodContainer', function() {
                 } catch (FactoryNotFoundException $exception) {
                     $throwException = $exception;
                 }
-                Assertion::isInstanceOf($throwException, 'expectation\FactoryNotFoundException');
+                Assertion::isInstanceOf($throwException, 'expectation\matcher\method\FactoryNotFoundException');
             });
         });
     });

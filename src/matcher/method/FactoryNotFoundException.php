@@ -9,15 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\matcher\method;
 
-interface ExpectationInterface
+use Exception;
+
+class FactoryNotFoundException extends Exception
 {
-
-    /**
-     * @param mixed $actual
-     * @return \expectation\Evaluator
-     */
-    public static function expect($actual);
-
 }

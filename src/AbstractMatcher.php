@@ -12,41 +12,50 @@
 namespace expectation;
 
 use BadMethodCallException;
+use expectation\matcher\Formatter;
+use expectation\AttributeAccessible;
 
 abstract class AbstractMatcher implements MatcherInterface
 {
 
+    use AttributeAccessible;
+
     /**
      * @var mixed
      */
-    private $expected;
+    protected $actualValue;
 
     /**
-     * @param mixed $expected
+     * @var mixed
      */
-    public function expected($expected)
+    private $expectValue;
+
+    /**
+     * @var Formatter
+     */
+    private $formatter;
+
+    public function __construct(Formatter $formatter)
     {
-        $this->expected = $expected;
+        $this->formatter = $formatter;
+    }
+
+    /**
+     * @param mixed $actualValue
+     */
+    protected function setActualValue($actualValue)
+    {
+        $this->actualValue = $actualValue;
         return $this;
     }
 
     /**
-     * FIXME throw exception!!
+     * @param mixed $expected
      */
-    public function __get($name)
+    public function setExpectValue($expected)
     {
-        if (!property_exists($this, $name)) {
-            return null;
-        }
-        return $this->$name;
-    }
-
-    public function __set($name, $value)
-    {
-        if (!method_exists($this, $name)) {
-            throw new BadMethodCallException('accessor {$name} does not exist');
-        }
-        return call_user_func_array([$this, $name], [$value]);
+        $this->expectValue = $expected;
+        return $this;
     }
 
 }

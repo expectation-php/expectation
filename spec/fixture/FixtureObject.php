@@ -9,15 +9,20 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\spec\fixture;
 
-interface ExpectationInterface
+use expectation\AttributeAccessible;
+
+class FixtureObject
 {
 
-    /**
-     * @param mixed $actual
-     * @return \expectation\Evaluator
-     */
-    public static function expect($actual);
+    use AttributeAccessible;
+
+    private $name;
+
+    protected function setName($name)
+    {
+        $this->name = $name;
+    }
 
 }

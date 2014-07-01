@@ -33,8 +33,8 @@ describe('ConfigrationBuilder', function() {
             $this->builder->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
             $this->configration = $this->builder->build();
         });
-        it('should return expectation\MatcherMethodContainer instance', function() {
-            Assertion::isInstanceOf($this->configration->methodContainer, 'expectation\MatcherMethodContainer');
+        it('should return expectation\matcher\method\MethodContainer instance', function() {
+            Assertion::isInstanceOf($this->configration->methodContainer, 'expectation\matcher\method\MethodContainer');
         });
     });
 

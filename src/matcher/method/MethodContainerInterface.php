@@ -9,15 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher;
+namespace expectation\matcher\method;
 
-interface MatcherMethodInterface
+interface MethodContainerInterface
 {
 
-    public function expected($expected);
-
-    public function positiveMatch($actual);
-
-    public function negativeMatch($actual);
+    /**
+     * @return \expectation\matcher\MethodInterface
+     */
+    public function find($name, array $arguments);
 
 }

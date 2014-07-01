@@ -29,7 +29,8 @@
             "expectation\\": "src/"
         },
         "files": [
-            "src/Autoload.php"
+            "src/Autoload.php",
+            "src/DSL.php"
         ]
     },
     "autoload-dev": {

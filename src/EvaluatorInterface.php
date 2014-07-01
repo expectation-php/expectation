@@ -11,13 +11,18 @@
 
 namespace expectation;
 
-interface MatcherMethodFactoryInterface
+interface EvaluatorInterface
 {
 
     /**
-     * @param array $arguments
-     * @return MatcherInterface
+     * @param mixed $actual
+     * @return $this
      */
-    public function withArguments(array $arguments);
+    public function that($actual);
+
+    /**
+     * @return $this
+     */
+    public function not();
 
 }

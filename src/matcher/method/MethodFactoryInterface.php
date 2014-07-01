@@ -9,8 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\matcher\method;
 
-trait Expectable extends Configurable
+interface MethodFactoryInterface
 {
+
+    /**
+     * @param array $arguments
+     * @return MatcherInterface
+     */
+    public function withArguments(array $arguments);
+
 }
