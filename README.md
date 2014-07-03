@@ -27,6 +27,19 @@ Then please run the **composer install**.
         }
     }
 
+Basic usage
+---------------------------
+
+There is a need to set up to be able to use it.
+
+	\expectation\Expectation::configure();
+
+Use example is as follows.
+
+	\expectation\expect(1)->toEqual(1);
+	\expectation\expect(true)->toBeTrue();
+	\expectation\expect(true)->toBeFalse();
+
 Basic matchers
 ---------------------------
 
@@ -67,3 +80,12 @@ Basic matchers
     expect(function() {
 	    echo 'foo';
     })->toPrint('foo'); //pass
+
+
+
+Domain specific language
+---------------------------
+
+You can be used as follows.
+
+	class TestCase	{		use \expectation\DSL;		public function test()		{			$this->expect(true)->toBeTrue();		}	}
