@@ -1,7 +1,7 @@
 expectation
 ===========
 
-**expectation** is the assertion library for unit testing.
+**expectation** is the assertion library for unit testing.  
 This library inspired by [pho](https://github.com/danielstjules/pho) of bdd test framework.
 
 [![Build Status](https://travis-ci.org/holyshared/expectation.svg?branch=master)](https://travis-ci.org/holyshared/expectation)
