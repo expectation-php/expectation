@@ -20,26 +20,21 @@ describe('Configurable', function() {
 
     describe('configure', function() {
         context('when with configurator', function() {
-            before(function() {
-                $this->subject = $subject = new stdClass();
-                $this->subject->callCount = 0;
-                $this->subject->callArgument = null;
 
-                FixtureExpectation::configure(function(ConfigrationBuilder $config) use($subject) {
-                    $subject->callCount++;
-                    $subject->callArgument = $config;
+            $subject = new stdClass();
+            $subject->callCount = 0;
 
-                    $config->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
-                });
+            FixtureExpectation::configure(function(ConfigrationBuilder $config) use($subject) {
+                $subject->callCount++;
+
+                $config->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+            });
+            it('should configurator call once', function() use($subject) {
+                Assertion::same($subject->callCount, 1);
             });
             it('should create configration', function() {
                 Assertion::isInstanceOf(FixtureExpectation::configration(), 'expectation\Configration');
             });
-/*
-            it('should configurator call once', function() {
-                Assertion::same($this->subject->callCount, 1);
-            });
-*/
         });
         context('when configurator empty', function() {
             before(function() {
