@@ -1,7 +1,7 @@
 {
     "name": "expectation/expectation",
     "description": "expectation library for unit testing",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "keywords": [
         "expect", "assert", "test"
     ],
