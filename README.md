@@ -14,6 +14,7 @@ This library inspired by [pho](https://github.com/danielstjules/pho) of bdd test
 * [Installation](#installation)
 * [Basic usage](#basic-usage)
 * [Basic matchers](#basic-matchers)
+* [Domain specific language](#domain-specific-language)
 
 
 Requirements
@@ -91,6 +92,10 @@ Basic matchers
 Domain specific language
 ---------------------------
 
-You can be used as follows.
+You can use the **Domain specific language**.  
+It is available by using the **ExpectationDSL** and **ExpectationDSLInterface**.
 
-	class TestCase	{		use \expectation\DSL;		public function test()		{			$this->expect(true)->toBeTrue();		}	}
+	use \expectation\ExpectationDSL;
+	use \expectation\ExpectationDSLInterface;
+
+	class TestCase implements ExpectationDSLInterface	{		use ExpectationDSL;		public function test()		{			$this->expect(true)->toBeTrue();		}	}
