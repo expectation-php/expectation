@@ -25,13 +25,16 @@ trait Configurable
     /**
      * @param callable $callback
      */
-    public static function configure(callable $callback)
+    public static function configure(callable $callback = null)
     {
         if (!empty(static::$configration)) {
             return;
         }
         $builder = static::builder();
-        call_user_func_array($callback, [$builder]);
+
+        if (isset($callback)) {
+            call_user_func_array($callback, [$builder]);
+        }
 
         static::$configration = $builder->build();
     }

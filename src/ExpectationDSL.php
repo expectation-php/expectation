@@ -11,20 +11,16 @@
 
 namespace expectation;
 
-/**
- * @package expectation
- */
-interface ConfiguratorInterface
+trait ExpectationDSL
 {
 
     /**
-     * @param callable $callback
+     * @param string $actual
+     * @return Evaluator
      */
-    public static function configure(callable $callback = null);
-
-    /**
-     * @return \expectation\Configration
-     */
-    public static function configration();
+    public function expect($actual)
+    {
+        return Expectation::expect($actual);
+    }
 
 }

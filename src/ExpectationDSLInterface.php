@@ -11,7 +11,13 @@
 
 namespace expectation;
 
-function expect($actual)
+interface ExpectationDSLInterface
 {
-    return Expectation::expect($actual);
+
+    /**
+     * @param string $actual
+     * @return Evaluator
+     */
+    public function expect($actual);
+
 }

@@ -1,7 +1,7 @@
 {
     "name": "expectation/expectation",
-    "description": "",
-    "version": "1.0.0",
+    "description": "expectation library for unit testing",
+    "version": "1.1.0",
     "keywords": [
         "expect", "assert", "test"
     ],
@@ -30,7 +30,7 @@
         },
         "files": [
             "src/Autoload.php",
-            "src/DSL.php"
+            "src/dsl/Function.php"
         ]
     },
     "autoload-dev": {
@@ -40,4 +40,3 @@
         }
     }
 }
-

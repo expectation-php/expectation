@@ -15,6 +15,12 @@ interface MatcherInterface
 {
 
     /**
+     * @param mixed $actual
+     * @return boolean
+     */
+    public function match($actual);
+
+    /**
      * @param mixed $expected
      * @return $this
      */
