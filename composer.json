@@ -30,7 +30,7 @@
         },
         "files": [
             "src/Autoload.php",
-            "src/DSL.php"
+            "src/dsl/Function.php"
         ]
     },
     "autoload-dev": {

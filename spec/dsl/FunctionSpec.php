@@ -12,7 +12,7 @@
 namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
-use expectation;
+use expectation\dsl as expectation;
 use expectation\Expectation as AliasExpectation;
 use expectation\ConfigrationBuilder;
 use stdClass;
@@ -24,7 +24,7 @@ describe('DSL', function() {
         AliasExpectation::configure(function(ConfigrationBuilder $config) {
             $config->registerMatcherNamespace(
                 'expectation\spec\fixture',
-                __DIR__ . '/fixture'
+                __DIR__ . '/../fixture'
             );
         });
     });

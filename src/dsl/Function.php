@@ -9,8 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\dsl;
 
+use expectation\Expectation;
+
+/**
+ * @param string $actual
+ * @return \expectation\Evaluator
+ */
 function expect($actual)
 {
     return Expectation::expect($actual);
