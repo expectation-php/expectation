@@ -16,7 +16,7 @@ use expectation\Expectation;
 use expectation\ConfigrationBuilder;
 use expectation\spec\fixture\FixtureTestCase;
 
-describe('ExpectDSL', function() {
+describe('ExpectationDSL', function() {
 
     describe('expect', function() {
         before(function() {
