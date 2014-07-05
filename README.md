@@ -10,6 +10,12 @@ This library inspired by [pho](https://github.com/danielstjules/pho) of bdd test
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/holyshared/expectation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/holyshared/expectation/?branch=master)
 [![Dependencies Status](https://depending.in/holyshared/expectation.png)](http://depending.in/holyshared/expectation)
 
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Basic usage](#basic-usage)
+* [Basic matchers](#basic-matchers)
+
+
 Requirements
 ---------------------------
 * PHP >= 5.4
@@ -36,14 +42,14 @@ There is a need to set up to be able to use it.
 
 Use example is as follows.
 
-	\expectation\expect(1)->toEqual(1);
-	\expectation\expect(true)->toBeTrue();
-	\expectation\expect(true)->toBeFalse();
+	expect(1)->toEqual(1);
+	expect(true)->toBeTrue();
+	expect(true)->toBeFalse();
 
 Basic matchers
 ---------------------------
 
-### EqualMatcher
+### Equal matching
 
     expect('foo')->toEqual('foo'); //pass
     expect(1)->toEqual(1); //pass
@@ -53,7 +59,7 @@ Basic matchers
     expect(false)->toBeFalse();   //pass
     expect(null)->toBeNull();   //pass
 
-### TypeMatcher
+### Type matching
 
     expect('foo')->toBeA('string');
     expect('foo')->toBeAn('string');
@@ -63,24 +69,23 @@ Basic matchers
     expect(1.1)->toBeDouble();
     expect(true)->toBeBoolean();
 
-### ExceptionMatcher
+### Exception matching
 
     expect(function() {
 	    throw new RuntimeException();
     })->toThrow('RuntimeException');
 
-### LengthMatcher
+### Length matching
 
     expect([1])->toHaveLength(1);
     expect("a")->toHaveLength(1);
     expect(new ArrayObject([1]))->toHaveLength(1);
 
-### PrintMatcher
+### Print matching
 
     expect(function() {
 	    echo 'foo';
     })->toPrint('foo'); //pass
-
 
 
 Domain specific language
