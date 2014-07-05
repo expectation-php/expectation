@@ -14,6 +14,7 @@ This library inspired by [pho](https://github.com/danielstjules/pho) of bdd test
 * [Installation](#installation)
 * [Basic usage](#basic-usage)
 * [Basic matchers](#basic-matchers)
+* [Custom matchers](#custom-matchers)
 * [Domain specific language](#domain-specific-language)
 
 
@@ -25,7 +26,7 @@ Requirements
 Installation
 ---------------------------
 
-Please add the following items to **composer.json**.
+Please add the following items to **composer.json**.  
 Then please run the **composer install**.
 
     {
@@ -87,6 +88,67 @@ Basic matchers
     expect(function() {
 	    echo 'foo';
     })->toPrint('foo'); //pass
+
+
+Custom matchers
+---------------------------
+
+Please inherited the **AbstractMatcher** If you want to create a matcher.   
+And please implement the method **match**, **getFailureMessage**, of **getNegatedFailureMessage**.
+
+Please use the **Lookup annotations** always in the match method.
+
+	use expectation\AbstractMatcher;
+	use expectation\matcher\annotation\Lookup;
+
+	class StrictEqualMatcher extends AbstractMatcher
+	{
+
+    	/**
+	     * @Lookup(name="toEql")
+	     * @param mixed $actual
+	     */
+	    public function match($actual)
+	    {
+	        $this->actualValue = $actual;
+	        return $this->expectValue === $this->actualValue;
+	    }
+
+	    /**
+	     * @return string
+	     */
+	    public function getFailureMessage()
+	    {
+	        $actual = $this->formatter->toString($this->actualValue);
+	        $expected = $this->formatter->toString($this->expectValue);
+	        return "Expected {$actual} to be {$expected}";
+	    }
+
+	    /**
+	     * @return string
+	     */
+	    public function getNegatedFailureMessage()
+	    {
+	        $actual = $this->formatter->toString($this->actualValue);
+	        $expected = $this->formatter->toString($this->expectValue);
+	        return "Expected {$actual} not to be {$expected}";
+	    }
+
+	}
+
+To take advantage of the custom matcher, so that you can resolve the **ConfigrationBuilder** using the custom matcher.
+
+	\expectation\Expectation::configure(function(ConfigrationBuilder $configBuilder) {
+		$namespace = '\package\matcher';
+		$directory = __DIR__ . '/matcher/';
+
+		$configBuilder->registerMatcherNamespace($namespace, $directory);
+	});
+
+It is possible to make use of matcher as follows now.  
+**toEql** is the method name that you specified in the annotation.
+
+	expect(true)->toEql(true);
 
 
 Domain specific language
