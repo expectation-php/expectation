@@ -220,6 +220,20 @@ describe('DSL', function() {
                 });
             });
         });
+        describe('toBeAbove', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(4)->toBeAbove(3));
+                });
+            });
+        });
+        describe('toBeBelow', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(3)->toBeBelow(4));
+                });
+            });
+        });
     });
 
 });

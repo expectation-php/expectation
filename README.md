@@ -98,6 +98,11 @@ Basic matchers
 	expect(["bar", "foo"])->toContain("bar", "foo");
 	expect(["foo" => "bar"])->toHaveKey("foo");
 
+### Numeric matching
+
+	expect(4)->toBeGreaterThan(3);
+	expect(2)->toBeLessThan(3);
+
 
 Custom matchers
 ---------------------------

@@ -23,6 +23,7 @@ class MaximumMatcher extends AbstractMatcher
 
     /**
      * @Lookup(name="toBeLessThan")
+     * @Lookup(name="toBeBelow")
      * @param mixed $actual
      * @return boolean
      */
