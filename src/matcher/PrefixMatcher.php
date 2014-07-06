@@ -22,7 +22,7 @@ class PrefixMatcher extends AbstractMatcher
 {
 
     /**
-     * @Lookup(name="toStatWith")
+     * @Lookup(name="toStartWith")
      * @param mixed $actual
      * @return boolean
      */
