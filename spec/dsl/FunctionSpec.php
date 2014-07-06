@@ -192,6 +192,7 @@ describe('DSL', function() {
                     Assertion::true(expectation\expect("foo")->toContain(["foo", "fo"]));
                     Assertion::true(expectation\expect(["bar", "foo"])->toContain("foo"));
                     Assertion::true(expectation\expect(["bar", "foo"])->toContain(["bar", "foo"]));
+                    Assertion::true(expectation\expect(["bar", "foo"])->toContain("bar", "foo"));
                 });
             });
         });

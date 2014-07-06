@@ -38,7 +38,11 @@ class MethodFactory implements MethodFactoryInterface
         $wrapper = new Method($this->method);
 
         if (!empty($arguments)) {
-            $wrapper->expectValue = $arguments[0];
+            if (count($arguments) === 1) {
+                $wrapper->expectValue = $arguments[0];
+            } else {
+                $wrapper->expectValue = $arguments;
+            }
         }
 
         return $wrapper;
