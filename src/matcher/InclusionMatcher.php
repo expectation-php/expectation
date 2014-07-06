@@ -29,13 +29,13 @@ class InclusionMatcher extends AbstractMatcher
     public function match($actual)
     {
         $result = false;
+        $included = false;
+        $expectValues = (is_array($this->expectValue))
+            ? $this->expectValue : [$this->expectValue];
+
         $this->actualValue = $actual;
 
         if (is_string($this->actualValue)) {
-            $included = false;
-            $expectValues = (is_array($this->expectValue))
-                ? $this->expectValue : [$this->expectValue];
-
             foreach($expectValues as $expectValue) {
                 $result = strpos($this->actualValue, $expectValue);
                 if ($result === false) {
@@ -47,10 +47,6 @@ class InclusionMatcher extends AbstractMatcher
             $result = $included;
 
         } else if (is_array($this->actualValue)) {
-            $included = false;
-            $expectValues = (is_array($this->expectValue))
-                ? $this->expectValue : [$this->expectValue];
-
             foreach($expectValues as $expectValue) {
                 $result = in_array($expectValue, $this->actualValue);
                 if ($result === false) {
