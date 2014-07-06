@@ -160,4 +160,21 @@ describe('DSL', function() {
         });
     });
 
+    describe('pattern matcher', function() {
+        describe('toStartWith', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("foobar")->toStartWith("foo"));
+                });
+            });
+        });
+        describe('toEndWith', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("barfoo")->toEndWith("foo"));
+                });
+            });
+        });
+    });
+
 });
