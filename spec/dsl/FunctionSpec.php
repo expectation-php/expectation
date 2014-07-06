@@ -205,4 +205,21 @@ describe('DSL', function() {
         });
     });
 
+    describe('numeric matcher', function() {
+        describe('toBeGreaterThan', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(4)->toBeGreaterThan(3));
+                });
+            });
+        });
+        describe('toBeLessThan', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(2)->toBeLessThan(3));
+                });
+            });
+        });
+    });
+
 });

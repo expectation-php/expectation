@@ -22,13 +22,13 @@ describe('MaximumMatcher', function() {
     });
 
     describe('match', function() {
-        context('when greater than', function() {
+        context('when less than', function() {
             it('should return true', function() {
                 $this->matcher->expectValue = 2;
                 Assertion::true($this->matcher->match(1));
             });
         });
-        context('when not greater than', function() {
+        context('when not less than', function() {
             it('should return false', function() {
                 $this->matcher->expectValue = 1;
                 Assertion::false($this->matcher->match(2));
