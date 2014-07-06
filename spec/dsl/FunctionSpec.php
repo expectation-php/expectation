@@ -196,6 +196,13 @@ describe('DSL', function() {
                 });
             });
         });
+        describe('toHaveKey', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(["foo" => "bar"])->toHaveKey("foo"));
+                });
+            });
+        });
     });
 
 });
