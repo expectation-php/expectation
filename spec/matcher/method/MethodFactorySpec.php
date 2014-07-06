@@ -34,12 +34,23 @@ describe('MethodFactory', function() {
                 Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');
             });
         });
-        context('when with arugments', function() {
+        context('when with one arugments', function() {
             before(function() {
                 $this->matcherMethod = $this->factory->withArguments([true]);
             });
             it('should has expected', function() {
                 Assertion::same($this->matcherMethod->expectValue, true);
+            });
+            it('should return \expectation\matcher\MethodInterface', function() {
+                Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');
+            });
+        });
+        context('when with two arugments', function() {
+            before(function() {
+                $this->matcherMethod = $this->factory->withArguments(["foo", "bar"]);
+            });
+            it('should has expected', function() {
+                Assertion::same($this->matcherMethod->expectValue, ["foo", "bar"]);
             });
             it('should return \expectation\matcher\MethodInterface', function() {
                 Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');
