@@ -40,4 +40,20 @@ describe('ArrayKeyMatcher', function() {
         });
     });
 
+    describe('getFailureMessage', function() {
+        it('should return the message on failure', function() {
+            $this->matcher->expectValue = 'foo';
+            Assertion::false($this->matcher->match([ 'bar' => 'foo' ]));
+            Assertion::same($this->matcher->getFailureMessage(), "Expected array to have the key 'foo'");
+        });
+    });
+
+    describe('getNegatedFailureMessage', function() {
+        it('should return the message on failure', function() {
+            $this->matcher->expectValue = 'foo';
+            Assertion::true($this->matcher->match([ 'foo' => 'bar' ]));
+            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected array not to have the key 'foo'");
+        });
+    });
+
 });

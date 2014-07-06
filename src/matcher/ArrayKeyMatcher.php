@@ -33,6 +33,8 @@ class ArrayKeyMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
+        $expectValue = $this->formatter->toString($this->expectValue);
+        return "Expected array to have the key {$expectValue}";
     }
 
     /**
@@ -40,6 +42,8 @@ class ArrayKeyMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
+        $expectValue = $this->formatter->toString($this->expectValue);
+        return "Expected array not to have the key {$expectValue}";
     }
 
 }
