@@ -28,6 +28,8 @@ class MaximumMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
+        $this->actualValue = $actual;
+        return $this->actualValue < $this->expectValue;
     }
 
     /**
@@ -35,6 +37,9 @@ class MaximumMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
+        $actual = $this->formatter->toString($this->actualValue);
+        $expected = $this->formatter->toString($this->expectValue);
+        return "Expected {$actual} to be less than {$expected}";
     }
 
     /**
@@ -42,6 +47,9 @@ class MaximumMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
+        $actual = $this->formatter->toString($this->actualValue);
+        $expected = $this->formatter->toString($this->expectValue);
+        return "Expected {$actual} not to be less than {$expected}";
     }
 
 }
