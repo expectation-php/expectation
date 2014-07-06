@@ -31,6 +31,15 @@ use expectation\matcher\method\MethodContainerInterface;
  * @method boolean toHaveLength() toHaveLength(integer $expected)
  * @method boolean toBeEmpty() toBeEmpty()
  * @method boolean toPrint() toPrint(string $expected)
+ * @method boolean toMatch() toMatch(string $expected)
+ * @method boolean toStartWith() toStartWith(string $expected)
+ * @method boolean toEndWith() toEndWith(string $expected)
+ * @method boolean toContain() toContain(string $expected)
+ * @method boolean toHaveKey() toHaveKey(string $expected)
+ * @method boolean toBeGreaterThan() toBeGreaterThan(integer $expected)
+ * @method boolean toBeLessThan() toBeLessThan(integer $expected)
+ * @method boolean toBeAbove() toBeAbove(integer $expected)
+ * @method boolean toBeBelow() toBeBelow(integer $expected)
  */
 class Evaluator implements EvaluatorInterface
 {

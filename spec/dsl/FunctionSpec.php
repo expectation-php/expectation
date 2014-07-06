@@ -183,7 +183,6 @@ describe('DSL', function() {
             });
         });
     });
-
     describe('inclusion matcher', function() {
         describe('toContain', function() {
             context('when result is true', function() {
