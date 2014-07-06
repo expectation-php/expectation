@@ -30,7 +30,8 @@ class SuffixMatcher extends AbstractMatcher
     public function match($actual)
     {
         $this->actualValue = $actual;
-        return ($this->actualValue === $this->expectValue);
+        $suffix = preg_quote($this->expectValue, DIRECTORY_SEPARATOR);
+        return (preg_match("/{$suffix}$/", $this->actualValue) === 1);
     }
 
     /**

@@ -29,7 +29,8 @@ class PrefixMatcher extends AbstractMatcher
     public function match($actual)
     {
         $this->actualValue = $actual;
-        return ($this->actualValue === $this->expectValue);
+        $prefix = preg_quote($this->expectValue, DIRECTORY_SEPARATOR);
+        return (preg_match("/^{$prefix}/", $this->actualValue) === 1);
     }
 
     /**
