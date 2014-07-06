@@ -96,6 +96,7 @@ Basic matchers
 	expect(["bar", "foo"])->toContain("foo");
 	expect(["bar", "foo"])->toContain(["bar", "foo"]);
 	expect(["bar", "foo"])->toContain("bar", "foo");
+	expect(["foo" => "bar"])->toHaveKey("foo");
 
 
 Custom matchers
