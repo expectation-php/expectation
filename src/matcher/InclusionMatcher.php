@@ -22,6 +22,22 @@ class InclusionMatcher extends AbstractMatcher
 {
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @var array
+     */
+    private $matchResults = [];
+
+    /**
+     * @var array
+     */
+    private $unmatchResults = [];
+
+
+    /**
      * @Lookup(name="toContain")
      * @param mixed $actual
      * @return boolean
@@ -29,45 +45,62 @@ class InclusionMatcher extends AbstractMatcher
     public function match($actual)
     {
         $result = false;
-        $included = false;
-        $expectValues = (is_array($this->expectValue))
-            ? $this->expectValue : [$this->expectValue];
 
         $this->actualValue = $actual;
 
         if (is_string($this->actualValue)) {
-            foreach($expectValues as $expectValue) {
-                $result = strpos($this->actualValue, $expectValue);
-                if ($result === false) {
-                    continue;
-                }
-                $included = true;
-                break;
-            }
-            $result = $included;
-
+            $this->type = 'string';
+            $result = $this->matchString();
         } else if (is_array($this->actualValue)) {
-            foreach($expectValues as $expectValue) {
-                $result = in_array($expectValue, $this->actualValue);
-                if ($result === false) {
-                    continue;
-                }
-                $included = true;
-                break;
-            }
-            $result = $included;
+            $this->type = 'array';
+            $result = $this->matchArray();
         }
 
         return $result;
     }
 
     /**
-     * @Lookup(name="toHaveKey")
-     * @param mixed $actual
      * @return boolean
      */
-    public function containsKey($actual)
+    private function matchString()
     {
+        $included = false;
+        $expectValues = (is_array($this->expectValue))
+            ? $this->expectValue : [$this->expectValue];
+
+        foreach($expectValues as $expectValue) {
+            $result = strpos($this->actualValue, $expectValue);
+            if ($result === false) {
+                $this->unmatchResults[] = $expectValue;
+                continue;
+            }
+            $this->matchResults[] = $expectValue;
+            $included = true;
+            break;
+        }
+        return $included;
+    }
+
+    /**
+     * @return boolean
+     */
+    private function matchArray()
+    {
+        $included = false;
+        $expectValues = (is_array($this->expectValue))
+            ? $this->expectValue : [$this->expectValue];
+
+        foreach($expectValues as $expectValue) {
+            $result = in_array($expectValue, $this->actualValue);
+            if ($result === false) {
+                $this->unmatchResults[] = $expectValue;
+                continue;
+            }
+            $this->matchResults[] = $expectValue;
+            $included = true;
+            break;
+        }
+        return $included;
     }
 
     /**
@@ -75,6 +108,8 @@ class InclusionMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
+        $missing = implode(', ', $this->unmatchResults);
+        return "Expected {$this->type} to contain {$missing}";
     }
 
     /**
@@ -82,6 +117,8 @@ class InclusionMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
+        $found = implode(', ', $this->matchResults);
+        return "Expected {$this->type} not to contain {$found}";
     }
 
 }

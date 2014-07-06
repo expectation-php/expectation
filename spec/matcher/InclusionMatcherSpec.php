@@ -52,4 +52,20 @@ describe('InclusionMatcher', function() {
         });
     });
 
+    describe('getFailureMessage', function() {
+        it('should return the message on failure', function() {
+            $this->matcher->expectValue = 'foo';
+            Assertion::false($this->matcher->match('barbar'));
+            Assertion::same($this->matcher->getFailureMessage(), "Expected string to contain foo");
+        });
+    });
+
+    describe('getNegatedFailureMessage', function() {
+        it('should return the message on failure', function() {
+            $this->matcher->expectValue = 'foo';
+            Assertion::true($this->matcher->match('foobar'));
+            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected string not to contain foo");
+        });
+    });
+
 });
