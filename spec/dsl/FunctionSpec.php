@@ -175,6 +175,13 @@ describe('DSL', function() {
                 });
             });
         });
+        describe('toMatch', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("barfoo")->toMatch("/foo/"));
+                });
+            });
+        });
     });
 
 });
