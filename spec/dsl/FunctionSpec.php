@@ -184,4 +184,17 @@ describe('DSL', function() {
         });
     });
 
+    describe('inclusion matcher', function() {
+        describe('toContain', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("barfoo")->toContain("foo"));
+                    Assertion::true(expectation\expect("foo")->toContain(["foo", "fo"]));
+                    Assertion::true(expectation\expect(["bar", "foo"])->toContain("foo"));
+                    Assertion::true(expectation\expect(["bar", "foo"])->toContain(["bar", "foo"]));
+                });
+            });
+        });
+    });
+
 });
