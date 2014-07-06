@@ -44,8 +44,8 @@ describe('SuffixMatcher', function() {
 
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
-            Assertion::false($this->matcher->match('foobar'));
-            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'foobar' not to end with 'foo'");
+            Assertion::true($this->matcher->match('barfoo'));
+            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'barfoo' not to end with 'foo'");
         });
     });
 

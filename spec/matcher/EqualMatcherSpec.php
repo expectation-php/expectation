@@ -63,8 +63,8 @@ describe('EqualMatcher', function() {
 
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
-            Assertion::false($this->matcher->setExpectValue('foo')->match('bar'));
-            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'bar' not to be 'foo'");
+            Assertion::true($this->matcher->setExpectValue('foo')->match('foo'));
+            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'foo' not to be 'foo'");
         });
     });
 

@@ -49,7 +49,7 @@ describe('InstanceMatcher', function() {
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
             $this->matcher->expectValue = '\stdClass';
-            Assertion::false($this->matcher->match(new Exception('bar')));
+            Assertion::true($this->matcher->match(new stdClass()));
             Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected an instance other than \stdClass");
         });
     });

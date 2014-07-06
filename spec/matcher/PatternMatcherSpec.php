@@ -44,8 +44,8 @@ describe('PatternMatcher', function() {
 
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
-            Assertion::false($this->matcher->match('barbar'));
-            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'barbar' not to match '/foo/'");
+            Assertion::true($this->matcher->match('foobar'));
+            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'foobar' not to match '/foo/'");
         });
     });
 
