@@ -89,6 +89,14 @@ Basic matchers
 	    echo 'foo';
     })->toPrint('foo'); //pass
 
+### Inclusion matching
+
+	expect("barfoo")->toContain("foo");
+	expect("foo")->toContain(["foo", "fo"]);
+	expect(["bar", "foo"])->toContain("foo");
+	expect(["bar", "foo"])->toContain(["bar", "foo"]);
+	expect(["bar", "foo"])->toContain("bar", "foo");
+
 
 Custom matchers
 ---------------------------
