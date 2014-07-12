@@ -21,6 +21,9 @@ use expectation\matcher\annotation\Lookup;
 class RangeMatcher extends AbstractMatcher
 {
 
+    const FAILURE_MESSAGE = "Expected %d to be within %d between %d";
+    const NEGATED_FAILURE_MESSAGE = "Expected %d not to be within %d between %d";
+
     /**
      * @Lookup(name="toBeWithin")
      * @param mixed $actual
@@ -38,13 +41,7 @@ class RangeMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        list($from, $to) = $this->expectValue;
-
-        $actual = $this->formatter->toString($this->actualValue);
-        $fromValue = $this->formatter->toString($from);
-        $toValue = $this->formatter->toString($to);
-
-        return "Expected {$actual} to be within {$fromValue} between {$toValue}";
+        return $this->formatMessage(static::FAILURE_MESSAGE);
     }
 
     /**
@@ -52,13 +49,17 @@ class RangeMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
+        return $this->formatMessage(static::NEGATED_FAILURE_MESSAGE);
+    }
+
+    /**
+     * @param string $template
+     * @return string
+     */
+    private function formatMessage($template)
+    {
         list($from, $to) = $this->expectValue;
-
-        $actual = $this->formatter->toString($this->actualValue);
-        $fromValue = $this->formatter->toString($from);
-        $toValue = $this->formatter->toString($to);
-
-        return "Expected {$actual} not to be within {$fromValue} between {$toValue}";
+        return sprintf($template, $this->actualValue, $from, $to);
     }
 
 }
