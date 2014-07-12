@@ -28,6 +28,9 @@ class RangeMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
+        $this->actualValue = $actual;
+        list($from, $to) = $this->expectValue;
+        return ($this->actualValue >= $from && $this->actualValue <= $to);
     }
 
     /**
@@ -35,6 +38,13 @@ class RangeMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
+        list($from, $to) = $this->expectValue;
+
+        $actual = $this->formatter->toString($this->actualValue);
+        $fromValue = $this->formatter->toString($from);
+        $toValue = $this->formatter->toString($to);
+
+        return "Expected {$actual} to be within {$fromValue} between {$toValue}";
     }
 
     /**
@@ -42,6 +52,13 @@ class RangeMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
+        list($from, $to) = $this->expectValue;
+
+        $actual = $this->formatter->toString($this->actualValue);
+        $fromValue = $this->formatter->toString($from);
+        $toValue = $this->formatter->toString($to);
+
+        return "Expected {$actual} not to be within {$fromValue} between {$toValue}";
     }
 
 }
