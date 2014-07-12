@@ -20,7 +20,7 @@ describe('Expectation', function() {
     describe('expect', function() {
         before(function() {
             Expectation::configure(function(ConfigrationBuilder $config) {
-                $config->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+                $config->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
             });
         });
         it('should lookup matcher method', function() {

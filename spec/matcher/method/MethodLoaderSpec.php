@@ -33,7 +33,7 @@ describe('MethodLoader', function() {
                 Assertion::isInstanceOf($this->container, 'expectation\matcher\method\MethodContainerInterface');
             });
             it('should factory loaded', function() {
-                $method = $this->container->find('toEqual', [true]);
+                $method = $this->container->find('toEquals', [true]);
                 Assertion::same($method->expectValue, true);
                 Assertion::isInstanceOf($method, 'expectation\matcher\MethodInterface');
             });

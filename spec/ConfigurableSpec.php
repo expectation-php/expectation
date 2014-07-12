@@ -26,8 +26,7 @@ describe('Configurable', function() {
 
             FixtureExpectation::configure(function(ConfigrationBuilder $config) use($subject) {
                 $subject->callCount++;
-
-                $config->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+                $config->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
             });
             it('should configurator call once', function() use($subject) {
                 Assertion::same($subject->callCount, 1);

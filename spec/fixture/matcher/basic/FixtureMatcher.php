@@ -18,7 +18,7 @@ class FixtureMatcher extends AbstractMatcher
 {
 
     /**
-     * @Lookup(name="toEqual")
+     * @Lookup(name="toEquals")
      * @param mixed $actual
      */
     public function match($actual)

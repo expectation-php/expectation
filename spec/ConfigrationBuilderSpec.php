@@ -19,18 +19,18 @@ describe('ConfigrationBuilder', function() {
     describe('registerMatcherNamespace', function() {
         before(function() {
             $this->builder = new ConfigrationBuilder();
-            $this->builder->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+            $this->builder->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
         });
         it('should return namespace', function() {
             $matcherNamespaces = $this->builder->matcherNamespaces();
-            Assertion::same($matcherNamespaces['expectation\spec\fixture'], __DIR__ . '/fixture');
+            Assertion::same($matcherNamespaces['expectation\spec\fixture\matcher\basic'], __DIR__ . '/fixture/matcher/basic');
         });
     });
 
     describe('build', function() {
         before(function() {
             $this->builder = new ConfigrationBuilder();
-            $this->builder->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+            $this->builder->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
             $this->configration = $this->builder->build();
         });
         it('should return expectation\matcher\method\MethodContainer instance', function() {
