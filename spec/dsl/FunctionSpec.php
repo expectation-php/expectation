@@ -23,8 +23,8 @@ describe('DSL', function() {
     before(function() {
         AliasExpectation::configure(function(ConfigrationBuilder $config) {
             $config->registerMatcherNamespace(
-                'expectation\spec\fixture',
-                __DIR__ . '/../fixture'
+                'expectation\spec\fixture\macher\basic',
+                __DIR__ . '/../fixture/macher/basic'
             );
         });
     });
