@@ -233,6 +233,13 @@ describe('DSL', function() {
                 });
             });
         });
+        describe('toBeWithin', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(3)->toBeWithin(0, 3));
+                });
+            });
+        });
     });
 
 });
