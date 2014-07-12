@@ -40,6 +40,7 @@ use expectation\matcher\method\MethodContainerInterface;
  * @method boolean toBeLessThan() toBeLessThan(integer $expected)
  * @method boolean toBeAbove() toBeAbove(integer $expected)
  * @method boolean toBeBelow() toBeBelow(integer $expected)
+ * @method boolean toBeWithin() toBeWithin(integer $from, integer $to)
  */
 class Evaluator implements EvaluatorInterface
 {
