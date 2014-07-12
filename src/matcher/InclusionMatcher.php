@@ -47,7 +47,7 @@ class InclusionMatcher extends AbstractMatcher
     {
 
         if ($this->validate($actual) === false) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('Argument must be an array or string');
         }
 
         $this->actualValue = $actual;
