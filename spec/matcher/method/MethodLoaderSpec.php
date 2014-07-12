@@ -14,26 +14,43 @@ namespace Preview\DSL\BDD;
 use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
 use expectation\matcher\method\MethodLoader;
+use expectation\matcher\method\AlreadyRegisteredException;
 
 describe('MethodLoader', function() {
 
-    before(function() {
+    before_each(function() {
         $this->reader = new AnnotationReader();
+        $this->loader = new MethodLoader($this->reader);
+        $this->loader->registerNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/../../fixture/matcher/basic');
     });
 
     describe('load', function() {
-        before(function() {
-            $this->loader = new MethodLoader($this->reader);
-            $this->loader->registerNamespace('expectation\spec\fixture', __DIR__ . '/../../fixture');
-            $this->container = $this->loader->load();
+        context('when matcher is not duplicated', function() {
+            before_each(function() {
+                $this->container = $this->loader->load();
+            });
+            it('should return expectation\matcher\method\MethodContainerInterface instance', function() {
+                Assertion::isInstanceOf($this->container, 'expectation\matcher\method\MethodContainerInterface');
+            });
+            it('should factory loaded', function() {
+                $method = $this->container->find('toEqual', [true]);
+                Assertion::same($method->expectValue, true);
+                Assertion::isInstanceOf($method, 'expectation\matcher\MethodInterface');
+            });
         });
-        it('should return expectation\matcher\method\MethodContainerInterface instance', function() {
-            Assertion::isInstanceOf($this->container, 'expectation\matcher\method\MethodContainerInterface');
-        });
-        it('should factory loaded', function() {
-            $method = $this->container->find('toEqual', [true]);
-            Assertion::same($method->expectValue, true);
-            Assertion::isInstanceOf($method, 'expectation\matcher\MethodInterface');
+        context('when matcher is duplicated', function() {
+            before_each(function() {
+                $this->loader->registerNamespace('expectation\spec\fixture\matcher\duplicated', __DIR__ . '/../../fixture/matcher/duplicated/');
+            });
+            it('should throw expectation\matcher\method\AlreadyRegisteredException', function() {
+                $throwException = null;
+                try {
+                    $this->loader->load();
+                } catch (AlreadyRegisteredException $exception) {
+                    $throwException = $exception;
+                }
+                Assertion::isInstanceOf($throwException, 'expectation\matcher\method\AlreadyRegisteredException');
+            });
         });
     });
 

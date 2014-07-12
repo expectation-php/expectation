@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\spec\fixture;
+namespace expectation\spec\fixture\matcher\basic;
 
 use expectation\AbstractMatcher;
 use expectation\matcher\annotation\Lookup;

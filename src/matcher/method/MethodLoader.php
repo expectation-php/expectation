@@ -65,13 +65,14 @@ class MethodLoader
             $iterator = $this->getRecursiveIterator($directory);
 
             foreach ($iterator as $matcherFile) {
-                $name = $matcherFile->getFilename();
+                $name = $matcherFile->getPathname();
 
                 if (preg_match(static::MATCHER_PATTERN, $name) === 0) {
                     continue;
                 }
 
-                $className = str_replace(".php", "", $name);
+                $className = str_replace([realpath($directory) . "/", ".php"], ["", ""], realpath($name));
+                $className = str_replace("/", "\\", $className);
                 $this->loadFactoriesFromClassName($namespace . "\\" . $className);
             }
         }
@@ -89,6 +90,10 @@ class MethodLoader
             foreach ($annotations as $annotation) {
                 $registerName = $annotation->getLookupName();
                 $registerFactory = $annotation->getMethodFactory($method);
+
+                if (array_key_exists($registerName, $this->factories)) {
+                    throw new AlreadyRegisteredException();
+                }
 
                 $this->factories[$registerName] = $registerFactory;
             }
