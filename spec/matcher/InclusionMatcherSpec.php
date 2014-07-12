@@ -14,6 +14,8 @@ namespace Preview\DSL\BDD;
 use expectation\matcher\InclusionMatcher;
 use expectation\matcher\Formatter;
 use Assert\Assertion;
+use stdClass;
+use InvalidArgumentException;
 
 describe('InclusionMatcher', function() {
 
@@ -48,6 +50,17 @@ describe('InclusionMatcher', function() {
                     $this->matcher->expectValue = ['foo'];
                     Assertion::true($this->matcher->match(['foo']));
                 });
+            });
+        });
+        context('when actual is not string or array', function() {
+            it('should throw InvalidArgumentException', function() {
+                $throwException = false;
+                try {
+                    $this->matcher->match(new stdClass());
+                } catch (InvalidArgumentException $exception) {
+                    $throwException = $exception;
+                }
+                Assertion::isInstanceOf($throwException, 'InvalidArgumentException');
             });
         });
     });

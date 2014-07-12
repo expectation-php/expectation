@@ -13,6 +13,7 @@ namespace expectation\matcher;
 
 use expectation\AbstractMatcher;
 use expectation\matcher\annotation\Lookup;
+use InvalidArgumentException;
 
 /**
  * @package expectation\matcher
@@ -44,19 +45,22 @@ class InclusionMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $result = false;
+
+        if ($this->validate($actual) === false) {
+            throw new InvalidArgumentException();
+        }
 
         $this->actualValue = $actual;
 
         if (is_string($this->actualValue)) {
             $this->type = 'string';
-            $result = $this->matchString();
+            return $this->matchString();
         } else if (is_array($this->actualValue)) {
             $this->type = 'array';
-            $result = $this->matchArray();
+            return $this->matchArray();
         }
 
-        return $result;
+        return false;
     }
 
     /**
@@ -119,6 +123,15 @@ class InclusionMatcher extends AbstractMatcher
     {
         $found = implode(', ', $this->matchResults);
         return "Expected {$this->type} not to contain {$found}";
+    }
+
+    /**
+     * @param $actual
+     * @return boolean
+     */
+    private function validate($actual)
+    {
+        return (is_array($actual) || is_string($actual));
     }
 
 }
