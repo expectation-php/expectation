@@ -102,6 +102,7 @@ Basic matchers
 
 	expect(4)->toBeGreaterThan(3);
 	expect(2)->toBeLessThan(3);
+	expect(2)->toBeWithin(1, 3);
 
 
 Custom matchers
