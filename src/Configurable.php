@@ -27,9 +27,7 @@ trait Configurable
      */
     public static function configure(callable $callback = null)
     {
-        if (!empty(static::$configration)) {
-            return;
-        }
+
         $builder = static::builder();
 
         if (isset($callback)) {
