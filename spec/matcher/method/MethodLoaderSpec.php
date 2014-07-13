@@ -15,6 +15,7 @@ use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
 use expectation\matcher\method\MethodLoader;
 use expectation\matcher\method\AlreadyRegisteredException;
+use ReflectionClass;
 
 describe('MethodLoader', function() {
 
@@ -22,6 +23,9 @@ describe('MethodLoader', function() {
         $this->reader = new AnnotationReader();
         $this->loader = new MethodLoader($this->reader);
         $this->loader->registerNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/../../fixture/matcher/basic');
+
+        $this->reflectionClass = new ReflectionClass('expectation\spec\fixture\matcher\single\FixtureSingleMatcher');
+        $this->loader->registerClass($this->reflectionClass);
     });
 
     describe('load', function() {

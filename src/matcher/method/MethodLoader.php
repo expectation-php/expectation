@@ -19,6 +19,7 @@ use ReflectionMethod;
 use ReflectionClass;
 use expectation\matcher\annotation\Lookup;
 use PhpCollection\Map;
+use PhpCollection\Sequence;
 
 class MethodLoader
 {
@@ -45,11 +46,27 @@ class MethodLoader
      */
     public function __construct(Reader $annotationReader)
     {
+        $this->classes = new Sequence();
         $this->namespaces = new Map();
         $this->factories = new Map();
         $this->annotationReader = $annotationReader;
     }
 
+    /**
+     * @param ReflectionClass $reflectionClass
+     * @return $this
+     */
+    public function registerClass(ReflectionClass $reflectionClass)
+    {
+        $this->classes->add($reflectionClass);
+        return $this;
+    }
+
+    /**
+     * @param string $namespace
+     * @param string $directory
+     * @return $this
+     */
     public function registerNamespace($namespace, $directory)
     {
         $this->namespaces->set($namespace, $directory);
