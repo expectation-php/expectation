@@ -19,11 +19,28 @@ use PhpOption\Some;
 
 describe('MethodContainer', function() {
 
+    before_each(function() {
+        $this->prophet = new Prophet();
+
+        $this->factories = $this->prophet->prophesize('PhpCollection\MapInterface');
+        $this->factories->first()->shouldNotBeCalled();
+        $this->factories->last()->shouldNotBeCalled();
+        $this->factories->find()->shouldNotBeCalled();
+        $this->factories->set()->shouldNotBeCalled();
+        $this->factories->remove()->shouldNotBeCalled();
+        $this->factories->addMap()->shouldNotBeCalled();
+        $this->factories->keys()->shouldNotBeCalled();
+        $this->factories->values()->shouldNotBeCalled();
+        $this->factories->drop()->shouldNotBeCalled();
+        $this->factories->dropRight()->shouldNotBeCalled();
+        $this->factories->dropWhile()->shouldNotBeCalled();
+        $this->factories->take()->shouldNotBeCalled();
+        $this->factories->takeWhile()->shouldNotBeCalled();
+    });
+
     describe('find', function() {
         context('when factory registered', function() {
-            before(function() {
-                $this->prophet = new Prophet();
-
+            before_each(function() {
                 $this->method = $this->prophet->prophesize('expectation\matcher\MethodInterface');
                 $this->method->setExpectValue()->withArguments([true]);
 
@@ -34,28 +51,13 @@ describe('MethodContainer', function() {
 
                 $this->someValue = new Some($this->factory->reveal());
 
-                $this->factories = $this->prophet->prophesize('PhpCollection\MapInterface');
-                $this->factories->first()->shouldNotBeCalled();
-                $this->factories->last()->shouldNotBeCalled();
-                $this->factories->find()->shouldNotBeCalled();
-                $this->factories->set()->shouldNotBeCalled();
-                $this->factories->remove()->shouldNotBeCalled();
-                $this->factories->addMap()->shouldNotBeCalled();
-                $this->factories->keys()->shouldNotBeCalled();
-                $this->factories->values()->shouldNotBeCalled();
-                $this->factories->drop()->shouldNotBeCalled();
-                $this->factories->dropRight()->shouldNotBeCalled();
-                $this->factories->dropWhile()->shouldNotBeCalled();
-                $this->factories->take()->shouldNotBeCalled();
-                $this->factories->takeWhile()->shouldNotBeCalled();
-
                 $this->factories->containsKey()->withArguments(['toEqual'])->willReturn(true);
                 $this->factories->get()->withArguments(['toEqual'])->willReturn($this->someValue);
 
                 $this->container = new MethodContainer($this->factories->reveal());
             });
 
-            after(function() {
+            after_each(function() {
                 $this->prophet->checkPredictions();
             });
 
@@ -64,32 +66,16 @@ describe('MethodContainer', function() {
                 Assertion::isInstanceOf($factory, 'expectation\matcher\MethodInterface');
             });
         });
+
         context('when factory not registered', function() {
-            before(function() {
-                $this->prophet = new Prophet();
 
-                $this->factories = $this->prophet->prophesize('PhpCollection\MapInterface');
-                $this->factories->first()->shouldNotBeCalled();
-                $this->factories->last()->shouldNotBeCalled();
-                $this->factories->find()->shouldNotBeCalled();
-                $this->factories->set()->shouldNotBeCalled();
-                $this->factories->remove()->shouldNotBeCalled();
-                $this->factories->addMap()->shouldNotBeCalled();
-                $this->factories->keys()->shouldNotBeCalled();
-                $this->factories->values()->shouldNotBeCalled();
-                $this->factories->drop()->shouldNotBeCalled();
-                $this->factories->dropRight()->shouldNotBeCalled();
-                $this->factories->dropWhile()->shouldNotBeCalled();
-                $this->factories->take()->shouldNotBeCalled();
-                $this->factories->takeWhile()->shouldNotBeCalled();
+            before_each(function() {
                 $this->factories->get()->shouldNotBeCalled();
-
                 $this->factories->containsKey()->withArguments(['toBeNull'])->willReturn(false);
-
                 $this->container = new MethodContainer($this->factories->reveal());
             });
 
-            after(function() {
+            after_each(function() {
                 $this->prophet->checkPredictions();
             });
 
