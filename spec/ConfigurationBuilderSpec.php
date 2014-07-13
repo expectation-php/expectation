@@ -13,6 +13,7 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use expectation\ConfigurationBuilder;
+use expectation\MatcherNotFoundException;
 
 describe('ConfigurationBuilder', function() {
 
@@ -32,13 +33,29 @@ describe('ConfigurationBuilder', function() {
     describe('registerMatcherClass', function() {
         before(function() {
             $this->builder = new ConfigurationBuilder();
-            $this->builder->registerMatcherClass('expectation\spec\fixture\matcher\basic\FixtureMatcher');
         });
-        it('should register matcher classes', function() {
-            $matcherClasses = $this->builder->getMatcherClasses();
-            $refClass = $matcherClasses->get('expectation\spec\fixture\matcher\basic\FixtureMatcher');
+        context('when class exist', function() {
+            before(function() {
+                $this->builder->registerMatcherClass('expectation\spec\fixture\matcher\basic\FixtureMatcher');
+            });
+            it('should register matcher classes', function() {
+                $matcherClasses = $this->builder->getMatcherClasses();
+                $refClass = $matcherClasses->get('expectation\spec\fixture\matcher\basic\FixtureMatcher');
 
-            Assertion::same($refClass->get()->getName(), 'expectation\spec\fixture\matcher\basic\FixtureMatcher');
+                Assertion::same($refClass->get()->getName(), 'expectation\spec\fixture\matcher\basic\FixtureMatcher');
+            });
+        });
+        context('when class not found', function() {
+            it('should throw expectation\MatcherNotFoundException exception', function() {
+                $throwException = null;
+
+                try {
+                    $this->builder->registerMatcherClass('expectation\spec\FixtureMatcher');
+                } catch (MatcherNotFoundException $exception) {
+                    $throwException = $exception;
+                }
+                Assertion::isInstanceOf($throwException, 'expectation\MatcherNotFoundException');
+            });
         });
     });
 

@@ -14,8 +14,8 @@ namespace expectation;
 use expectation\matcher\method\MethodLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
 use PhpCollection\Map;
-use PhpCollection\Sequence;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * @package expectation
@@ -64,7 +64,12 @@ class ConfigurationBuilder
      */
     public function registerMatcherClass($className)
     {
-        $reflectionClass = new ReflectionClass($className);
+        try {
+            $reflectionClass = new ReflectionClass($className);
+        } catch (ReflectionException $exception) {
+            throw new MatcherNotFoundException($exception->getMessage());
+        }
+
         $this->matcherClasses->set($className, $reflectionClass);
         return $this;
     }
