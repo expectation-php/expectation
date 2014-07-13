@@ -170,9 +170,19 @@ Domain specific language
 ---------------------------
 
 You can use the **Domain specific language**.  
-It is available by using the **ExpectationDSL** and **ExpectationDSLInterface**.
+It is available by using the **DSL** and **DSLInterface**.
 
-	use \expectation\ExpectationDSL;
-	use \expectation\ExpectationDSLInterface;
+	use \expectation\DSL;
+	use \expectation\DSLInterface;
 
-	class TestCase implements ExpectationDSLInterface	{		use ExpectationDSL;		public function test()		{			$this->expect(true)->toBeTrue();		}	}
+	class TestCase implements DSLInterface
+	{
+
+		use DSL;
+
+		public function test()
+		{
+			$this->expect(true)->toBeTrue();
+		}
+
+	}
