@@ -17,9 +17,12 @@ use expectation\MatcherNotFoundException;
 
 describe('ConfigurationBuilder', function() {
 
+    before_each(function() {
+        $this->builder = new ConfigurationBuilder();
+    });
+
     describe('registerMatcherNamespace', function() {
-        before(function() {
-            $this->builder = new ConfigurationBuilder();
+        before_each(function() {
             $this->builder->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
         });
         it('should register matcher namespace', function() {
@@ -31,11 +34,8 @@ describe('ConfigurationBuilder', function() {
     });
 
     describe('registerMatcherClass', function() {
-        before(function() {
-            $this->builder = new ConfigurationBuilder();
-        });
         context('when class exist', function() {
-            before(function() {
+            before_each(function() {
                 $this->builder->registerMatcherClass('expectation\spec\fixture\matcher\basic\FixtureMatcher');
             });
             it('should register matcher classes', function() {
@@ -60,8 +60,7 @@ describe('ConfigurationBuilder', function() {
     });
 
     describe('build', function() {
-        before(function() {
-            $this->builder = new ConfigurationBuilder();
+        before_each(function() {
             $this->builder->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
             $this->configration = $this->builder->build();
         });
