@@ -80,10 +80,7 @@ class MethodLoader
             }
         }
 
-        $factories = $this->factories->getIterator();
-        $factoryArray = $factories->getArrayCopy();
-
-        return new MethodContainer($factoryArray);
+        return new MethodContainer($this->factories);
     }
 
     private function loadFactoriesFromClassName($className)
