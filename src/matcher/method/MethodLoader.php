@@ -78,6 +78,17 @@ class MethodLoader
      */
     public function load()
     {
+        $this->loadFactoriesFromClasses();
+        $this->loadFactoriesFromNamespace();
+
+        return new MethodContainer($this->factories);
+    }
+
+    /**
+     * @throws AlreadyRegisteredException
+     */
+    private function loadFactoriesFromNamespace()
+    {
         $namespaces = $this->namespaces->getIterator();
 
         foreach($namespaces as $namespace => $directory) {
@@ -93,15 +104,16 @@ class MethodLoader
                 $className = str_replace([realpath($directory) . "/", ".php"], ["", ""], realpath($name));
                 $className = str_replace("/", "\\", $className);
 
-                $this->loadFactoriesFromClassName($namespace . "\\" . $className);
+                $reflection = new ReflectionClass($namespace . "\\" . $className);
+
+                $this->loadFactoriesFromClass($reflection);
             }
         }
-
-        $this->loadFactoriesFromClasses();
-
-        return new MethodContainer($this->factories);
     }
 
+    /**
+     * @throws AlreadyRegisteredException
+     */
     private function loadFactoriesFromClasses()
     {
         $reflectionClasses = $this->classes->getIterator();
@@ -111,6 +123,10 @@ class MethodLoader
         }
     }
 
+    /**
+     * @param ReflectionClass $reflectionClass
+     * @throws AlreadyRegisteredException
+     */
     private function loadFactoriesFromClass(ReflectionClass $reflectionClass)
     {
         $methods = $reflectionClass->getMethods();
@@ -133,32 +149,6 @@ class MethodLoader
             }
         }
     }
-
-    private function loadFactoriesFromClassName($className)
-    {
-        $reflection = new ReflectionClass($className);
-        $methods = $reflection->getMethods();
-
-        foreach($methods as $method) {
-            $annotations = $this->getAnnotationsFromMethod($method);
-
-            foreach ($annotations as $annotation) {
-                $registerName = $annotation->getLookupName();
-                $registerFactory = $annotation->getMethodFactory($method);
-
-                if ($this->factories->containsKey($registerName)) {
-                    $factory = $this->factories->get($registerName);
-                    $registeredMethod = $factory->get()->getMethod();
-
-                    throw new AlreadyRegisteredException($registerName, $registeredMethod);
-                }
-
-                $this->factories->set($registerName, $registerFactory);
-            }
-        }
-    }
-
-
 
     /**
      * @param ReflectionMethod $method
