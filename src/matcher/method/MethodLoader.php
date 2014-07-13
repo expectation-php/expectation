@@ -87,12 +87,16 @@ class MethodLoader
 
         foreach($methods as $method) {
             $annotations = $this->getAnnotationsFromMethod($method);
+
             foreach ($annotations as $annotation) {
                 $registerName = $annotation->getLookupName();
                 $registerFactory = $annotation->getMethodFactory($method);
 
                 if (array_key_exists($registerName, $this->factories)) {
-                    throw new AlreadyRegisteredException();
+                    $factory = $this->factories[$registerName];
+                    $registeredMethod = $factory->getMethod();
+
+                    throw new AlreadyRegisteredException($registerName, $registeredMethod);
                 }
 
                 $this->factories[$registerName] = $registerFactory;

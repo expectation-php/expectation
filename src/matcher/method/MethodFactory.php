@@ -31,6 +31,14 @@ class MethodFactory implements MethodFactoryInterface
     }
 
     /**
+     * @return ReflectionMethod
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
      * @param array $arguments
      * @return \expectation\matcher\Method
      */
