@@ -7,7 +7,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "doctrine/annotations": "1.1.*"
+        "doctrine/annotations": "1.2.*"
     },
     "require-dev": {
         "v2e4lisp/preview": "2.*",
