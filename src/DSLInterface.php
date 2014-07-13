@@ -11,7 +11,7 @@
 
 namespace expectation;
 
-interface ExpectationDSLInterface
+interface DSLInterface
 {
 
     /**

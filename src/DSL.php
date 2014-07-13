@@ -11,7 +11,7 @@
 
 namespace expectation;
 
-trait ExpectationDSL
+trait DSL
 {
 
     /**

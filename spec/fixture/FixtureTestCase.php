@@ -11,10 +11,10 @@
 
 namespace expectation\spec\fixture;
 
-use expectation\ExpectationDSL;
-use expectation\ExpectationDSLInterface;
+use expectation\DSL;
+use expectation\DSLInterface;
 
-class FixtureTestCase implements ExpectationDSLInterface
+class FixtureTestCase implements DSLInterface
 {
-    use ExpectationDSL;
+    use DSL;
 }
