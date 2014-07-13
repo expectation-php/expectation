@@ -151,13 +151,19 @@ Please use the **Lookup annotations** always in the match method.
 
 	}
 
-To take advantage of the custom matcher, so that you can resolve the **ConfigrationBuilder** using the custom matcher.
+To take advantage of the custom matcher, so that you can resolve the **ConfigurationBuilder** using the custom matcher.
 
-	\expectation\Expectation::configure(function(ConfigrationBuilder $configBuilder) {
+	\expectation\Expectation::configure(function(ConfigurationBuilder $configBuilder) {
 		$namespace = '\package\matcher';
 		$directory = __DIR__ . '/matcher/';
 
 		$configBuilder->registerMatcherNamespace($namespace, $directory);
+	});
+
+or
+
+	\expectation\Expectation::configure(function(ConfigurationBuilder $configBuilder) {
+		$configBuilder->registerMatcherClass('\package\matcher\StrictEqualMatcher');
 	});
 
 It is possible to make use of matcher as follows now.  
