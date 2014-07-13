@@ -61,8 +61,8 @@ describe('PrintMatcher', function() {
             $this->matcher->expectValue = 'foo';
         });
         it('should return the message on failure', function() {
-            Assertion::false($this->matcher->match(function() {
-                echo 'bar';
+            Assertion::true($this->matcher->match(function() {
+                echo 'foo';
             }));
             Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected output other than 'foo'");
         });

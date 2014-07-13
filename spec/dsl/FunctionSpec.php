@@ -14,19 +14,13 @@ namespace Preview\DSL\BDD;
 use Assert\Assertion;
 use expectation\dsl as expectation;
 use expectation\Expectation as AliasExpectation;
-use expectation\ConfigrationBuilder;
 use stdClass;
 use RuntimeException;
 use ArrayObject;
 
 describe('DSL', function() {
     before(function() {
-        AliasExpectation::configure(function(ConfigrationBuilder $config) {
-            $config->registerMatcherNamespace(
-                'expectation\spec\fixture',
-                __DIR__ . '/../fixture'
-            );
-        });
+        AliasExpectation::configure();
     });
 
     describe('equal matcher', function() {
@@ -155,6 +149,88 @@ describe('DSL', function() {
                     Assertion::true(expectation\expect(function() {
                         echo 'foo';
                     })->toPrint('foo'));
+                });
+            });
+        });
+    });
+
+    describe('pattern matcher', function() {
+        describe('toStartWith', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("foobar")->toStartWith("foo"));
+                });
+            });
+        });
+        describe('toEndWith', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("barfoo")->toEndWith("foo"));
+                });
+            });
+        });
+        describe('toMatch', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("barfoo")->toMatch("/foo/"));
+                });
+            });
+        });
+    });
+    describe('inclusion matcher', function() {
+        describe('toContain', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("barfoo")->toContain("foo"));
+                    Assertion::true(expectation\expect("foo")->toContain(["foo", "fo"]));
+                    Assertion::true(expectation\expect(["bar", "foo"])->toContain("foo"));
+                    Assertion::true(expectation\expect(["bar", "foo"])->toContain(["bar", "foo"]));
+                    Assertion::true(expectation\expect(["bar", "foo"])->toContain("bar", "foo"));
+                });
+            });
+        });
+        describe('toHaveKey', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(["foo" => "bar"])->toHaveKey("foo"));
+                });
+            });
+        });
+    });
+
+    describe('numeric matcher', function() {
+        describe('toBeGreaterThan', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(4)->toBeGreaterThan(3));
+                });
+            });
+        });
+        describe('toBeLessThan', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(2)->toBeLessThan(3));
+                });
+            });
+        });
+        describe('toBeAbove', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(4)->toBeAbove(3));
+                });
+            });
+        });
+        describe('toBeBelow', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(3)->toBeBelow(4));
+                });
+            });
+        });
+        describe('toBeWithin', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(3)->toBeWithin(0, 3));
                 });
             });
         });

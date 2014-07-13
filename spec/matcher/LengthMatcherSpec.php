@@ -83,9 +83,9 @@ describe('LengthMatcher', function() {
     });
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = 3;
-            Assertion::false($this->matcher->match(new ArrayObject(array(1, 2))));
-            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected ArrayObject not to have a length of 3");
+            $this->matcher->expectValue = 2;
+            Assertion::true($this->matcher->match(new ArrayObject(array(1, 2))));
+            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected ArrayObject not to have a length of 2");
         });
     });
 

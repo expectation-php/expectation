@@ -11,13 +11,13 @@
 
 namespace expectation;
 
-use BadMethodCallException;
-
 /**
  * @package expectation
  */
-class Configration
+class Configuration
 {
+
+    use AttributeAccessible;
 
     /**
      * @var MatcherMethodContainerInterface
@@ -29,25 +29,6 @@ class Configration
         foreach($values as $name => $value) {
             $this->$name = $value;
         }
-    }
-
-    /**
-     * FIXME throw exception!!
-     */
-    public function __get($name)
-    {
-        if (!property_exists($this, $name)) {
-            return null;
-        }
-        return $this->$name;
-    }
-
-    public function __set($name, $value)
-    {
-        if (!method_exists($this, $name)) {
-            throw new BadMethodCallException('accessor {$name} does not exist');
-        }
-        return call_user_func_array([$this, $name], [$value]);
     }
 
 }

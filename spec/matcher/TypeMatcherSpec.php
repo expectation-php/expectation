@@ -79,7 +79,7 @@ describe('TypeMatcher', function() {
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
             $this->matcher->expectValue = 'integer';
-            Assertion::false($this->matcher->match('bar'));
+            Assertion::true($this->matcher->match(1));
             Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected a type other than integer");
         });
     });

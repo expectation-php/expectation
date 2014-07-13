@@ -11,13 +11,11 @@
 
 namespace expectation;
 
-interface ExpectationDSLInterface
+use LogicException;
+
+/**
+ * @package expectation
+ */
+class MatcherNotFoundException extends LogicException
 {
-
-    /**
-     * @param string $actual
-     * @return Evaluator
-     */
-    public function expect($actual);
-
 }

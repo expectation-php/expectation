@@ -7,7 +7,8 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "doctrine/annotations": "@stable"
+        "doctrine/annotations": "1.2.*",
+        "phpcollection/phpcollection": "0.4.*"
     },
     "require-dev": {
         "v2e4lisp/preview": "2.*",
@@ -36,6 +37,8 @@
     "autoload-dev": {
         "psr-4": {
             "expectation\\spec\\fixture\\": "spec/fixture/",
+            "expectation\\spec\\fixture\\matcher\\basic\\": "spec/fixture/matcher/basic/",
+            "expectation\\spec\\fixture\\matcher\\duplicated\\": "spec/fixture/matcher/duplicated/",
             "expectation\\spec\\reporter\\": "spec/reporter/"
         }
     },

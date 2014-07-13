@@ -31,6 +31,14 @@ class MethodFactory implements MethodFactoryInterface
     }
 
     /**
+     * @return ReflectionMethod
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
      * @param array $arguments
      * @return \expectation\matcher\Method
      */
@@ -38,10 +46,23 @@ class MethodFactory implements MethodFactoryInterface
         $wrapper = new Method($this->method);
 
         if (!empty($arguments)) {
-            $wrapper->expectValue = $arguments[0];
+            $wrapper->expectValue = $this->expectValueFrom($arguments);
         }
 
         return $wrapper;
+    }
+
+    /**
+     * @param array $arguments
+     * @return array|mixed
+     */
+    private function expectValueFrom(array $arguments)
+    {
+        if (count($arguments) === 1) {
+            return $arguments[0];
+        } else {
+            return $arguments;
+        }
     }
 
 }

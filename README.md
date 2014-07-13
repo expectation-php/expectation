@@ -89,6 +89,21 @@ Basic matchers
 	    echo 'foo';
     })->toPrint('foo'); //pass
 
+### Inclusion matching
+
+	expect("barfoo")->toContain("foo");
+	expect("foo")->toContain(["foo", "fo"]);
+	expect(["bar", "foo"])->toContain("foo");
+	expect(["bar", "foo"])->toContain(["bar", "foo"]);
+	expect(["bar", "foo"])->toContain("bar", "foo");
+	expect(["foo" => "bar"])->toHaveKey("foo");
+
+### Numeric matching
+
+	expect(4)->toBeGreaterThan(3);
+	expect(2)->toBeLessThan(3);
+	expect(2)->toBeWithin(1, 3);
+
 
 Custom matchers
 ---------------------------
@@ -136,13 +151,19 @@ Please use the **Lookup annotations** always in the match method.
 
 	}
 
-To take advantage of the custom matcher, so that you can resolve the **ConfigrationBuilder** using the custom matcher.
+To take advantage of the custom matcher, so that you can resolve the **ConfigurationBuilder** using the custom matcher.
 
-	\expectation\Expectation::configure(function(ConfigrationBuilder $configBuilder) {
+	\expectation\Expectation::configure(function(ConfigurationBuilder $configBuilder) {
 		$namespace = '\package\matcher';
 		$directory = __DIR__ . '/matcher/';
 
 		$configBuilder->registerMatcherNamespace($namespace, $directory);
+	});
+
+or
+
+	\expectation\Expectation::configure(function(ConfigurationBuilder $configBuilder) {
+		$configBuilder->registerMatcherClass('\package\matcher\StrictEqualMatcher');
 	});
 
 It is possible to make use of matcher as follows now.  
@@ -155,9 +176,19 @@ Domain specific language
 ---------------------------
 
 You can use the **Domain specific language**.  
-It is available by using the **ExpectationDSL** and **ExpectationDSLInterface**.
+It is available by using the **DSL** and **DSLInterface**.
 
-	use \expectation\ExpectationDSL;
-	use \expectation\ExpectationDSLInterface;
+	use \expectation\DSL;
+	use \expectation\DSLInterface;
 
-	class TestCase implements ExpectationDSLInterface	{		use ExpectationDSL;		public function test()		{			$this->expect(true)->toBeTrue();		}	}
+	class TestCase implements DSLInterface
+	{
+
+		use DSL;
+
+		public function test()
+		{
+			$this->expect(true)->toBeTrue();
+		}
+
+	}
