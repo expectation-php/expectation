@@ -21,11 +21,24 @@ describe('ConfigurationBuilder', function() {
             $this->builder = new ConfigurationBuilder();
             $this->builder->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
         });
-        it('should return namespace', function() {
-            $matcherNamespaces = $this->builder->matcherNamespaces();
+        it('should register matcher namespace', function() {
+            $matcherNamespaces = $this->builder->getMatcherNamespaces();
             $directory = $matcherNamespaces->get('expectation\spec\fixture\matcher\basic');
 
             Assertion::same($directory->get(), __DIR__ . '/fixture/matcher/basic');
+        });
+    });
+
+    describe('registerMatcherClass', function() {
+        before(function() {
+            $this->builder = new ConfigurationBuilder();
+            $this->builder->registerMatcherClass('expectation\spec\fixture\matcher\basic\FixtureMatcher');
+        });
+        it('should register matcher classes', function() {
+            $matcherClasses = $this->builder->getMatcherClasses();
+            $refClass = $matcherClasses->get('expectation\spec\fixture\matcher\basic\FixtureMatcher');
+
+            Assertion::same($refClass->get()->getName(), 'expectation\spec\fixture\matcher\basic\FixtureMatcher');
         });
     });
 

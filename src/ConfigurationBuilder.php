@@ -14,6 +14,8 @@ namespace expectation;
 use expectation\matcher\method\MethodLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
 use PhpCollection\Map;
+use PhpCollection\Sequence;
+use ReflectionClass;
 
 /**
  * @package expectation
@@ -26,8 +28,14 @@ class ConfigurationBuilder
      */
     private $matcherNamespaces;
 
+    /**
+     * @var \PhpCollection\Map
+     */
+    private $matcherClasses;
+
     public function __construct()
     {
+        $this->matcherClasses = new Map();
         $this->matcherNamespaces = new Map();
     }
 
@@ -45,9 +53,28 @@ class ConfigurationBuilder
     /**
      * @return Map
      */
-    public function matcherNamespaces()
+    public function getMatcherNamespaces()
     {
         return $this->matcherNamespaces;
+    }
+
+    /**
+     * @param string $className
+     * @return $this
+     */
+    public function registerMatcherClass($className)
+    {
+        $reflectionClass = new ReflectionClass($className);
+        $this->matcherClasses->set($className, $reflectionClass);
+        return $this;
+    }
+
+    /**
+     * @return Map
+     */
+    public function getMatcherClasses()
+    {
+        return $this->matcherClasses;
     }
 
     /**
