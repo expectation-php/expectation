@@ -18,7 +18,7 @@ use FilesystemIterator;
 use ReflectionMethod;
 use ReflectionClass;
 use expectation\matcher\annotation\Lookup;
-
+use PhpCollection\Map;
 
 class MethodLoader
 {
@@ -26,12 +26,12 @@ class MethodLoader
     const MATCHER_PATTERN = "/Matcher\\.php$/";
 
     /**
-     * @var array
+     * @var \PhpCollection\Map
      */
     private $namespaces;
 
     /**
-     * @var array
+     * @var \PhpCollection\Map
      */
     private $factories;
 
@@ -45,14 +45,14 @@ class MethodLoader
      */
     public function __construct(Reader $annotationReader)
     {
-        $this->namespaces = [];
-        $this->factories = [];
+        $this->namespaces = new Map();
+        $this->factories = new Map();
         $this->annotationReader = $annotationReader;
     }
 
     public function registerNamespace($namespace, $directory)
     {
-        $this->namespaces[$namespace] = $directory;
+        $this->namespaces->set($namespace, $directory);
         return $this;
     }
 
@@ -61,10 +61,12 @@ class MethodLoader
      */
     public function load()
     {
-        foreach ($this->namespaces as $namespace => $directory) {
-            $iterator = $this->getRecursiveIterator($directory);
+        $namespaces = $this->namespaces->getIterator();
 
-            foreach ($iterator as $matcherFile) {
+        foreach($namespaces as $namespace => $directory) {
+            $fileIterator = $this->getRecursiveIterator($directory);
+
+            foreach ($fileIterator as $matcherFile) {
                 $name = $matcherFile->getPathname();
 
                 if (preg_match(static::MATCHER_PATTERN, $name) === 0) {
@@ -73,11 +75,15 @@ class MethodLoader
 
                 $className = str_replace([realpath($directory) . "/", ".php"], ["", ""], realpath($name));
                 $className = str_replace("/", "\\", $className);
+
                 $this->loadFactoriesFromClassName($namespace . "\\" . $className);
             }
         }
 
-        return new MethodContainer($this->factories);
+        $factories = $this->factories->getIterator();
+        $factoryArray = $factories->getArrayCopy();
+
+        return new MethodContainer($factoryArray);
     }
 
     private function loadFactoriesFromClassName($className)
@@ -92,14 +98,14 @@ class MethodLoader
                 $registerName = $annotation->getLookupName();
                 $registerFactory = $annotation->getMethodFactory($method);
 
-                if (array_key_exists($registerName, $this->factories)) {
-                    $factory = $this->factories[$registerName];
-                    $registeredMethod = $factory->getMethod();
+                if ($this->factories->containsKey($registerName)) {
+                    $factory = $this->factories->get($registerName);
+                    $registeredMethod = $factory->get()->getMethod();
 
                     throw new AlreadyRegisteredException($registerName, $registeredMethod);
                 }
 
-                $this->factories[$registerName] = $registerFactory;
+                $this->factories->set($registerName, $registerFactory);
             }
         }
     }
