@@ -61,11 +61,17 @@ describe('ConfigurationBuilder', function() {
 
     describe('build', function() {
         before_each(function() {
+            $this->builder->registerMatcherClass('expectation\spec\fixture\matcher\single\FixtureSingleMatcher');
             $this->builder->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
             $this->configration = $this->builder->build();
         });
         it('should return expectation\matcher\method\MethodContainer instance', function() {
             Assertion::isInstanceOf($this->configration->methodContainer, 'expectation\matcher\method\MethodContainer');
+        });
+        it('should registered matchers', function() {
+            $methodContainer = $this->configration->methodContainer;
+            Assertion::isInstanceOf($methodContainer->find('to_eql', [true]), 'expectation\matcher\MethodInterface');
+            Assertion::isInstanceOf($methodContainer->find('toEquals', [true]), 'expectation\matcher\MethodInterface');
         });
     });
 

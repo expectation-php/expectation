@@ -93,6 +93,10 @@ class ConfigurationBuilder
             $loader->registerNamespace($namespace, $directory);
         }
 
+        foreach ($this->matcherClasses as $reflectionClass) {
+            $loader->registerClass($reflectionClass);
+        }
+
         $config = new Configuration([
             'methodContainer' => $loader->load()
         ]);
