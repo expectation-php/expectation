@@ -97,7 +97,41 @@ class MethodLoader
             }
         }
 
+        $this->loadFactoriesFromClasses();
+
         return new MethodContainer($this->factories);
+    }
+
+    private function loadFactoriesFromClasses()
+    {
+        $reflectionClasses = $this->classes->getIterator();
+
+        foreach ($reflectionClasses as $reflectionClass) {
+            $this->loadFactoriesFromClass($reflectionClass);
+        }
+    }
+
+    private function loadFactoriesFromClass(ReflectionClass $reflectionClass)
+    {
+        $methods = $reflectionClass->getMethods();
+
+        foreach($methods as $method) {
+            $annotations = $this->getAnnotationsFromMethod($method);
+
+            foreach ($annotations as $annotation) {
+                $registerName = $annotation->getLookupName();
+                $registerFactory = $annotation->getMethodFactory($method);
+
+                if ($this->factories->containsKey($registerName)) {
+                    $factory = $this->factories->get($registerName);
+                    $registeredMethod = $factory->get()->getMethod();
+
+                    throw new AlreadyRegisteredException($registerName, $registeredMethod);
+                }
+
+                $this->factories->set($registerName, $registerFactory);
+            }
+        }
     }
 
     private function loadFactoriesFromClassName($className)
@@ -123,6 +157,8 @@ class MethodLoader
             }
         }
     }
+
+
 
     /**
      * @param ReflectionMethod $method
