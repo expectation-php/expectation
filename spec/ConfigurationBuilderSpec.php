@@ -12,24 +12,26 @@
 namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
-use expectation\ConfigrationBuilder;
+use expectation\ConfigurationBuilder;
 
-describe('ConfigrationBuilder', function() {
+describe('ConfigurationBuilder', function() {
 
     describe('registerMatcherNamespace', function() {
         before(function() {
-            $this->builder = new ConfigrationBuilder();
+            $this->builder = new ConfigurationBuilder();
             $this->builder->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
         });
         it('should return namespace', function() {
             $matcherNamespaces = $this->builder->matcherNamespaces();
-            Assertion::same($matcherNamespaces['expectation\spec\fixture\matcher\basic'], __DIR__ . '/fixture/matcher/basic');
+            $directory = $matcherNamespaces->get('expectation\spec\fixture\matcher\basic');
+
+            Assertion::same($directory->get(), __DIR__ . '/fixture/matcher/basic');
         });
     });
 
     describe('build', function() {
         before(function() {
-            $this->builder = new ConfigrationBuilder();
+            $this->builder = new ConfigurationBuilder();
             $this->builder->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
             $this->configration = $this->builder->build();
         });

@@ -14,7 +14,7 @@ namespace expectation;
 /**
  * @package expectation
  */
-class Configration
+class Configuration
 {
 
     use AttributeAccessible;

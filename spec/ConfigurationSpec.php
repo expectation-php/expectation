@@ -11,11 +11,11 @@
 
 namespace Preview\DSL\BDD;
 
-use expectation\Configration;
+use expectation\Configuration;
 use Assert\Assertion;
 use Prophecy\Prophet;
 
-describe('Configration', function() {
+describe('Configuration', function() {
 
     describe('__construct', function() {
         before(function() {
@@ -25,7 +25,7 @@ describe('Configration', function() {
             $this->container->find()->shouldNotBeCalled();
             $this->methodContainer = $this->container->reveal();
 
-            $this->configration = new Configration([
+            $this->configuration = new Configuration([
                 'methodContainer' => $this->methodContainer
             ]);
         });
@@ -33,7 +33,7 @@ describe('Configration', function() {
             $this->prophet->checkPredictions();
         });
         it('should assign methodContainer property', function() {
-            Assertion::isInstanceOf($this->configration->methodContainer, $this->methodContainer);
+            Assertion::isInstanceOf($this->configuration->methodContainer, $this->methodContainer);
         });
     });
 

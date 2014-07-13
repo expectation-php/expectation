@@ -13,21 +13,22 @@ namespace expectation;
 
 use expectation\matcher\method\MethodLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
+use PhpCollection\Map;
 
 /**
  * @package expectation
  */
-class ConfigrationBuilder
+class ConfigurationBuilder
 {
 
     /**
-     * @var array
+     * @var \PhpCollection\Map
      */
     private $matcherNamespaces;
 
     public function __construct()
     {
-        $this->matcherNamespaces = [];
+        $this->matcherNamespaces = new Map();
     }
 
     /**
@@ -37,15 +38,21 @@ class ConfigrationBuilder
      */
     public function registerMatcherNamespace($namespace, $directory)
     {
-        $this->matcherNamespaces[$namespace] = $directory;
+        $this->matcherNamespaces->set($namespace, $directory);
         return $this;
     }
 
+    /**
+     * @return Map
+     */
     public function matcherNamespaces()
     {
         return $this->matcherNamespaces;
     }
 
+    /**
+     * @return \expectation\Configuration
+     */
     public function build()
     {
         $loader = new MethodLoader(new AnnotationReader());
@@ -54,7 +61,7 @@ class ConfigrationBuilder
             $loader->registerNamespace($namespace, $directory);
         }
 
-        $config = new Configration([
+        $config = new Configuration([
             'methodContainer' => $loader->load()
         ]);
 
