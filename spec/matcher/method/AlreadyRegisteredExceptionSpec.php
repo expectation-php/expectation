@@ -12,16 +12,22 @@
 namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
+use ReflectionMethod;
 use expectation\matcher\method\AlreadyRegisteredException;
 
 describe('AlreadyRegisteredException', function() {
 
     describe('getMessage', function() {
         before(function() {
-            $this->exception = new AlreadyRegisteredException("toEqual");
+            $this->registeredName = 'toEqual';
+            $this->reflectionMethod = new ReflectionMethod('expectation\spec\fixture\matcher\basic\FixtureMatcher', 'match');
+            $this->exception = new AlreadyRegisteredException($this->registeredName, $this->reflectionMethod);
         });
         it('should return message' ,function() {
-            Assertion::same($this->exception->getMessage(), "'toEqual' method of matcher is already registered");
+            $messages[] = "'toEqual' method of matcher is already registered.";
+            $messages[] = "Class is expectation\\spec\\fixture\\matcher\\basic\\FixtureMatcher, the method is registered with the match.";
+
+            Assertion::same($this->exception->getMessage(), implode("\n", $messages));
         });
     });
 
