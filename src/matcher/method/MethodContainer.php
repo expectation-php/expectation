@@ -11,18 +11,20 @@
 
 namespace expectation\matcher\method;
 
+use PhpCollection\MapInterface;
+
 class MethodContainer implements MethodContainerInterface
 {
 
     /**
-     * @var ArrayObject
+     * @var MapInterface
      */
     private $factories;
 
     /**
-     * @param array $factories
+     * @param MapInterface $factories
      */
-    public function __construct(array $factories)
+    public function __construct(MapInterface $factories)
     {
         $this->factories = $factories;
     }
@@ -32,12 +34,12 @@ class MethodContainer implements MethodContainerInterface
      */
     public function find($name, array $arguments)
     {
-        if (!isset($this->factories[$name])) {
+        if ($this->factories->containsKey($name) === false) {
             throw new FactoryNotFoundException("{$name} is not found");
         }
-        $factory = $this->factories[$name];
+        $factory = $this->factories->get($name);
 
-        return $factory->withArguments($arguments);
+        return $factory->get()->withArguments($arguments);
     }
 
 }

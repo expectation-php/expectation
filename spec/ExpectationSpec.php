@@ -13,14 +13,14 @@ namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
 use expectation\Expectation;
-use expectation\ConfigrationBuilder;
+use expectation\ConfigurationBuilder;
 
 describe('Expectation', function() {
 
     describe('expect', function() {
         before(function() {
-            Expectation::configure(function(ConfigrationBuilder $config) {
-                $config->registerMatcherNamespace('expectation\spec\fixture', __DIR__ . '/fixture');
+            Expectation::configure(function(ConfigurationBuilder $config) {
+                $config->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
             });
         });
         it('should lookup matcher method', function() {

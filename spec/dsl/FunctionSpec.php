@@ -1,0 +1,239 @@
+<?php
+
+/**
+ * This file is part of expectation package.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+namespace Preview\DSL\BDD;
+
+use Assert\Assertion;
+use expectation\dsl as expectation;
+use expectation\Expectation as AliasExpectation;
+use stdClass;
+use RuntimeException;
+use ArrayObject;
+
+describe('DSL', function() {
+    before(function() {
+        AliasExpectation::configure();
+    });
+
+    describe('equal matcher', function() {
+        describe('toEqual', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(true)->toEqual(true));
+                });
+            });
+        });
+        describe('toBeTrue', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(true)->toBeTrue());
+                });
+            });
+        });
+        describe('toBeFalse', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(false)->toBeFalse());
+                });
+            });
+        });
+        describe('toBeNull', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(null)->toBeNull());
+                });
+            });
+        });
+    });
+
+
+    describe('type matcher', function() {
+        describe('toBeA', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect('foo')->toBeA('string'));
+                });
+            });
+        });
+        describe('toBeAn', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect('foo')->toBeAn('string'));
+                });
+            });
+        });
+        describe('toBeString', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect('true')->toBeString());
+                });
+            });
+        });
+        describe('toBeInteger', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(1)->toBeInteger());
+                });
+            });
+        });
+        describe('toBeFloat', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(1.1)->toBeFloat());
+                });
+            });
+        });
+        describe('toBeDouble', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(1.1)->toBeDouble());
+                });
+            });
+        });
+        describe('toBeBoolean', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(true)->toBeBoolean());
+                });
+            });
+        });
+    });
+
+    describe('instance matcher', function() {
+        describe('toBeAnInstanceOf', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(new stdClass())->toBeAnInstanceOf('stdClass'));
+                });
+            });
+        });
+    });
+
+    describe('exception matcher', function() {
+        describe('toThrow', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    $result = expectation\expect(function() {
+                        throw new RuntimeException();
+                    })->toThrow('RuntimeException');
+                    Assertion::true($result);
+                });
+            });
+        });
+    });
+
+    describe('length matcher', function() {
+        describe('toHaveLength', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect([1])->toHaveLength(1));
+                    Assertion::true(expectation\expect("a")->toHaveLength(1));
+                    Assertion::true(expectation\expect(new ArrayObject([1]))->toHaveLength(1));
+                });
+            });
+        });
+    });
+
+    describe('print matcher', function() {
+        describe('toPrint', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(function() {
+                        echo 'foo';
+                    })->toPrint('foo'));
+                });
+            });
+        });
+    });
+
+    describe('pattern matcher', function() {
+        describe('toStartWith', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("foobar")->toStartWith("foo"));
+                });
+            });
+        });
+        describe('toEndWith', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("barfoo")->toEndWith("foo"));
+                });
+            });
+        });
+        describe('toMatch', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("barfoo")->toMatch("/foo/"));
+                });
+            });
+        });
+    });
+    describe('inclusion matcher', function() {
+        describe('toContain', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect("barfoo")->toContain("foo"));
+                    Assertion::true(expectation\expect("foo")->toContain(["foo", "fo"]));
+                    Assertion::true(expectation\expect(["bar", "foo"])->toContain("foo"));
+                    Assertion::true(expectation\expect(["bar", "foo"])->toContain(["bar", "foo"]));
+                    Assertion::true(expectation\expect(["bar", "foo"])->toContain("bar", "foo"));
+                });
+            });
+        });
+        describe('toHaveKey', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(["foo" => "bar"])->toHaveKey("foo"));
+                });
+            });
+        });
+    });
+
+    describe('numeric matcher', function() {
+        describe('toBeGreaterThan', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(4)->toBeGreaterThan(3));
+                });
+            });
+        });
+        describe('toBeLessThan', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(2)->toBeLessThan(3));
+                });
+            });
+        });
+        describe('toBeAbove', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(4)->toBeAbove(3));
+                });
+            });
+        });
+        describe('toBeBelow', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(3)->toBeBelow(4));
+                });
+            });
+        });
+        describe('toBeWithin', function() {
+            context('when result is true', function() {
+                it('should return true', function() {
+                    Assertion::true(expectation\expect(3)->toBeWithin(0, 3));
+                });
+            });
+        });
+    });
+
+});

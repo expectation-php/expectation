@@ -20,7 +20,7 @@ use expectation\ExpectationException;
 describe('Method', function() {
 
     before_each(function() {
-        $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\FixtureMatcher', 'match');
+        $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\matcher\\basic\\FixtureMatcher', 'match');
         $this->matcherMethod = new Method($this->method);
     });
 

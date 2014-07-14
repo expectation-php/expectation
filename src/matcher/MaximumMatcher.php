@@ -9,31 +9,28 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\spec\fixture;
+namespace expectation\matcher;
 
 use expectation\AbstractMatcher;
 use expectation\matcher\annotation\Lookup;
 
-class FixtureMatcher extends AbstractMatcher
+/**
+ * @package expectation
+ * @author Noritaka Horio <holy.shared.design@gmail.com>
+ */
+class MaximumMatcher extends AbstractMatcher
 {
 
     /**
-     * @Lookup(name="toEqual")
+     * @Lookup(name="toBeLessThan")
+     * @Lookup(name="toBeBelow")
      * @param mixed $actual
+     * @return boolean
      */
     public function match($actual)
     {
         $this->actualValue = $actual;
-        return $this->actualValue === $this->expectValue;
-    }
-
-    /**
-     * @Lookup(name="equals")
-     * @param mixed $actual
-     */
-    public function equals($actual)
-    {
-        return $this->match($actual);
+        return $this->actualValue < $this->expectValue;
     }
 
     /**
@@ -43,7 +40,7 @@ class FixtureMatcher extends AbstractMatcher
     {
         $actual = $this->formatter->toString($this->actualValue);
         $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} to be {$expected}";
+        return "Expected {$actual} to be less than {$expected}";
     }
 
     /**
@@ -53,7 +50,7 @@ class FixtureMatcher extends AbstractMatcher
     {
         $actual = $this->formatter->toString($this->actualValue);
         $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} not to be {$expected}";
+        return "Expected {$actual} not to be less than {$expected}";
     }
 
 }

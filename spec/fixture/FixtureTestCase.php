@@ -9,18 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\spec\fixture;
 
-trait DSL
+use expectation\DSL;
+use expectation\DSLInterface;
+
+class FixtureTestCase implements DSLInterface
 {
-
-    /**
-     * @param string $actual
-     * @return Evaluator
-     */
-    public function expect($actual)
-    {
-        return Expectation::expect($actual);
-    }
-
+    use DSL;
 }

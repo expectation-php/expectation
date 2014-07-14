@@ -1,13 +1,14 @@
 {
     "name": "expectation/expectation",
     "description": "expectation library for unit testing",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "keywords": [
         "expect", "assert", "test"
     ],
     "require": {
         "php": ">=5.4.0",
-        "doctrine/annotations": "@stable"
+        "doctrine/annotations": "1.2.*",
+        "phpcollection/phpcollection": "0.4.*"
     },
     "require-dev": {
         "v2e4lisp/preview": "2.*",
@@ -30,13 +31,16 @@
         },
         "files": [
             "src/Autoload.php",
-            "src/DSL.php"
+            "src/dsl/Function.php"
         ]
     },
     "autoload-dev": {
         "psr-4": {
             "expectation\\spec\\fixture\\": "spec/fixture/",
+            "expectation\\spec\\fixture\\matcher\\basic\\": "spec/fixture/matcher/basic/",
+            "expectation\\spec\\fixture\\matcher\\duplicated\\": "spec/fixture/matcher/duplicated/",
             "expectation\\spec\\reporter\\": "spec/reporter/"
         }
-    }
+    },
+    "minimum-stability": "stable"
 }

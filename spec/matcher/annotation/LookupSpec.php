@@ -18,7 +18,7 @@ use expectation\matcher\annotation\Lookup;
 describe('Lookup', function() {
 
     before(function() {
-        $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\FixtureMatcher', 'match');
+        $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\matcher\\basic\\FixtureMatcher', 'match');
         $this->annotation = new Lookup([
             'name' => 'toEqual'
         ]);

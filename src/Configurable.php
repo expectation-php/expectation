@@ -18,38 +18,36 @@ trait Configurable
 {
 
     /**
-     * @var \expectation\Configration
+     * @var \expectation\Configuration
      */
-    private static $configration;
+    private static $configuration;
 
     /**
      * @param callable $callback
      */
     public static function configure(callable $callback = null)
     {
-        if (!empty(static::$configration)) {
-            return;
-        }
+
         $builder = static::builder();
 
         if (isset($callback)) {
             call_user_func_array($callback, [$builder]);
         }
 
-        static::$configration = $builder->build();
+        static::$configuration = $builder->build();
     }
 
     /**
-     * @return \expectation\Configration
+     * @return \expectation\Configuration
      */
     public static function configration()
     {
-        return static::$configration;
+        return static::$configuration;
     }
 
     private static function builder()
     {
-        $builder = new ConfigrationBuilder();
+        $builder = new ConfigurationBuilder();
         $builder->registerMatcherNamespace(
             '\\expectation\\matcher',
             __DIR__ . '/matcher'

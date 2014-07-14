@@ -15,6 +15,7 @@ use Assert\Assertion;
 use expectation\matcher\ExceptionMatcher;
 use expectation\matcher\Formatter;
 use Exception;
+use UnderflowException;
 
 describe('ExceptionMatcher', function() {
 
@@ -57,7 +58,7 @@ describe('ExceptionMatcher', function() {
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
             $this->matcher->expectValue = 'UnderflowException';
-            Assertion::false($this->matcher->match(function() { throw new Exception(); }));
+            Assertion::true($this->matcher->match(function() { throw new UnderflowException(); }));
             Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected UnderflowException not to be thrown");
         });
     });

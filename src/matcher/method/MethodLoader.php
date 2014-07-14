@@ -18,7 +18,8 @@ use FilesystemIterator;
 use ReflectionMethod;
 use ReflectionClass;
 use expectation\matcher\annotation\Lookup;
-
+use PhpCollection\Map;
+use PhpCollection\Sequence;
 
 class MethodLoader
 {
@@ -26,12 +27,12 @@ class MethodLoader
     const MATCHER_PATTERN = "/Matcher\\.php$/";
 
     /**
-     * @var array
+     * @var \PhpCollection\Map
      */
     private $namespaces;
 
     /**
-     * @var array
+     * @var \PhpCollection\Map
      */
     private $factories;
 
@@ -45,14 +46,30 @@ class MethodLoader
      */
     public function __construct(Reader $annotationReader)
     {
-        $this->namespaces = [];
-        $this->factories = [];
+        $this->classes = new Sequence();
+        $this->namespaces = new Map();
+        $this->factories = new Map();
         $this->annotationReader = $annotationReader;
     }
 
+    /**
+     * @param ReflectionClass $reflectionClass
+     * @return $this
+     */
+    public function registerClass(ReflectionClass $reflectionClass)
+    {
+        $this->classes->add($reflectionClass);
+        return $this;
+    }
+
+    /**
+     * @param string $namespace
+     * @param string $directory
+     * @return $this
+     */
     public function registerNamespace($namespace, $directory)
     {
-        $this->namespaces[$namespace] = $directory;
+        $this->namespaces->set($namespace, $directory);
         return $this;
     }
 
@@ -61,36 +78,74 @@ class MethodLoader
      */
     public function load()
     {
-        foreach ($this->namespaces as $namespace => $directory) {
-            $iterator = $this->getRecursiveIterator($directory);
+        $this->loadFactoriesFromClasses();
+        $this->loadFactoriesFromNamespace();
 
-            foreach ($iterator as $matcherFile) {
-                $name = $matcherFile->getFilename();
+        return new MethodContainer($this->factories);
+    }
+
+    /**
+     * @throws AlreadyRegisteredException
+     */
+    private function loadFactoriesFromNamespace()
+    {
+        $namespaces = $this->namespaces->getIterator();
+
+        foreach($namespaces as $namespace => $directory) {
+            $fileIterator = $this->getRecursiveIterator($directory);
+
+            foreach ($fileIterator as $matcherFile) {
+                $name = $matcherFile->getPathname();
 
                 if (preg_match(static::MATCHER_PATTERN, $name) === 0) {
                     continue;
                 }
 
-                $className = str_replace(".php", "", $name);
-                $this->loadFactoriesFromClassName($namespace . "\\" . $className);
+                $className = str_replace([realpath($directory) . "/", ".php"], ["", ""], realpath($name));
+                $className = str_replace("/", "\\", $className);
+
+                $reflection = new ReflectionClass($namespace . "\\" . $className);
+
+                $this->loadFactoriesFromClass($reflection);
             }
         }
-
-        return new MethodContainer($this->factories);
     }
 
-    private function loadFactoriesFromClassName($className)
+    /**
+     * @throws AlreadyRegisteredException
+     */
+    private function loadFactoriesFromClasses()
     {
-        $reflection = new ReflectionClass($className);
-        $methods = $reflection->getMethods();
+        $reflectionClasses = $this->classes->getIterator();
+
+        foreach ($reflectionClasses as $reflectionClass) {
+            $this->loadFactoriesFromClass($reflectionClass);
+        }
+    }
+
+    /**
+     * @param ReflectionClass $reflectionClass
+     * @throws AlreadyRegisteredException
+     */
+    private function loadFactoriesFromClass(ReflectionClass $reflectionClass)
+    {
+        $methods = $reflectionClass->getMethods();
 
         foreach($methods as $method) {
             $annotations = $this->getAnnotationsFromMethod($method);
+
             foreach ($annotations as $annotation) {
                 $registerName = $annotation->getLookupName();
                 $registerFactory = $annotation->getMethodFactory($method);
 
-                $this->factories[$registerName] = $registerFactory;
+                if ($this->factories->containsKey($registerName)) {
+                    $factory = $this->factories->get($registerName);
+                    $registeredMethod = $factory->get()->getMethod();
+
+                    throw new AlreadyRegisteredException($registerName, $registeredMethod);
+                }
+
+                $this->factories->set($registerName, $registerFactory);
             }
         }
     }
