@@ -28,6 +28,12 @@ class LengthMatcher extends AbstractMatcher
     private $type;
 
     /**
+     * @var int
+     */
+    private $length;
+
+
+    /**
      * @Lookup(name="toHaveLength")
      * @param mixed $actual
      * @return boolean
@@ -40,17 +46,17 @@ class LengthMatcher extends AbstractMatcher
         $expected = $this->expectValue;
 
         if (is_string($that) === true) {
-            $length = mb_strlen($that);
+            $this->length = mb_strlen($that);
             $this->type = 'string';
         } else if (is_array($that) === true) {
-            $length = count($that);
+            $this->length = count($that);
             $this->type = 'array';
         } else if ($that instanceof Countable) {
-            $length = count($that);
+            $this->length = count($that);
             $this->type = get_class($that);
         }
 
-        return ($length === $expected);
+        return ($this->length === $expected);
     }
 
     /**
