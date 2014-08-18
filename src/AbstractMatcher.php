@@ -11,10 +11,15 @@
 
 namespace expectation;
 
-use BadMethodCallException;
 use expectation\matcher\Formatter;
 use expectation\AttributeAccessible;
 
+/**
+ * Class AbstractMatcher
+ * @package expectation
+ * @property mixed $actualValue
+ * @property mixed $expectValue
+ */
 abstract class AbstractMatcher implements MatcherInterface
 {
 
