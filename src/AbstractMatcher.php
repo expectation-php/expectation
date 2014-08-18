@@ -80,32 +80,4 @@ abstract class AbstractMatcher implements MatcherInterface
         return $this->expectValue;
     }
 
-    /**
-     * @param string $name
-     */
-    public function __get($name)
-    {
-        if (!property_exists($this, $name)) {
-            throw new BadPropertyAccessException($name);
-        }
-        return $this->$name;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $value
-     */
-    public function __set($name, $value)
-    {
-        $setterMethod = 'set' . ucfirst($name);
-
-        if (method_exists($this, $setterMethod) === false) {
-            throw new BadPropertyAccessException($name);
-        }
-        $method = [$this, $setterMethod];
-        $methodArguments = [$value];
-
-        return call_user_func_array($method, $methodArguments);
-    }
-
 }
