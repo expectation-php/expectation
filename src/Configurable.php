@@ -42,7 +42,7 @@ trait Configurable
      */
     public static function configration()
     {
-        return static::$configuration;
+        return self::$configuration;
     }
 
     private static function builder()
