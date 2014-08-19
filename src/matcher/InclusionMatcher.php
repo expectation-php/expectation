@@ -70,21 +70,23 @@ class InclusionMatcher extends AbstractMatcher
      */
     private function matchString()
     {
-        $included = false;
         $expectValues = (is_array($this->expectValue))
             ? $this->expectValue : [$this->expectValue];
 
-        foreach($expectValues as $expectValue) {
-            $result = strpos($this->actualValue, $expectValue);
-            if ($result === false) {
-                $this->unmatchResults[] = $expectValue;
-                continue;
-            }
-            $this->matchResults[] = $expectValue;
-            $included = true;
-            break;
-        }
-        return $included;
+        $actualValue = $this->actualValue;
+
+        $expectValues = new Sequence($expectValues);
+        $matchResults = $expectValues->filter(function($expectValue) use($actualValue) {
+            return strpos($actualValue, $expectValue) !== false;
+        });
+        $unmatchResults = $expectValues->filter(function($expectValue) use($actualValue) {
+            return strpos($actualValue, $expectValue) === false;
+        });
+
+        $this->matchResults = $matchResults->all();
+        $this->unmatchResults = $unmatchResults->all();
+
+        return $matchResults->count() >= $expectValues->count();
     }
 
     /**
