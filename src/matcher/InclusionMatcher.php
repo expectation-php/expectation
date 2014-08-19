@@ -14,6 +14,8 @@ namespace expectation\matcher;
 use expectation\AbstractMatcher;
 use expectation\matcher\annotation\Lookup;
 use InvalidArgumentException;
+use PhpCollection\Sequence;
+
 
 /**
  * @package expectation\matcher
@@ -90,21 +92,23 @@ class InclusionMatcher extends AbstractMatcher
      */
     private function matchArray()
     {
-        $included = false;
         $expectValues = (is_array($this->expectValue))
             ? $this->expectValue : [$this->expectValue];
 
-        foreach($expectValues as $expectValue) {
-            $result = in_array($expectValue, $this->actualValue);
-            if ($result === false) {
-                $this->unmatchResults[] = $expectValue;
-                continue;
-            }
-            $this->matchResults[] = $expectValue;
-            $included = true;
-            break;
-        }
-        return $included;
+        $actualValues = $this->actualValue;
+
+        $expectValues = new Sequence($expectValues);
+        $matchResults = $expectValues->filter(function($expectValue) use($actualValues) {
+            return in_array($expectValue, $actualValues);
+        });
+        $unmatchResults = $expectValues->filter(function($expectValue) use($actualValues) {
+            return in_array($expectValue, $actualValues) !== true;
+        });
+
+        $this->matchResults = $matchResults->all();
+        $this->unmatchResults = $unmatchResults->all();
+
+        return $matchResults->count() >= $expectValues->count();
     }
 
     /**
