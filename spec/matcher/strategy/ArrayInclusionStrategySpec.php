@@ -26,11 +26,13 @@ describe('ArrayInclusionStrategy', function() {
         it('return expectation\matcher\strategy\InclusionResult instance', function() {
             Assertion::isInstanceOf($this->result, 'expectation\matcher\strategy\InclusionResult');
         });
-        it('has match results', function() {
-            Assertion::count($this->result->getMatchResults(), 1);
-        });
-        it('has unmatch results', function() {
-            Assertion::count($this->result->getUnmatchResults(), 2);
+        describe('result', function() {
+            it('has match results', function() {
+                Assertion::count($this->result->getMatchResults(), 1);
+            });
+            it('has unmatch results', function() {
+                Assertion::count($this->result->getUnmatchResults(), 2);
+            });
         });
     });
 });
