@@ -13,6 +13,7 @@ namespace expectation\matcher;
 
 use expectation\AbstractMatcher;
 use expectation\matcher\annotation\Lookup;
+use expectation\matcher\strategy\ArrayInclusionStrategy;
 use InvalidArgumentException;
 use PhpCollection\Sequence;
 
@@ -99,18 +100,13 @@ class InclusionMatcher extends AbstractMatcher
 
         $actualValues = $this->actualValue;
 
-        $expectValues = new Sequence($expectValues);
-        $matchResults = $expectValues->filter(function($expectValue) use($actualValues) {
-            return in_array($expectValue, $actualValues);
-        });
-        $unmatchResults = $expectValues->filter(function($expectValue) use($actualValues) {
-            return in_array($expectValue, $actualValues) !== true;
-        });
+        $strategy = new ArrayInclusionStrategy($actualValues);
+        $result = $strategy->match($expectValues);
 
-        $this->matchResults = $matchResults->all();
-        $this->unmatchResults = $unmatchResults->all();
+        $this->matchResults = $result->getMatchResults();
+        $this->unmatchResults = $result->getUnmatchResults();
 
-        return $matchResults->count() >= $expectValues->count();
+        return count($this->matchResults) >= count($expectValues);
     }
 
     /**
