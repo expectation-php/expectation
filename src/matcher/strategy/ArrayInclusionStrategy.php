@@ -35,11 +35,11 @@ class ArrayInclusionStrategy
         $matchResults = [];
         $unmatchResults = [];
 
-        foreach ($this->actualValues as $actualValue) {
-            if (in_array($actualValue, $expectValues)) {
-                $matchResults[] = $actualValue;
+        foreach ($expectValues as $expectValue) {
+            if (in_array($expectValue, $this->actualValues)) {
+                $matchResults[] = $expectValue;
             } else {
-                $unmatchResults[] = $actualValue;
+                $unmatchResults[] = $expectValue;
             }
         }
 
