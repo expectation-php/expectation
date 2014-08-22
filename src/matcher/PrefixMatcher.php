@@ -20,8 +20,11 @@ use expectation\matcher\annotation\Lookup;
  * @property mixed $expectValue
  * @author Noritaka Horio <holy.shared.design@gmail.com>
  */
-class PrefixMatcher extends AbstractMatcher
+class PrefixMatcher extends StringMatcher
 {
+
+    const FAILURE_MESSAGE = "Expected %s to start with %s";
+    const NEGATED_FAILURE_MESSAGE = "Expected %s not to start with %s";
 
     /**
      * @Lookup(name="toStartWith")
@@ -40,9 +43,7 @@ class PrefixMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} to start with {$expected}";
+        return $this->getMessageFromTemplate(self::FAILURE_MESSAGE);
     }
 
     /**
@@ -50,9 +51,7 @@ class PrefixMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} not to start with {$expected}";
+        return $this->getMessageFromTemplate(self::NEGATED_FAILURE_MESSAGE);
     }
 
 }
