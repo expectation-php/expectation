@@ -17,6 +17,11 @@ class InclusionResult
     /**
      * @var array
      */
+    private $expectValues;
+
+    /**
+     * @var array
+     */
     private $matchResults;
 
     /**
@@ -25,11 +30,13 @@ class InclusionResult
     private $unmatchResults;
 
     /**
+     * @param array expectValues
      * @param array matchResults
      * @param array unmatchResults
      */
-    public function __construct(array $matchResults, array $unmatchResults)
+    public function __construct(array $expectValues, array $matchResults, array $unmatchResults)
     {
+        $this->expectValues = $expectValues;
         $this->matchResults = $matchResults;
         $this->unmatchResults = $unmatchResults;
     }
@@ -48,6 +55,14 @@ class InclusionResult
     public function getUnmatchResults()
     {
         return $this->unmatchResults;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isMatched()
+    {
+        return count($this->matchResults) >= count($this->expectValues);
     }
 
 }

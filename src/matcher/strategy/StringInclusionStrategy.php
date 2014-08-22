@@ -45,7 +45,7 @@ class StringInclusionStrategy
             }
         }
 
-        return new InclusionResult($matchResults, $unmatchResults);
+        return new InclusionResult($expectValues, $matchResults, $unmatchResults);
     }
 
 }

@@ -16,9 +16,10 @@ use expectation\matcher\strategy\InclusionResult;
 
 describe('InclusionResult', function() {
     before(function() {
+        $this->expectValues = [1, 2, 3];
         $this->matchResults = [1, 2, 3];
         $this->unmatchResults = [4];
-        $this->inclusionResult = new InclusionResult([1, 2, 3], [4]);
+        $this->inclusionResult = new InclusionResult($this->expectValues, $this->matchResults, $this->unmatchResults);
     });
     describe('#getMatchResults', function() {
         before(function() {
@@ -34,6 +35,32 @@ describe('InclusionResult', function() {
         });
         it('return unmatch results', function() {
             Assertion::same($this->result, $this->unmatchResults);
+        });
+    });
+    describe('#isMatched', function() {
+        context('when match', function() {
+            before(function() {
+                $this->expectValues = [1, 2, 3];
+                $this->matchResults = [1, 2, 3];
+                $this->unmatchResults = [4];
+                $this->inclusionResult = new InclusionResult($this->expectValues, $this->matchResults, $this->unmatchResults);
+                $this->result = $this->inclusionResult->isMatched();
+            });
+            it('return true', function() {
+                Assertion::true($this->result);
+            });
+        });
+        context('when unmatch', function() {
+            before(function() {
+                $this->expectValues = [1, 2, 3, 4];
+                $this->matchResults = [1, 2, 3];
+                $this->unmatchResults = [4];
+                $this->inclusionResult = new InclusionResult($this->expectValues, $this->matchResults, $this->unmatchResults);
+                $this->result = $this->inclusionResult->isMatched();
+            });
+            it('return false', function() {
+                Assertion::false($this->result);
+            });
         });
     });
 });
