@@ -11,7 +11,7 @@
 
 namespace expectation\matcher\strategy;
 
-class ArrayInclusionStrategy
+class ArrayInclusionStrategy implements InclusionStrategyInterface
 {
 
     /**
