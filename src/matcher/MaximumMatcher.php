@@ -43,9 +43,7 @@ class MaximumMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
-        return sprintf(self::FAILURE_MESSAGE, $actual, $expected);
+        return $this->getMessageFromTemplate(self::FAILURE_MESSAGE);
     }
 
     /**
@@ -53,9 +51,18 @@ class MaximumMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
+        return $this->getMessageFromTemplate(self::NEGATED_FAILURE_MESSAGE);
+    }
+
+    /**
+     * @return string
+     */
+    private function getMessageFromTemplate($template)
+    {
         $actual = $this->formatter->toString($this->actualValue);
         $expected = $this->formatter->toString($this->expectValue);
-        return sprintf(self::NEGATED_FAILURE_MESSAGE, $actual, $expected);
+
+        return sprintf($template, $actual, $expected);
     }
 
 }
