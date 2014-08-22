@@ -23,6 +23,9 @@ use expectation\matcher\annotation\Lookup;
 class MaximumMatcher extends AbstractMatcher
 {
 
+    const FAILURE_MESSAGE = "Expected %s to be less than %s";
+    const NEGATED_FAILURE_MESSAGE = "Expected %s not to be less than %s";
+
     /**
      * @Lookup(name="toBeLessThan")
      * @Lookup(name="toBeBelow")
@@ -42,7 +45,7 @@ class MaximumMatcher extends AbstractMatcher
     {
         $actual = $this->formatter->toString($this->actualValue);
         $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} to be less than {$expected}";
+        return sprintf(self::FAILURE_MESSAGE, $actual, $expected);
     }
 
     /**
@@ -52,7 +55,7 @@ class MaximumMatcher extends AbstractMatcher
     {
         $actual = $this->formatter->toString($this->actualValue);
         $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} not to be less than {$expected}";
+        return sprintf(self::NEGATED_FAILURE_MESSAGE, $actual, $expected);
     }
 
 }
