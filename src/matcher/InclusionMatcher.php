@@ -21,6 +21,8 @@ use PhpCollection\Sequence;
 
 /**
  * @package expectation\matcher
+ * @property mixed $actualValue
+ * @property mixed $expectValue
  * @author Noritaka Horio <holy.shared.design@gmail.com>
  */
 class InclusionMatcher extends AbstractMatcher

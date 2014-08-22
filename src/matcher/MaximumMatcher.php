@@ -16,6 +16,8 @@ use expectation\matcher\annotation\Lookup;
 
 /**
  * @package expectation
+ * @property mixed $actualValue
+ * @property mixed $expectValue
  * @author Noritaka Horio <holy.shared.design@gmail.com>
  */
 class MaximumMatcher extends AbstractMatcher
