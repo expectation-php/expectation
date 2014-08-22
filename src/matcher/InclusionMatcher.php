@@ -32,14 +32,9 @@ class InclusionMatcher extends AbstractMatcher
     private $type;
 
     /**
-     * @var array
+     * @var \expectation\matcher\strategy\InclusionResult
      */
-    private $matchResults = [];
-
-    /**
-     * @var array
-     */
-    private $unmatchResults = [];
+    private $matchResult;
 
 
     /**
@@ -78,12 +73,9 @@ class InclusionMatcher extends AbstractMatcher
         $actualValue = $this->actualValue;
 
         $strategy = new StringInclusionStrategy($actualValue);
-        $result = $strategy->match($expectValues);
+        $this->matchResult = $strategy->match($expectValues);
 
-        $this->matchResults = $result->getMatchResults();
-        $this->unmatchResults = $result->getUnmatchResults();
-
-        return $result->isMatched();
+        return $this->matchResult->isMatched();
     }
 
     /**
@@ -97,12 +89,9 @@ class InclusionMatcher extends AbstractMatcher
         $actualValues = $this->actualValue;
 
         $strategy = new ArrayInclusionStrategy($actualValues);
-        $result = $strategy->match($expectValues);
+        $this->matchResult = $strategy->match($expectValues);
 
-        $this->matchResults = $result->getMatchResults();
-        $this->unmatchResults = $result->getUnmatchResults();
-
-        return $result->isMatched();
+        return $this->matchResult->isMatched();
     }
 
     /**
@@ -110,7 +99,8 @@ class InclusionMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        $missing = implode(', ', $this->unmatchResults);
+        $unmatchResults = $this->matchResult->getUnmatchResults();
+        $missing = implode(', ', $unmatchResults);
         return "Expected {$this->type} to contain {$missing}";
     }
 
@@ -119,7 +109,8 @@ class InclusionMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        $found = implode(', ', $this->matchResults);
+        $matchResults = $this->matchResult->getMatchResults();
+        $found = implode(', ', $matchResults);
         return "Expected {$this->type} not to contain {$found}";
     }
 
