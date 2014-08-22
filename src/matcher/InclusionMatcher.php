@@ -54,6 +54,8 @@ class InclusionMatcher extends AbstractMatcher
         $expectValues = (is_array($this->expectValue))
             ? $this->expectValue : [$this->expectValue];
 
+        $strategy = null;
+
         if (is_string($this->actualValue)) {
             $this->type = 'string';
             $strategy = new StringInclusionStrategy($this->actualValue);
