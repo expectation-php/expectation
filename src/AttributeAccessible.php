@@ -19,10 +19,14 @@ trait AttributeAccessible
      */
     public function __get($name)
     {
-        if (!property_exists($this, $name)) {
-            throw new BadPropertyAccessException($name);
+        $getterMethod = 'get' . ucfirst($name);
+
+        if (method_exists($this, $getterMethod)) {
+            return $this->$getterMethod();
+        } else if (property_exists($this, $name)) {
+            return $this->$name;
         }
-        return $this->$name;
+        throw new BadPropertyAccessException($name);
     }
 
     /**
