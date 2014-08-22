@@ -26,6 +26,22 @@ abstract class StringMatcher extends AbstractMatcher
     /**
      * @return string
      */
+    public function getFailureMessage()
+    {
+        return $this->getMessageFromTemplate(static::FAILURE_MESSAGE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getNegatedFailureMessage()
+    {
+        return $this->getMessageFromTemplate(static::NEGATED_FAILURE_MESSAGE);
+    }
+
+    /**
+     * @return string
+     */
     protected function getMessageFromTemplate($template)
     {
         $actual = $this->formatter->toString($this->actualValue);
