@@ -51,44 +51,17 @@ class InclusionMatcher extends AbstractMatcher
 
         $this->actualValue = $actual;
 
+        $expectValues = (is_array($this->expectValue))
+            ? $this->expectValue : [$this->expectValue];
+
         if (is_string($this->actualValue)) {
             $this->type = 'string';
-            return $this->matchString();
+            $strategy = new StringInclusionStrategy($this->actualValue);
         } else if (is_array($this->actualValue)) {
             $this->type = 'array';
-            return $this->matchArray();
+            $strategy = new ArrayInclusionStrategy($this->actualValue);
         }
 
-        return false;
-    }
-
-    /**
-     * @return boolean
-     */
-    private function matchString()
-    {
-        $expectValues = (is_array($this->expectValue))
-            ? $this->expectValue : [$this->expectValue];
-
-        $actualValue = $this->actualValue;
-
-        $strategy = new StringInclusionStrategy($actualValue);
-        $this->matchResult = $strategy->match($expectValues);
-
-        return $this->matchResult->isMatched();
-    }
-
-    /**
-     * @return boolean
-     */
-    private function matchArray()
-    {
-        $expectValues = (is_array($this->expectValue))
-            ? $this->expectValue : [$this->expectValue];
-
-        $actualValues = $this->actualValue;
-
-        $strategy = new ArrayInclusionStrategy($actualValues);
         $this->matchResult = $strategy->match($expectValues);
 
         return $this->matchResult->isMatched();
