@@ -17,12 +17,11 @@ use expectation\matcher\PatternMatcher;
 
 describe('PatternMatcher', function() {
 
-    before_each(function() {
-        $this->matcher = new PatternMatcher(new Formatter());
-        $this->matcher->expectValue = '/foo/';
-    });
-
     describe('match', function() {
+        before(function() {
+            $this->matcher = new PatternMatcher(new Formatter());
+            $this->matcher->expectValue = '/foo/';
+        });
         context('when match pattern', function() {
             it('should return true', function() {
                 Assertion::true($this->matcher->match('foobar'));
@@ -36,16 +35,68 @@ describe('PatternMatcher', function() {
     });
 
     describe('getFailureMessage', function() {
-        it('should return the message on failure', function() {
-            Assertion::false($this->matcher->match('barbar'));
-            Assertion::same($this->matcher->getFailureMessage(), "Expected 'barbar' to match '/foo/'");
+        context('when pattern unmatch', function() {
+            before(function() {
+                $this->matcher = new PatternMatcher(new Formatter());
+                $this->matcher->expectValue = '/foo/';
+            });
+            it('should return the message on failure', function() {
+                Assertion::false($this->matcher->match('barbar'));
+                Assertion::same($this->matcher->getFailureMessage(), "Expected 'barbar' to match '/foo/'");
+            });
+        });
+        context('when prefix unmatch', function() {
+            before(function() {
+                $this->matcher = new PatternMatcher(new Formatter());
+                $this->matcher->expectValue = 'foo';
+            });
+            it('should return the message on failure', function() {
+                Assertion::false($this->matcher->matchPrefix('barbar'));
+                Assertion::same($this->matcher->getFailureMessage(), "Expected 'barfoo' to start with 'foo'");
+            });
+        });
+        context('when suffix unmatch', function() {
+            before(function() {
+                $this->matcher = new PatternMatcher(new Formatter());
+                $this->matcher->expectValue = 'foo';
+            });
+            it('should return the message on failure', function() {
+                Assertion::false($this->matcher->matchSuffix('barbar'));
+                Assertion::same($this->matcher->getFailureMessage(), "Expected 'foobar' to end with 'foo'");
+            });
         });
     });
 
     describe('getNegatedFailureMessage', function() {
-        it('should return the message on failure', function() {
-            Assertion::true($this->matcher->match('foobar'));
-            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'foobar' not to match '/foo/'");
+        context('when pattern unmatch', function() {
+            before(function() {
+                $this->matcher = new PatternMatcher(new Formatter());
+                $this->matcher->expectValue = '/foo/';
+            });
+            it('should return the message on failure', function() {
+                Assertion::true($this->matcher->match('foobar'));
+                Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'foobar' not to match '/foo/'");
+            });
+        });
+        context('when prefix unmatch', function() {
+            before(function() {
+                $this->matcher = new PatternMatcher(new Formatter());
+                $this->matcher->expectValue = 'foo';
+            });
+            it('should return the message on failure', function() {
+                Assertion::true($this->matcher->matchPrefix('foobar'));
+                Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'foobar' not to start with 'foo'");
+            });
+        });
+        context('when suffix unmatch', function() {
+            before(function() {
+                $this->matcher = new PatternMatcher(new Formatter());
+                $this->matcher->expectValue = 'foo';
+            });
+            it('should return the message on failure', function() {
+                Assertion::true($this->matcher->matchSuffix('barfoo'));
+                Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 'barfoo' not to end with 'foo'");
+            });
         });
     });
 

@@ -34,6 +34,12 @@ class PatternMatcher extends AbstractMatcher
         return (preg_match($this->expectValue, $this->actualValue) === 1);
     }
 
+    public function matchPrefix($actual) {
+    }
+
+    public function matchSuffix($actual) {
+    }
+
     /**
      * @return string
      */
