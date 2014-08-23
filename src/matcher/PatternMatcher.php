@@ -20,8 +20,10 @@ use expectation\matcher\annotation\Lookup;
  * @property mixed $expectValue
  * @author Noritaka Horio <holy.shared.design@gmail.com>
  */
-class PatternMatcher extends AbstractMatcher
+class PatternMatcher extends StringMatcher
 {
+    const FAILURE_MESSAGE = "Expected %s to match %s";
+    const NEGATED_FAILURE_MESSAGE = "Expected %s not to match %s";
 
     /**
      * @Lookup(name="toMatch")
@@ -32,26 +34,6 @@ class PatternMatcher extends AbstractMatcher
     {
         $this->actualValue = $actual;
         return (preg_match($this->expectValue, $this->actualValue) === 1);
-    }
-
-    /**
-     * @return string
-     */
-    public function getFailureMessage()
-    {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} to match {$expected}";
-    }
-
-    /**
-     * @return string
-     */
-    public function getNegatedFailureMessage()
-    {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} not to match {$expected}";
     }
 
 }
