@@ -34,7 +34,7 @@ trait Configurable
             call_user_func_array($callback, [$builder]);
         }
 
-        static::$configuration = $builder->build();
+        self::$configuration = $builder->build();
     }
 
     /**
@@ -42,7 +42,7 @@ trait Configurable
      */
     public static function configration()
     {
-        return static::$configuration;
+        return self::$configuration;
     }
 
     private static function builder()

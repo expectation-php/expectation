@@ -12,7 +12,9 @@
 namespace expectation;
 
 /**
+ * Class Configuration
  * @package expectation
+ * @property-read mixed $methodContainer
  */
 class Configuration
 {

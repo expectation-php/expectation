@@ -16,10 +16,15 @@ use expectation\matcher\annotation\Lookup;
 
 /**
  * @package expectation
+ * @property mixed $actualValue
+ * @property mixed $expectValue
  * @author Noritaka Horio <holy.shared.design@gmail.com>
  */
 class MinimumMatcher extends AbstractMatcher
 {
+
+    const FAILURE_MESSAGE = "Expected %s to be greater than %s";
+    const NEGATED_FAILURE_MESSAGE = "Expected %s not to be greater than %s";
 
     /**
      * @Lookup(name="toBeGreaterThan")
@@ -38,9 +43,7 @@ class MinimumMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} to be greater than {$expected}";
+        return $this->getMessageFromTemplate(self::FAILURE_MESSAGE);
     }
 
     /**
@@ -48,9 +51,18 @@ class MinimumMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
+        return $this->getMessageFromTemplate(self::NEGATED_FAILURE_MESSAGE);
+    }
+
+    /**
+     * @return string
+     */
+    private function getMessageFromTemplate($template)
+    {
         $actual = $this->formatter->toString($this->actualValue);
         $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} not to be greater than {$expected}";
+
+        return sprintf($template, $actual, $expected);
     }
 
 }

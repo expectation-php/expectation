@@ -11,10 +11,15 @@
 
 namespace expectation;
 
-use BadMethodCallException;
 use expectation\matcher\Formatter;
 use expectation\AttributeAccessible;
 
+/**
+ * Class AbstractMatcher
+ * @package expectation
+ * @property mixed $actualValue
+ * @property mixed $expectValue
+ */
 abstract class AbstractMatcher implements MatcherInterface
 {
 
@@ -33,7 +38,8 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @var Formatter
      */
-    private $formatter;
+    protected $formatter;
+
 
     public function __construct(Formatter $formatter)
     {
@@ -50,12 +56,28 @@ abstract class AbstractMatcher implements MatcherInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getActualValue()
+    {
+        return $this->actualValue;
+    }
+
+    /**
      * @param mixed $expected
      */
     public function setExpectValue($expected)
     {
         $this->expectValue = $expected;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExpectValue()
+    {
+        return $this->expectValue;
     }
 
 }

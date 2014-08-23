@@ -17,6 +17,8 @@ use expectation\matcher\annotation\Lookup;
 
 /**
  * @package expectation
+ * @property mixed $actualValue
+ * @property mixed $expectValue
  * @author Noritaka Horio <holy.shared.design@gmail.com>
  */
 class LengthMatcher extends AbstractMatcher
@@ -26,6 +28,12 @@ class LengthMatcher extends AbstractMatcher
      * @var string
      */
     private $type;
+
+    /**
+     * @var int
+     */
+    private $length;
+
 
     /**
      * @Lookup(name="toHaveLength")
@@ -40,17 +48,17 @@ class LengthMatcher extends AbstractMatcher
         $expected = $this->expectValue;
 
         if (is_string($that) === true) {
-            $length = mb_strlen($that);
+            $this->length = mb_strlen($that);
             $this->type = 'string';
         } else if (is_array($that) === true) {
-            $length = count($that);
+            $this->length = count($that);
             $this->type = 'array';
         } else if ($that instanceof Countable) {
-            $length = count($that);
+            $this->length = count($that);
             $this->type = get_class($that);
         }
 
-        return ($length === $expected);
+        return ($this->length === $expected);
     }
 
     /**

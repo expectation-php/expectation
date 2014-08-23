@@ -14,7 +14,10 @@ namespace expectation\matcher;
 use expectation\AbstractMatcher;
 use expectation\matcher\annotation\Lookup;
 
-
+/**
+ * @property mixed $actualValue
+ * @property mixed $expectValue
+ */
 class EqualMatcher extends AbstractMatcher
 {
 
