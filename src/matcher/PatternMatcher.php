@@ -44,11 +44,21 @@ class PatternMatcher extends AbstractMatcher
         return (preg_match($this->getMatchPattern(), $this->actualValue) === 1);
     }
 
+    /**
+     * @Lookup(name="toStartWith")
+     * @param mixed $actual
+     * @return boolean
+     */
     public function matchPrefix($actual) {
         $this->matchType = self::PREFIX;
         return $this->match($actual);
     }
 
+    /**
+     * @Lookup(name="toEndWith")
+     * @param mixed $actual
+     * @return boolean
+     */
     public function matchSuffix($actual) {
         $this->matchType = self::SUFFIX;
         return $this->match($actual);
