@@ -97,7 +97,7 @@ class PatternMatcher extends AbstractMatcher
             return $this->expectValue;
         }
 
-        $keyword = preg_quote($this->expectValue, DIRECTORY_SEPARATOR);
+        $keyword = preg_quote($this->expectValue, "/");
 
         if ($this->matchType === self::PREFIX) {
             return "/^{$keyword}/";
