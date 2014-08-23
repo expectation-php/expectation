@@ -20,10 +20,8 @@ use expectation\matcher\annotation\Lookup;
  * @property mixed $expectValue
  * @author Noritaka Horio <holy.shared.design@gmail.com>
  */
-class PatternMatcher extends StringMatcher
+class PatternMatcher extends AbstractMatcher
 {
-    const FAILURE_MESSAGE = "Expected %s to match %s";
-    const NEGATED_FAILURE_MESSAGE = "Expected %s not to match %s";
 
     const PATTERN = 1;
     const PREFIX = 2;
@@ -34,6 +32,14 @@ class PatternMatcher extends StringMatcher
      */
     private $matchType = self::PATTERN;
 
+    /**
+     * @var array
+     */
+    private $resultMessages = [
+        self::PATTERN => 'match %s',
+        self::PREFIX => 'start with %s',
+        self::SUFFIX => 'end with %s'
+    ];
 
     /**
      * @Lookup(name="toMatch")
@@ -71,18 +77,7 @@ class PatternMatcher extends StringMatcher
      */
     public function getFailureMessage()
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
-
-        if ($this->matchType === self::PREFIX) {
-            $message = "Expected %s to start with %s";
-        } else if ($this->matchType === self::SUFFIX) {
-            $message = "Expected %s to end with %s";
-        } else {
-            $message = "Expected %s to match %s";
-        }
-
-        return sprintf($message, $actual, $expected);
+        return $this->createResultMessage("Expected %s to ");
     }
 
     /**
@@ -90,21 +85,12 @@ class PatternMatcher extends StringMatcher
      */
     public function getNegatedFailureMessage()
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
-
-        if ($this->matchType === self::PREFIX) {
-            $message = "Expected %s not to start with %s";
-        } else if ($this->matchType === self::SUFFIX) {
-            $message = "Expected %s not to end with %s";
-        } else {
-            $message = "Expected %s not to match %s";
-        }
-
-        return sprintf($message, $actual, $expected);
+        return $this->createResultMessage("Expected %s not to ");
     }
 
-
+    /**
+     * @return string
+     */
     private function getMatchPattern()
     {
         if ($this->matchType === self::PATTERN) {
@@ -118,6 +104,20 @@ class PatternMatcher extends StringMatcher
         } else if ($this->matchType === self::SUFFIX) {
             return "/{$keyword}$/";
         }
+    }
+
+    /**
+     * @param $prefixMessage
+     * @return string
+     */
+    private function createResultMessage($prefixMessage)
+    {
+        $actual = $this->formatter->toString($this->actualValue);
+        $expected = $this->formatter->toString($this->expectValue);
+
+        $message  = $prefixMessage . $this->resultMessages[$this->matchType];
+
+        return sprintf($message, $actual, $expected);
     }
 
 }
