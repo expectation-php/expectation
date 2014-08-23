@@ -143,13 +143,7 @@ class MethodLoader
                 $registerName = $annotation->getLookupName();
                 $registerFactory = $annotation->getMethodFactory($method);
 
-                if ($this->factories->containsKey($registerName)) {
-                    $factory = $this->factories->get($registerName);
-                    $registeredMethod = $factory->get()->getMethod();
-
-                    throw new AlreadyRegisteredException($registerName, $registeredMethod);
-                }
-
+                $this->checkDuplicateKey($registerName);
                 $this->factories->set($registerName, $registerFactory);
             }
         }
@@ -172,6 +166,22 @@ class MethodLoader
         }
 
         return $results;
+    }
+
+    /**
+     * @param $registerName
+     * @throws AlreadyRegisteredException
+     */
+    private function checkDuplicateKey($registerName) {
+
+        if ($this->factories->containsKey($registerName) === false) {
+            return;
+        }
+
+        $factory = $this->factories->get($registerName);
+        $registeredMethod = $factory->get()->getMethod();
+
+        throw new AlreadyRegisteredException($registerName, $registeredMethod);
     }
 
     /**
