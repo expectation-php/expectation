@@ -31,7 +31,6 @@ class TypeMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $type = "";
         $this->actualValue = $actual;
 
         /**
@@ -41,16 +40,8 @@ class TypeMatcher extends AbstractMatcher
         if (in_array($this->expectValue, ['float', 'double'])) {
             $result = is_float($this->actualValue) || is_double($this->actualValue);
         } else {
-            if (is_string($this->actualValue)) {
-                $type = "string";
-            } else if (is_integer($this->actualValue)) {
-                $type = "integer";
-            } else if (is_bool($this->actualValue)) {
-                $type = "boolean";
-            } else if (is_array($this->actualValue)) {
-                $type = "array";
-            }
-            $result = ($type === $this->expectValue);
+            $detectType = gettype($this->actualValue);
+            $result = ($detectType === $this->expectValue);
         }
 
         return $result;
