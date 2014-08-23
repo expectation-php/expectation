@@ -23,6 +23,16 @@ use expectation\matcher\annotation\Lookup;
 class PatternMatcher extends AbstractMatcher
 {
 
+    const PATTERN = 1;
+    const PREFIX = 2;
+    const SUFFIX = 3;
+
+    /**
+     * @var int
+     */
+    private $matchType = self::PATTERN;
+
+
     /**
      * @Lookup(name="toMatch")
      * @param mixed $actual
@@ -31,13 +41,17 @@ class PatternMatcher extends AbstractMatcher
     public function match($actual)
     {
         $this->actualValue = $actual;
-        return (preg_match($this->expectValue, $this->actualValue) === 1);
+        return (preg_match($this->getMatchPattern(), $this->actualValue) === 1);
     }
 
     public function matchPrefix($actual) {
+        $this->matchType = self::PREFIX;
+        return $this->match($actual);
     }
 
     public function matchSuffix($actual) {
+        $this->matchType = self::SUFFIX;
+        return $this->match($actual);
     }
 
     /**
@@ -47,7 +61,16 @@ class PatternMatcher extends AbstractMatcher
     {
         $actual = $this->formatter->toString($this->actualValue);
         $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} to match {$expected}";
+
+        if ($this->matchType === self::PREFIX) {
+            $message = "Expected %s to start with %s";
+        } else if ($this->matchType === self::SUFFIX) {
+            $message = "Expected %s to end with %s";
+        } else {
+            $message = "Expected %s to match %s";
+        }
+
+        return sprintf($message, $actual, $expected);
     }
 
     /**
@@ -57,7 +80,32 @@ class PatternMatcher extends AbstractMatcher
     {
         $actual = $this->formatter->toString($this->actualValue);
         $expected = $this->formatter->toString($this->expectValue);
-        return "Expected {$actual} not to match {$expected}";
+
+        if ($this->matchType === self::PREFIX) {
+            $message = "Expected %s not to start with %s";
+        } else if ($this->matchType === self::SUFFIX) {
+            $message = "Expected %s not to end with %s";
+        } else {
+            $message = "Expected %s not to match %s";
+        }
+
+        return sprintf($message, $actual, $expected);
+    }
+
+
+    private function getMatchPattern()
+    {
+        if ($this->matchType === self::PATTERN) {
+            return $this->expectValue;
+        }
+
+        $keyword = preg_quote($this->expectValue, DIRECTORY_SEPARATOR);
+
+        if ($this->matchType === self::PREFIX) {
+            return "/^{$keyword}/";
+        } else if ($this->matchType === self::SUFFIX) {
+            return "/{$keyword}$/";
+        }
     }
 
 }

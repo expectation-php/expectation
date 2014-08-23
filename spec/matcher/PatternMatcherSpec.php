@@ -51,7 +51,7 @@ describe('PatternMatcher', function() {
                 $this->matcher->expectValue = 'foo';
             });
             it('should return the message on failure', function() {
-                Assertion::false($this->matcher->matchPrefix('barbar'));
+                Assertion::false($this->matcher->matchPrefix('barfoo'));
                 Assertion::same($this->matcher->getFailureMessage(), "Expected 'barfoo' to start with 'foo'");
             });
         });
@@ -61,7 +61,7 @@ describe('PatternMatcher', function() {
                 $this->matcher->expectValue = 'foo';
             });
             it('should return the message on failure', function() {
-                Assertion::false($this->matcher->matchSuffix('barbar'));
+                Assertion::false($this->matcher->matchSuffix('foobar'));
                 Assertion::same($this->matcher->getFailureMessage(), "Expected 'foobar' to end with 'foo'");
             });
         });
