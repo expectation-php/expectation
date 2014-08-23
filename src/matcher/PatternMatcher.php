@@ -107,7 +107,7 @@ class PatternMatcher extends AbstractMatcher
     }
 
     /**
-     * @param $prefixMessage
+     * @param string $prefixMessage
      * @return string
      */
     private function createResultMessage($prefixMessage)

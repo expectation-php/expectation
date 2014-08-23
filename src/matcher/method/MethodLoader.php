@@ -79,7 +79,7 @@ class MethodLoader
     }
 
     /**
-     * @return MatcherContainerInterface
+     * @return MethodContainer
      */
     public function load()
     {
