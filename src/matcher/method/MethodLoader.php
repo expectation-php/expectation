@@ -25,8 +25,6 @@ use expectation\matcher\NamespaceReflection;
 class MethodLoader
 {
 
-    const MATCHER_PATTERN = "/Matcher\\.php$/";
-
     /**
      * @var \PhpCollection\Sequence
      */
