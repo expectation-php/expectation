@@ -12,14 +12,14 @@
 namespace Preview\DSL\BDD;
 
 use Assert\Assertion;
-use expectation\NamespaceReflection;
+use expectation\matcher\NamespaceReflection;
 
 describe('NamespaceReflection', function() {
 
     describe('getClassReflections', function() {
         before(function() {
             $namespace = '\expectation\spec\fixture\matcher\single';
-            $namespaceDirectory = __DIR__ . '/fixture/matcher/single';
+            $namespaceDirectory = __DIR__ . '/../fixture/matcher/single';
 
             $namespaceReflection = new NamespaceReflection($namespace, $namespaceDirectory);
             $this->classReflections = $namespaceReflection->getClassReflections();
