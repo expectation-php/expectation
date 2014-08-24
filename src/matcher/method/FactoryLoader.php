@@ -36,6 +36,7 @@ class FactoryLoader implements Iterator
      */
     private $annotationReader;
 
+
     /**
      * @param ReflectionClass $classReflection
      * @param \Doctrine\Common\Annotations\Reader $annotationReader

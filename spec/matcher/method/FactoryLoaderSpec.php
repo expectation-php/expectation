@@ -18,14 +18,35 @@ use Doctrine\Common\Annotations\AnnotationReader;
 
 describe('FactoryLoader', function() {
 
+    before(function () {
+        $this->className = '\expectation\spec\fixture\matcher\single\FixtureSingleMatcher';
+    });
+
     describe('current', function() {
         before(function () {
-            $className = '\expectation\spec\fixture\matcher\single\FixtureSingleMatcher';
-            $loader = new FactoryLoader(new ReflectionClass($className), new AnnotationReader());
-            $this->factory = $loader->current();
+            $this->loader = new FactoryLoader(new ReflectionClass($this->className), new AnnotationReader());
         });
         it('return expectation\matcher\method\MethodFactoryInterface instance', function() {
-            Assertion::isInstanceOf($this->factory, 'expectation\matcher\method\MethodFactoryInterface');
+            Assertion::isInstanceOf($this->loader->current(), 'expectation\matcher\method\MethodFactoryInterface');
+        });
+    });
+
+    describe('key', function() {
+        before(function () {
+            $this->loader = new FactoryLoader(new ReflectionClass($this->className), new AnnotationReader());
+        });
+        it('return lookup key', function() {
+            Assertion::same($this->loader->key(), 'to_eql');
+        });
+    });
+
+    describe('next', function() {
+        before(function () {
+            $this->loader = new FactoryLoader(new ReflectionClass($this->className), new AnnotationReader());
+            $this->loader->next();
+        });
+        it('move next', function() {
+            Assertion::false($this->loader->valid());
         });
     });
 
