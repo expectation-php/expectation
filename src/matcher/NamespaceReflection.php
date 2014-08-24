@@ -12,9 +12,7 @@
 namespace expectation\matcher;
 
 use ReflectionClass;
-//use RecursiveIteratorIterator;
-//use RecursiveDirectoryIterator;/
-//use FilesystemIterator;
+use SplFileInfo;
 
 
 /**
@@ -23,6 +21,9 @@ use ReflectionClass;
  */
 class NamespaceReflection
 {
+
+    const MATCHER_PATTERN = "/Matcher\\.php$/";
+
 
     /**
      * @var string
@@ -34,6 +35,7 @@ class NamespaceReflection
      */
     private $namespaceDirectory;
 
+
     /**
      * @param string $namespace
      * @param string $namespaceDirectory
@@ -44,6 +46,9 @@ class NamespaceReflection
         $this->namespaceDirectory = $namespaceDirectory;
     }
 
+    /**
+     * @return array
+     */
     public function getClassReflections()
     {
         $reflections = [];
@@ -51,15 +56,40 @@ class NamespaceReflection
         $files = new RecursiveDirectoryIterator($this->namespaceDirectory);
 
         foreach ($files as $file) {
-            $name = $file->getPathname();
-
-            $className = str_replace([realpath($this->namespaceDirectory) . "/", ".php"], ["", ""], realpath($name));
-            $className = str_replace("/", "\\", $className);
-
-            $reflections[] = new ReflectionClass($this->namespace . "\\" . $className);
+            if ($this->isMatcherClassFile($file) === false) {
+                continue;
+            }
+            $className = $this->getClassFullNameFromFile($file);
+            $reflections[] = new ReflectionClass($className);
         }
 
         return $reflections;
+    }
+
+    /**
+     * @param SplFileInfo $file
+     * @return bool
+     */
+    private function isMatcherClassFile(SplFileInfo $file)
+    {
+        return preg_match(static::MATCHER_PATTERN, $file->getPathname()) !== 0;
+    }
+
+    /**
+     * @param SplFileInfo $file
+     * @return mixed
+     */
+    private function getClassFullNameFromFile(SplFileInfo $file)
+    {
+
+        $className = str_replace([
+            realpath($this->namespaceDirectory) . "/",
+            ".php"
+        ], ["", ""], realpath($file->getPathname()));
+
+        $className = str_replace("/", "\\", $className);
+
+        return $this->namespace . "\\" . $className;
     }
 
 }
