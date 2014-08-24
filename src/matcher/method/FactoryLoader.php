@@ -13,7 +13,6 @@ namespace expectation\matcher\method;
 
 use expectation\matcher\annotation\Lookup;
 use Doctrine\Common\Annotations\Reader;
-use Iterator;
 use ReflectionMethod;
 use ReflectionClass;
 use PhpCollection\Map;
@@ -23,13 +22,8 @@ use PhpCollection\Map;
  * Class FactoryLoader
  * @package expectation\matcher\method
  */
-class FactoryLoader implements Iterator
+class FactoryLoader
 {
-
-    /**
-     * @var \ArrayIterator
-     */
-    private $factoryIterator;
 
     /**
      * @var \Doctrine\Common\Annotations\Reader
@@ -38,38 +32,20 @@ class FactoryLoader implements Iterator
 
 
     /**
-     * @param ReflectionClass $classReflection
      * @param \Doctrine\Common\Annotations\Reader $annotationReader
      */
-    public function __construct(ReflectionClass $classReflection, Reader $annotationReader)
+    public function __construct(Reader $annotationReader)
     {
         $this->annotationReader = $annotationReader;
-        $this->factoryIterator = $this->parseAnnotations($classReflection);
     }
 
-    public function key()
+    /**
+     * @param ReflectionClass $classReflection
+     * @return \ArrayIterator
+     */
+    public function load(ReflectionClass $classReflection)
     {
-        return $this->factoryIterator->key();
-    }
-
-    public function current()
-    {
-        return $this->factoryIterator->current();
-    }
-
-    public function next()
-    {
-        return $this->factoryIterator->next();
-    }
-
-    public function rewind()
-    {
-        return $this->factoryIterator->rewind();
-    }
-
-    public function valid()
-    {
-        return $this->factoryIterator->valid();
+        return $this->parseAnnotations($classReflection);
     }
 
     /**

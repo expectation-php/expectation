@@ -22,42 +22,13 @@ describe('FactoryLoader', function() {
         $this->className = '\expectation\spec\fixture\matcher\single\FixtureSingleMatcher';
     });
 
-    describe('current', function() {
+    describe('load', function() {
         before(function () {
-            $this->loader = new FactoryLoader(new ReflectionClass($this->className), new AnnotationReader());
+            $loader = new FactoryLoader(new AnnotationReader());
+            $this->result = $loader->load(new ReflectionClass($this->className));
         });
-        it('return expectation\matcher\method\MethodFactoryInterface instance', function() {
-            Assertion::isInstanceOf($this->loader->current(), 'expectation\matcher\method\MethodFactoryInterface');
-        });
-    });
-
-    describe('key', function() {
-        before(function () {
-            $this->loader = new FactoryLoader(new ReflectionClass($this->className), new AnnotationReader());
-        });
-        it('return lookup key', function() {
-            Assertion::same($this->loader->key(), 'to_eql');
-        });
-    });
-
-    describe('next', function() {
-        before(function () {
-            $this->loader = new FactoryLoader(new ReflectionClass($this->className), new AnnotationReader());
-            $this->loader->next();
-        });
-        it('move next', function() {
-            Assertion::false($this->loader->valid());
-        });
-    });
-
-    describe('rewind', function() {
-        before(function () {
-            $this->loader = new FactoryLoader(new ReflectionClass($this->className), new AnnotationReader());
-            $this->loader->next();
-            $this->loader->rewind();
-        });
-        it('move first', function() {
-            Assertion::true($this->loader->valid());
+        it('return \ArrayIterator instance', function() {
+            Assertion::isInstanceOf($this->result, '\ArrayIterator');
         });
     });
 

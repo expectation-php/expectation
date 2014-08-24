@@ -15,12 +15,16 @@ use Doctrine\Common\Annotations\Reader;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use FilesystemIterator;
-use ReflectionMethod;
 use ReflectionClass;
 use expectation\matcher\annotation\Lookup;
 use PhpCollection\Map;
 use PhpCollection\Sequence;
 
+
+/**
+ * Class MethodLoader
+ * @package expectation\matcher\method
+ */
 class MethodLoader
 {
 
@@ -134,10 +138,11 @@ class MethodLoader
      */
     private function loadFactoriesFromClass(ReflectionClass $reflectionClass)
     {
-        $loader = new FactoryLoader($reflectionClass, $this->annotationReader);
+        $loader = new FactoryLoader($this->annotationReader);
+        $factories = $loader->load($reflectionClass);
 
-        foreach($loader as $registerName => $registerFactory) {
-            $this->registry->register($registerName, $registerFactory);
+        foreach($factories as $name => $factory) {
+            $this->registry->register($name, $factory);
         }
     }
 
