@@ -37,9 +37,9 @@ class MethodLoader
     private $namespaces;
 
     /**
-     * @var \PhpCollection\Map
+     * @var FactoryRegistry
      */
-    private $factories;
+    private $registry;
 
     /**
      * @var \Doctrine\Common\Annotations\Reader
@@ -53,7 +53,7 @@ class MethodLoader
     {
         $this->classes = new Sequence();
         $this->namespaces = new Map();
-        $this->factories = new Map();
+        $this->registry = new FactoryRegistry();
         $this->annotationReader = $annotationReader;
     }
 
@@ -86,7 +86,7 @@ class MethodLoader
         $this->loadFactoriesFromClasses();
         $this->loadFactoriesFromNamespace();
 
-        return new MethodContainer($this->factories);
+        return new MethodContainer($this->registry);
     }
 
     /**
@@ -143,8 +143,7 @@ class MethodLoader
                 $registerName = $annotation->getLookupName();
                 $registerFactory = $annotation->getMethodFactory($method);
 
-                $this->checkDuplicateKey($registerName);
-                $this->factories->set($registerName, $registerFactory);
+                $this->registry->register($registerName, $registerFactory);
             }
         }
     }
@@ -166,22 +165,6 @@ class MethodLoader
         }
 
         return $results;
-    }
-
-    /**
-     * @param $registerName
-     * @throws AlreadyRegisteredException
-     */
-    private function checkDuplicateKey($registerName) {
-
-        if ($this->factories->containsKey($registerName) === false) {
-            return;
-        }
-
-        $factory = $this->factories->get($registerName);
-        $registeredMethod = $factory->get()->getMethod();
-
-        throw new AlreadyRegisteredException($registerName, $registeredMethod);
     }
 
     /**
