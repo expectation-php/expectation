@@ -13,7 +13,6 @@ namespace expectation\matcher\method;
 
 use PhpCollection\Map;
 
-
 /**
  * Class FactoryRegistry
  * @package expectation\matcher\method

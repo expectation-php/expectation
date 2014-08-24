@@ -20,4 +20,9 @@ interface MethodFactoryInterface
      */
     public function withArguments(array $arguments);
 
+    /**
+     * @return ReflectionMethod
+     */
+    public function getMethod();
+
 }
