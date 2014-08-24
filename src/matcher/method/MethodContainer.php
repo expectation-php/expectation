@@ -33,6 +33,7 @@ class MethodContainer implements MethodContainerInterface
     }
 
     /**
+     * @param string $name
      * @return \expectation\matcher\MethodInterface
      */
     public function find($name, array $arguments)
