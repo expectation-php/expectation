@@ -31,9 +31,11 @@ class FactoryRegistry
         $this->factories = new Map();
     }
 
+
     /**
      * @param string $name
-     * @param FactoryInterface $factory
+     * @param MethodFactoryInterface $factory
+     * @throws \expectation\matcher\method\AlreadyRegisteredException
      */
     public function register($name, MethodFactoryInterface $factory)
     {
@@ -57,11 +59,18 @@ class FactoryRegistry
     /**
      * @param string $name
      * @return MethodFactoryInterface
+     * @throws \expectation\matcher\method\FactoryNotFoundException
      */
     public function get($name)
     {
-        $factory = $this->factories->get($name);
-        return $factory->get();
+        if ($this->contains($name) === false) {
+            throw new FactoryNotFoundException("{$name} is not found");
+        }
+
+        $result = $this->factories->get($name);
+        $factory = $result->get();
+
+        return $factory;
     }
 
 }
