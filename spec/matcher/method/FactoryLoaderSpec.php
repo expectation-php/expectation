@@ -50,4 +50,15 @@ describe('FactoryLoader', function() {
         });
     });
 
+    describe('rewind', function() {
+        before(function () {
+            $this->loader = new FactoryLoader(new ReflectionClass($this->className), new AnnotationReader());
+            $this->loader->next();
+            $this->loader->rewind();
+        });
+        it('move first', function() {
+            Assertion::true($this->loader->valid());
+        });
+    });
+
 });
