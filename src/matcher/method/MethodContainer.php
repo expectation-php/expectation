@@ -11,22 +11,25 @@
 
 namespace expectation\matcher\method;
 
-use PhpCollection\MapInterface;
-
+/**
+ * Class MethodContainer
+ * @package expectation\matcher\method
+ */
 class MethodContainer implements MethodContainerInterface
 {
 
     /**
-     * @var MapInterface
+     * @var FactoryRegistryInterface
      */
-    private $factories;
+    private $registry;
+
 
     /**
-     * @param MapInterface $factories
+     * @param FactoryRegistryInterface $factories
      */
-    public function __construct(MapInterface $factories)
+    public function __construct(FactoryRegistryInterface $registry)
     {
-        $this->factories = $factories;
+        $this->registry = $registry;
     }
 
     /**
@@ -34,12 +37,10 @@ class MethodContainer implements MethodContainerInterface
      */
     public function find($name, array $arguments)
     {
-        if ($this->factories->containsKey($name) === false) {
-            throw new FactoryNotFoundException("{$name} is not found");
-        }
-        $factory = $this->factories->get($name);
+        $factory = $this->registry->get($name);
+        $method = $factory->withArguments($arguments);
 
-        return $factory->get()->withArguments($arguments);
+        return $method;
     }
 
 }
