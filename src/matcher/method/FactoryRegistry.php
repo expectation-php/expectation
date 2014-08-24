@@ -17,7 +17,7 @@ use PhpCollection\Map;
  * Class FactoryRegistry
  * @package expectation\matcher\method
  */
-class FactoryRegistry
+class FactoryRegistry implements FactoryRegistryInterface
 {
 
     /**
