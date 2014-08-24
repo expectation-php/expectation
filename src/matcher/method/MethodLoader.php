@@ -134,38 +134,13 @@ class MethodLoader
      */
     private function loadFactoriesFromClass(ReflectionClass $reflectionClass)
     {
-        $methods = $reflectionClass->getMethods();
+        $loader = new FactoryLoader($reflectionClass, $this->annotationReader);
 
-        foreach($methods as $method) {
-            $annotations = $this->getAnnotationsFromMethod($method);
-
-            foreach ($annotations as $annotation) {
-                $registerName = $annotation->getLookupName();
-                $registerFactory = $annotation->getMethodFactory($method);
-
-                $this->registry->register($registerName, $registerFactory);
-            }
+        foreach($loader as $registerName => $registerFactory) {
+            $this->registry->register($registerName, $registerFactory);
         }
     }
 
-    /**
-     * @param ReflectionMethod $method
-     * @return array
-     */
-    private function getAnnotationsFromMethod(ReflectionMethod $method)
-    {
-        $results = [];
-        $annotations = $this->annotationReader->getMethodAnnotations($method);
-
-        foreach($annotations as $annotation) {
-            if (!($annotation instanceof Lookup)) {
-                continue;
-            }
-            $results[] = $annotation;
-        }
-
-        return $results;
-    }
 
     /**
      * @param string $directory
