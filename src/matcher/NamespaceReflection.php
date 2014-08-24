@@ -12,9 +12,9 @@
 namespace expectation\matcher;
 
 use ReflectionClass;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
-use FilesystemIterator;
+//use RecursiveIteratorIterator;
+//use RecursiveDirectoryIterator;/
+//use FilesystemIterator;
 
 
 /**
@@ -48,13 +48,7 @@ class NamespaceReflection
     {
         $reflections = [];
 
-        $directoryIterator = new RecursiveDirectoryIterator($this->namespaceDirectory,
-            FilesystemIterator::CURRENT_AS_FILEINFO |
-            FilesystemIterator::KEY_AS_PATHNAME |
-            FilesystemIterator::SKIP_DOTS
-        );
-
-        $files = new RecursiveIteratorIterator($directoryIterator, RecursiveIteratorIterator::LEAVES_ONLY);
+        $files = new RecursiveDirectoryIterator($this->namespaceDirectory);
 
         foreach ($files as $file) {
             $name = $file->getPathname();
