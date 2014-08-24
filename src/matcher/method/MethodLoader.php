@@ -12,13 +12,10 @@
 namespace expectation\matcher\method;
 
 use Doctrine\Common\Annotations\Reader;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
-use FilesystemIterator;
 use ReflectionClass;
 use expectation\matcher\annotation\Lookup;
-use PhpCollection\Map;
 use PhpCollection\Sequence;
+use expectation\matcher\NamespaceReflection;
 
 
 /**
@@ -36,7 +33,7 @@ class MethodLoader
     private $classes;
 
     /**
-     * @var \PhpCollection\Map
+     * @var \PhpCollection\Sequence
      */
     private $namespaces;
 
@@ -56,7 +53,7 @@ class MethodLoader
     public function __construct(Reader $annotationReader)
     {
         $this->classes = new Sequence();
-        $this->namespaces = new Map();
+        $this->namespaces = new Sequence();
         $this->registry = new FactoryRegistry();
         $this->annotationReader = $annotationReader;
     }
@@ -78,7 +75,9 @@ class MethodLoader
      */
     public function registerNamespace($namespace, $directory)
     {
-        $this->namespaces->set($namespace, $directory);
+        $namespaceReflection = new NamespaceReflection($namespace, $directory);
+        $this->namespaces->add($namespaceReflection);
+
         return $this;
     }
 
@@ -98,24 +97,13 @@ class MethodLoader
      */
     private function loadFactoriesFromNamespace()
     {
-        $namespaces = $this->namespaces->getIterator();
+        $namespaceReflections = $this->namespaces->getIterator();
 
-        foreach($namespaces as $namespace => $directory) {
-            $fileIterator = $this->getRecursiveIterator($directory);
+        foreach($namespaceReflections as $namespaceReflection) {
+            $classReflections = $namespaceReflection->getClassReflections();
 
-            foreach ($fileIterator as $matcherFile) {
-                $name = $matcherFile->getPathname();
-
-                if (preg_match(static::MATCHER_PATTERN, $name) === 0) {
-                    continue;
-                }
-
-                $className = str_replace([realpath($directory) . "/", ".php"], ["", ""], realpath($name));
-                $className = str_replace("/", "\\", $className);
-
-                $reflection = new ReflectionClass($namespace . "\\" . $className);
-
-                $this->loadFactoriesFromClass($reflection);
+            foreach ($classReflections as $classReflection) {
+                $this->loadFactoriesFromClass($classReflection);
             }
         }
     }
@@ -141,23 +129,6 @@ class MethodLoader
 
         $factories = $loader->load($reflectionClass);
         $this->registry->registerAll($factories);
-    }
-
-    /**
-     * @param string $directory
-     * @return RecursiveIteratorIterator
-     */
-    private function getRecursiveIterator($directory)
-    {
-        $iterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($directory,
-                FilesystemIterator::CURRENT_AS_FILEINFO |
-                FilesystemIterator::KEY_AS_PATHNAME |
-                FilesystemIterator::SKIP_DOTS
-            ),
-            RecursiveIteratorIterator::LEAVES_ONLY
-        );
-        return $iterator;
     }
 
 }
