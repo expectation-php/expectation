@@ -134,18 +134,14 @@ class MethodLoader
 
     /**
      * @param ReflectionClass $reflectionClass
-     * @throws AlreadyRegisteredException
      */
     private function loadFactoriesFromClass(ReflectionClass $reflectionClass)
     {
         $loader = new FactoryLoader($this->annotationReader);
+
         $factories = $loader->load($reflectionClass);
-
-        foreach($factories as $name => $factory) {
-            $this->registry->register($name, $factory);
-        }
+        $this->registry->registerAll($factories);
     }
-
 
     /**
      * @param string $directory

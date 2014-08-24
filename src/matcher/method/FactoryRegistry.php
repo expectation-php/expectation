@@ -12,6 +12,8 @@
 namespace expectation\matcher\method;
 
 use PhpCollection\Map;
+use Iterator;
+
 
 /**
  * Class FactoryRegistry
@@ -45,6 +47,16 @@ class FactoryRegistry implements FactoryRegistryInterface
         }
 
         $this->factories->set($name, $factory);
+    }
+
+    /**
+     * @param Iterator $iterator
+     */
+    public function registerAll(Iterator $iterator)
+    {
+        foreach ($iterator as $name => $factory) {
+            $this->register($name, $factory);
+        }
     }
 
     /**
