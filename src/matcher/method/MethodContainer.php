@@ -25,7 +25,7 @@ class MethodContainer implements MethodContainerInterface
 
 
     /**
-     * @param FactoryRegistryInterface $factories
+     * @param FactoryRegistryInterface $registry
      */
     public function __construct(FactoryRegistryInterface $registry)
     {
