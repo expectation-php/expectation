@@ -41,11 +41,6 @@ class MethodLoader
     private $registry;
 
     /**
-     * @var \Doctrine\Common\Annotations\Reader
-     */
-    private $annotationReader;
-
-    /**
      * @var \expectation\matcher\method\FactoryLoader
      */
     private $factoryLoader;
@@ -59,7 +54,6 @@ class MethodLoader
         $this->classes = new Sequence();
         $this->namespaces = new Sequence();
         $this->registry = new FactoryRegistry();
-        $this->annotationReader = $annotationReader;
         $this->factoryLoader = new FactoryLoader($annotationReader);
     }
 
