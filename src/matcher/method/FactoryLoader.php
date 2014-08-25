@@ -13,9 +13,11 @@ namespace expectation\matcher\method;
 
 use expectation\matcher\annotation\Lookup;
 use Doctrine\Common\Annotations\Reader;
+use PhpCollection\SequenceInterface;
 use ReflectionMethod;
 use ReflectionClass;
 use PhpCollection\Map;
+use AppendIterator;
 
 
 /**
@@ -46,6 +48,22 @@ class FactoryLoader
     public function loadFromClass(ReflectionClass $classReflection)
     {
         return $this->parseAnnotations($classReflection);
+    }
+
+    /**
+     * @param PhpCollection\SequenceInterface $classReflections
+     * @return \AppendIterator
+     */
+    public function loadFromClasses(SequenceInterface $classReflections)
+    {
+        $resultFactories = new AppendIterator();
+
+        foreach ($classReflections as $classReflection) {
+            $factories = $this->loadFromClass($classReflection);
+            $resultFactories->append($factories);
+        }
+
+        return $resultFactories;
     }
 
     /**

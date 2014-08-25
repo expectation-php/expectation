@@ -118,11 +118,8 @@ class MethodLoader
      */
     private function loadFactoriesFromClasses()
     {
-        $reflectionClasses = $this->classes->getIterator();
-
-        foreach ($reflectionClasses as $reflectionClass) {
-            $this->loadFactoriesFromClass($reflectionClass);
-        }
+        $factories = $this->factoryLoader->loadFromClasses($this->classes);
+        $this->registry->registerAll($factories);
     }
 
     /**
