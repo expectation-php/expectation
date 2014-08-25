@@ -14,6 +14,7 @@ namespace expectation\matcher\method;
 use expectation\matcher\annotation\Lookup;
 use Doctrine\Common\Annotations\Reader;
 use PhpCollection\SequenceInterface;
+use PhpCollection\Sequence;
 use ReflectionMethod;
 use ReflectionClass;
 use PhpCollection\Map;
@@ -49,6 +50,26 @@ class FactoryLoader
     {
         return $this->parseAnnotations($classReflection);
     }
+
+
+    /**
+     * @param PhpCollection\SequenceInterface $namespaceReflections
+     * @return \AppendIterator
+     */
+    public function loadFromNamespaces(SequenceInterface $namespaceReflections)
+    {
+        $resultFactories = new AppendIterator();
+
+        foreach($namespaceReflections as $namespaceReflection) {
+            $classReflections = $namespaceReflection->getClassReflections();
+
+            $factories = $this->loadFromClasses(new Sequence($classReflections));
+            $resultFactories->append($factories);
+        }
+
+        return $resultFactories;
+    }
+
 
     /**
      * @param PhpCollection\SequenceInterface $classReflections

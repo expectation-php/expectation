@@ -91,44 +91,13 @@ class MethodLoader
      */
     public function load()
     {
-        $this->loadFactoriesFromClasses();
-        $this->loadFactoriesFromNamespace();
+        $factories = $this->factoryLoader->loadFromNamespaces($this->namespaces);
+        $this->registry->registerAll($factories);
 
-        return new MethodContainer($this->registry);
-    }
-
-    /**
-     * @throws AlreadyRegisteredException
-     */
-    private function loadFactoriesFromNamespace()
-    {
-        $namespaceReflections = $this->namespaces->getIterator();
-
-        foreach($namespaceReflections as $namespaceReflection) {
-            $classReflections = $namespaceReflection->getClassReflections();
-
-            foreach ($classReflections as $classReflection) {
-                $this->loadFactoriesFromClass($classReflection);
-            }
-        }
-    }
-
-    /**
-     * @throws AlreadyRegisteredException
-     */
-    private function loadFactoriesFromClasses()
-    {
         $factories = $this->factoryLoader->loadFromClasses($this->classes);
         $this->registry->registerAll($factories);
-    }
 
-    /**
-     * @param ReflectionClass $reflectionClass
-     */
-    private function loadFactoriesFromClass(ReflectionClass $reflectionClass)
-    {
-        $factories = $this->factoryLoader->loadFromClass($reflectionClass);
-        $this->registry->registerAll($factories);
+        return new MethodContainer($this->registry);
     }
 
 }
