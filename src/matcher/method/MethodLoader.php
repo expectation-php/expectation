@@ -46,6 +46,12 @@ class MethodLoader
     private $annotationReader;
 
     /**
+     * @var \expectation\matcher\method\FactoryLoader
+     */
+    private $factoryLoader;
+
+
+    /**
      * @param \Doctrine\Common\Annotations\Reader $annotationReader
      */
     public function __construct(Reader $annotationReader)
@@ -54,6 +60,7 @@ class MethodLoader
         $this->namespaces = new Sequence();
         $this->registry = new FactoryRegistry();
         $this->annotationReader = $annotationReader;
+        $this->factoryLoader = new FactoryLoader($annotationReader);
     }
 
     /**
@@ -123,9 +130,7 @@ class MethodLoader
      */
     private function loadFactoriesFromClass(ReflectionClass $reflectionClass)
     {
-        $loader = new FactoryLoader($this->annotationReader);
-
-        $factories = $loader->loadFromClass($reflectionClass);
+        $factories = $this->factoryLoader->loadFromClass($reflectionClass);
         $this->registry->registerAll($factories);
     }
 
