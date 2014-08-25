@@ -33,7 +33,6 @@ class FactoryRegistry implements FactoryRegistryInterface
         $this->factories = new Map();
     }
 
-
     /**
      * @param string $name
      * @param MethodFactoryInterface $factory
@@ -42,8 +41,16 @@ class FactoryRegistry implements FactoryRegistryInterface
     public function register($name, MethodFactoryInterface $factory)
     {
         if ($this->contains($name)) {
-            $factory = $this->get($name);
-            throw new AlreadyRegisteredException($name, $factory->getMethod());
+            $message  = "'%s' method of matcher is already registered.\n";
+            $message .= "Class is %s, the method is registered with the '%s'.";
+
+            $method = $this->get($name)->getMethod();
+            $className = $method->getDeclaringClass()->getName();
+            $invokeMethodName = $method->getName();
+
+            $resultMessage = sprintf($message, $name, $className, $invokeMethodName);
+
+            throw new AlreadyRegisteredException($resultMessage);
         }
 
         $this->factories->set($name, $factory);
