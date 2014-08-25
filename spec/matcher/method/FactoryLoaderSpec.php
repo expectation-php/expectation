@@ -22,10 +22,10 @@ describe('FactoryLoader', function() {
         $this->className = '\expectation\spec\fixture\matcher\single\FixtureSingleMatcher';
     });
 
-    describe('load', function() {
+    describe('loadFromClass', function() {
         before(function () {
             $loader = new FactoryLoader(new AnnotationReader());
-            $this->result = $loader->load(new ReflectionClass($this->className));
+            $this->result = $loader->loadFromClass(new ReflectionClass($this->className));
         });
         it('return \ArrayIterator instance', function() {
             Assertion::isInstanceOf($this->result, '\ArrayIterator');

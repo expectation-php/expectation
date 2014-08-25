@@ -43,7 +43,7 @@ class FactoryLoader
      * @param ReflectionClass $classReflection
      * @return \ArrayIterator
      */
-    public function load(ReflectionClass $classReflection)
+    public function loadFromClass(ReflectionClass $classReflection)
     {
         return $this->parseAnnotations($classReflection);
     }

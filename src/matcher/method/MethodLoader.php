@@ -125,7 +125,7 @@ class MethodLoader
     {
         $loader = new FactoryLoader($this->annotationReader);
 
-        $factories = $loader->load($reflectionClass);
+        $factories = $loader->loadFromClass($reflectionClass);
         $this->registry->registerAll($factories);
     }
 
