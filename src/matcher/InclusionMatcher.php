@@ -16,7 +16,6 @@ use expectation\matcher\annotation\Lookup;
 use expectation\matcher\strategy\ArrayInclusionStrategy;
 use expectation\matcher\strategy\StringInclusionStrategy;
 use InvalidArgumentException;
-use PhpCollection\Sequence;
 
 
 /**

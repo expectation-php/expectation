@@ -11,7 +11,6 @@
 
 namespace expectation\matcher;
 
-use Countable;
 use expectation\AbstractMatcher;
 use expectation\matcher\annotation\Lookup;
 

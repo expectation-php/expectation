@@ -19,11 +19,12 @@ interface ConfiguratorInterface
 
     /**
      * @param callable $callback
+     * @return void
      */
     public static function configure(callable $callback = null);
 
     /**
-     * @return \expectation\Configration
+     * @return Configuration
      */
     public static function configration();
 
