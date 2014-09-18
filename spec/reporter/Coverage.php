@@ -12,8 +12,13 @@
 namespace expectation\spec\reporter;
 
 use Preview\Reporter\Spec;
-use PHP_CodeCoverage;
-use PHP_CodeCoverage_Report_Clover;
+use cloak\Analyzer;
+use cloak\ConfigurationBuilder;
+use cloak\result\File;
+use cloak\reporter\CompositeReporter;
+use cloak\reporter\LcovReporter;
+use cloak\reporter\TextReporter;
+use cloak\reporter\ProcessingTimeReporter;
 
 /**
  * @package expectation\spec\reporter
@@ -21,27 +26,38 @@ use PHP_CodeCoverage_Report_Clover;
 class Coverage extends Spec
 {
 
-    private $coverage;
+    private $analyzer;
 
     public function before_all($results)
     {
-        $this->coverage = new PHP_CodeCoverage;
-        $this->coverage->filter()->addDirectoryToWhitelist('src');
-        $this->coverage->start('default');
+        $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+            $reporter = new CompositeReporter([
+                new LcovReporter(__DIR__ . '/../../report.lcov'),
+                new TextReporter(),
+                new ProcessingTimeReporter()
+            ]);
+
+            $includeCallback = function(File $file) {
+                return $file->matchPath('src');
+            };
+
+            $excludeCallback = function(File $file) {
+                return $file->matchPath('vendor') || $file->matchPath('spec');
+            };
+
+            $builder->reporter($reporter)
+                ->includeFile($includeCallback)
+                ->excludeFile($excludeCallback);
+        });
+        $this->analyzer->start();
 
         parent::before_all($results);
     }
 
     public function after_all($results)
     {
-        $this->coverage->stop();
-
-        $directoryPath = getcwd();
-        $writer = new PHP_CodeCoverage_Report_Clover;
-        $writer->process($this->coverage, $directoryPath . '/clover.xml');
-//var_dump($results);
+        $this->analyzer->stop();
         parent::after_all($results);
     }
 
 }
-
