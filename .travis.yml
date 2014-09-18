@@ -9,4 +9,4 @@ before_install:
 script:
   - vendor/bin/preview -c config/coverage.php spec
 after_script:
-  - vendor/bin/coveralls -c .coveralls.yml --verbose
+  - vendor/bin/phake spec:coveralls
