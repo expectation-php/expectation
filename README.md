@@ -8,7 +8,7 @@ This library inspired by [pho](https://github.com/danielstjules/pho) of bdd test
 [![Stories in Ready](https://badge.waffle.io/holyshared/expectation.png?label=ready&title=Ready)](https://waffle.io/holyshared/expectation)
 [![Coverage Status](https://coveralls.io/repos/holyshared/expectation/badge.png?branch=master)](https://coveralls.io/r/holyshared/expectation?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/holyshared/expectation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/holyshared/expectation/?branch=master)
-[![Dependencies Status](https://depending.in/holyshared/expectation.png)](http://depending.in/holyshared/expectation)
+[![Dependency Status](https://www.versioneye.com/user/projects/53fd58fcf4df150ee0000003/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53fd58fcf4df150ee0000003)
 
 * [Requirements](#requirements)
 * [Installation](#installation)

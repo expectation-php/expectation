@@ -1,7 +1,7 @@
 {
     "name": "expectation/expectation",
     "description": "expectation library for unit testing",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "keywords": [
         "expect", "assert", "test"
     ],
@@ -15,8 +15,8 @@
         "jaz303/phake": "0.6.*",
         "beberlei/assert": "2.0.*",
         "phpspec/prophecy": "@stable",
-        "phpunit/php-code-coverage": "@stable",
-        "satooshi/php-coveralls": "dev-master"
+        "cloak/cloak": "1.3.*",
+        "cloak/coverallskit": "1.3.*"
     },
     "license": "MIT",
     "authors": [

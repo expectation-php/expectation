@@ -14,7 +14,6 @@ namespace expectation\matcher;
 use ReflectionMethod;
 use expectation\ExpectationException;
 use expectation\AttributeAccessible;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * @property mixed $expectValue

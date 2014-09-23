@@ -16,8 +16,13 @@ interface MethodFactoryInterface
 
     /**
      * @param array $arguments
-     * @return MatcherInterface
+     * @return \expectation\matcher\Method
      */
     public function withArguments(array $arguments);
+
+    /**
+     * @return ReflectionMethod
+     */
+    public function getMethod();
 
 }
