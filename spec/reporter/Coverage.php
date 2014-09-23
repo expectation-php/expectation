@@ -17,6 +17,7 @@ use cloak\ConfigurationBuilder;
 use cloak\result\File;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\LcovReporter;
+use cloak\reporter\MarkdownReporter;
 use cloak\reporter\TextReporter;
 use cloak\reporter\ProcessingTimeReporter;
 
@@ -33,6 +34,7 @@ class Coverage extends Spec
         $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
             $reporter = new CompositeReporter([
                 new LcovReporter(__DIR__ . '/../../report.lcov'),
+                new MarkdownReporter(__DIR__ . '/../../report.md'),
                 new TextReporter(),
                 new ProcessingTimeReporter()
             ]);
