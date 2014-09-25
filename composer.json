@@ -42,5 +42,8 @@
             "expectation\\spec\\reporter\\": "spec/reporter/"
         }
     },
+    "scripts": {
+        "test": "vendor/bin/preview -c config/coverage.php spec"
+    },
     "minimum-stability": "stable"
 }
