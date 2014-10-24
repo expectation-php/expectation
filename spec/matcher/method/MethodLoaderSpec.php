@@ -13,7 +13,7 @@ use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
 use expectation\matcher\method\MethodLoader;
 use expectation\matcher\method\AlreadyRegisteredException;
-use ReflectionClass;
+use \ReflectionClass;
 
 describe('MethodLoader', function() {
 

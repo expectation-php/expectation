@@ -12,9 +12,9 @@
 use Assert\Assertion;
 use expectation\dsl as expectation;
 use expectation\Expectation as AliasExpectation;
-use stdClass;
-use RuntimeException;
-use ArrayObject;
+use \stdClass;
+use \RuntimeException;
+use \ArrayObject;
 
 describe('DSL', function() {
     beforeEach(function() {

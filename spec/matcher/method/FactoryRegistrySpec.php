@@ -11,7 +11,7 @@
 
 use Assert\Assertion;
 use Prophecy\Prophet;
-use ReflectionMethod;
+use \ReflectionMethod;
 use expectation\matcher\method\FactoryRegistry;
 use expectation\matcher\method\AlreadyRegisteredException;
 

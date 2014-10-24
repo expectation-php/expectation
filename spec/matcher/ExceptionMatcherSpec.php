@@ -12,8 +12,8 @@
 use Assert\Assertion;
 use expectation\matcher\ExceptionMatcher;
 use expectation\matcher\Formatter;
-use Exception;
-use UnderflowException;
+use \Exception;
+use \UnderflowException;
 
 describe('ExceptionMatcher', function() {
 

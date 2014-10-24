@@ -10,7 +10,7 @@
  */
 
 use Assert\Assertion;
-use ReflectionMethod;
+use \ReflectionMethod;
 use expectation\matcher\annotation\Lookup;
 
 describe('Lookup', function() {

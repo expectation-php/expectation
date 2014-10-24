@@ -12,8 +12,8 @@
 use expectation\matcher\InclusionMatcher;
 use expectation\matcher\Formatter;
 use Assert\Assertion;
-use stdClass;
-use InvalidArgumentException;
+use \stdClass;
+use \InvalidArgumentException;
 
 describe('InclusionMatcher', function() {
 

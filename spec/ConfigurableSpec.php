@@ -12,7 +12,7 @@
 use Assert\Assertion;
 use expectation\spec\fixture\FixtureExpectation;
 use expectation\ConfigurationBuilder;
-use stdClass;
+use \stdClass;
 
 describe('Configurable', function() {
 

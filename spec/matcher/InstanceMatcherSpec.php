@@ -12,8 +12,8 @@
 use expectation\matcher\InstanceMatcher;
 use expectation\matcher\Formatter;
 use Assert\Assertion;
-use stdClass;
-use Exception;
+use \stdClass;
+use \Exception;
 
 
 describe('InstanceMatcher', function() {

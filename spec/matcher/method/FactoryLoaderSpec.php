@@ -10,7 +10,7 @@
  */
 
 use Assert\Assertion;
-use ReflectionClass;
+use \ReflectionClass;
 use expectation\matcher\method\FactoryLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
 

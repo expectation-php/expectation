@@ -12,7 +12,7 @@
 use expectation\matcher\Formatter;
 use expectation\matcher\LengthMatcher;
 use Assert\Assertion;
-use ArrayObject;
+use \ArrayObject;
 
 describe('LengthMatcher', function() {
 

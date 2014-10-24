@@ -11,7 +11,7 @@
 
 use Assert\Assertion;
 use expectation\matcher\Formatter;
-use stdClass;
+use \stdClass;
 
 describe('Formatter', function() {
 
