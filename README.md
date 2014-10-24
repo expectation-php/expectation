@@ -192,3 +192,8 @@ It is available by using the **DSL** and **DSLInterface**.
 		}
 
 	}
+
+Run unit test
+---------------------------
+
+	composer test
