@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\matcher\ExceptionMatcher;
 use expectation\matcher\Formatter;
@@ -19,7 +17,7 @@ use UnderflowException;
 
 describe('ExceptionMatcher', function() {
 
-    before_each(function() {
+    beforeEach(function() {
         $this->matcher = new ExceptionMatcher(new Formatter());
     });
 

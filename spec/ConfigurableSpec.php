@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\spec\fixture\FixtureExpectation;
 use expectation\ConfigurationBuilder;
@@ -36,7 +34,7 @@ describe('Configurable', function() {
             });
         });
         context('when configurator empty', function() {
-            before(function() {
+            beforeEach(function() {
                 FixtureExpectation::configure();
             });
             it('should create configuration', function() {

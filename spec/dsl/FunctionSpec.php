@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\dsl as expectation;
 use expectation\Expectation as AliasExpectation;
@@ -19,7 +17,7 @@ use RuntimeException;
 use ArrayObject;
 
 describe('DSL', function() {
-    before(function() {
+    beforeEach(function() {
         AliasExpectation::configure();
     });
 

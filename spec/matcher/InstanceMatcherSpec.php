@@ -9,17 +9,16 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use expectation\matcher\InstanceMatcher;
 use expectation\matcher\Formatter;
 use Assert\Assertion;
 use stdClass;
 use Exception;
 
+
 describe('InstanceMatcher', function() {
 
-    before_each(function() {
+    beforeEach(function() {
         $this->matcher = new InstanceMatcher(new Formatter());
     });
 

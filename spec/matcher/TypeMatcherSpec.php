@@ -9,15 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use expectation\matcher\TypeMatcher;
 use expectation\matcher\Formatter;
 use Assert\Assertion;
 
 describe('TypeMatcher', function() {
 
-    before_each(function() {
+    beforeEach(function() {
         $this->matcher = new TypeMatcher(new Formatter());
     });
 

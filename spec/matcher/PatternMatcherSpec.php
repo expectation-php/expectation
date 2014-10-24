@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\matcher\Formatter;
 use expectation\matcher\PatternMatcher;
@@ -18,7 +16,7 @@ use expectation\matcher\PatternMatcher;
 describe('PatternMatcher', function() {
 
     describe('match', function() {
-        before(function() {
+        beforeEach(function() {
             $this->matcher = new PatternMatcher(new Formatter());
             $this->matcher->expectValue = '/foo/';
         });
@@ -36,7 +34,7 @@ describe('PatternMatcher', function() {
 
     describe('getFailureMessage', function() {
         context('when pattern unmatch', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->expectValue = '/foo/';
             });
@@ -46,7 +44,7 @@ describe('PatternMatcher', function() {
             });
         });
         context('when prefix unmatch', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->expectValue = 'foo';
             });
@@ -56,7 +54,7 @@ describe('PatternMatcher', function() {
             });
         });
         context('when suffix unmatch', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->expectValue = 'foo';
             });
@@ -69,7 +67,7 @@ describe('PatternMatcher', function() {
 
     describe('getNegatedFailureMessage', function() {
         context('when pattern unmatch', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->expectValue = '/foo/';
             });
@@ -79,7 +77,7 @@ describe('PatternMatcher', function() {
             });
         });
         context('when prefix unmatch', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->expectValue = 'foo';
             });
@@ -89,7 +87,7 @@ describe('PatternMatcher', function() {
             });
         });
         context('when suffix unmatch', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->expectValue = 'foo';
             });

@@ -9,15 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\matcher\NamespaceReflection;
 
 describe('NamespaceReflection', function() {
 
     describe('getClassReflections', function() {
-        before(function() {
+        beforeEach(function() {
             $namespace = '\expectation\spec\fixture\matcher\single';
             $namespaceDirectory = __DIR__ . '/../fixture/matcher/single';
 

@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use expectation\matcher\InclusionMatcher;
 use expectation\matcher\Formatter;
 use Assert\Assertion;
@@ -19,7 +17,7 @@ use InvalidArgumentException;
 
 describe('InclusionMatcher', function() {
 
-    before_each(function() {
+    beforeEach(function() {
         $this->matcher = new InclusionMatcher(new Formatter());
     });
 

@@ -9,20 +9,18 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\matcher\strategy\InclusionResult;
 
 describe('InclusionResult', function() {
-    before(function() {
+    beforeEach(function() {
         $this->expectValues = [1, 2, 3];
         $this->matchResults = [1, 2, 3];
         $this->unmatchResults = [4];
         $this->inclusionResult = new InclusionResult($this->expectValues, $this->matchResults, $this->unmatchResults);
     });
     describe('#getMatchResults', function() {
-        before(function() {
+        beforeEach(function() {
             $this->result = $this->inclusionResult->getMatchResults();
         });
         it('return match results', function() {
@@ -30,7 +28,7 @@ describe('InclusionResult', function() {
         });
     });
     describe('#getUnmatchResults', function() {
-        before(function() {
+        beforeEach(function() {
             $this->result = $this->inclusionResult->getUnmatchResults();
         });
         it('return unmatch results', function() {
@@ -39,7 +37,7 @@ describe('InclusionResult', function() {
     });
     describe('#isMatched', function() {
         context('when match', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->expectValues = [1, 2, 3];
                 $this->matchResults = [1, 2, 3];
                 $this->unmatchResults = [4];
@@ -51,7 +49,7 @@ describe('InclusionResult', function() {
             });
         });
         context('when unmatch', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->expectValues = [1, 2, 3, 4];
                 $this->matchResults = [1, 2, 3];
                 $this->unmatchResults = [4];

@@ -9,15 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use expectation\Evaluator;
 use Prophecy\Prophet;
 
 describe('Evaluator', function() {
 
     describe('__call', function() {
-        before(function() {
+        beforeEach(function() {
             $this->prophet = new Prophet();
 
             $this->matcher = $this->prophet->prophesize('expectation\matcher\MethodInterface');
@@ -31,7 +29,7 @@ describe('Evaluator', function() {
             $this->evaluator = new Evaluator($this->container->reveal());
         });
 
-        after(function() {
+        afterEach(function() {
             $this->prophet->checkPredictions();
         });
 

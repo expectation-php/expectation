@@ -9,15 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use ReflectionMethod;
 use expectation\matcher\annotation\Lookup;
 
 describe('Lookup', function() {
 
-    before(function() {
+    beforeEach(function() {
         $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\matcher\\basic\\FixtureMatcher', 'match');
         $this->annotation = new Lookup([
             'name' => 'toEqual'
