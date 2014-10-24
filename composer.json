@@ -44,7 +44,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/preview -c config/coverage.php spec"
+        "test": "vendor/bin/peridot --grep *Spec.php spec"
     },
     "minimum-stability": "stable"
 }
