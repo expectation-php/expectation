@@ -31,7 +31,7 @@ Then please run the **composer install**.
 
     {
         "require-dev": {
-            "expectation/expectation": "dev-master"
+            "expectation/expectation": "1.3.1"
         }
     }
 
