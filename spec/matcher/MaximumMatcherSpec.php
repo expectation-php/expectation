@@ -9,15 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\matcher\Formatter;
 use expectation\matcher\MaximumMatcher;
 
 describe('MaximumMatcher', function() {
 
-    before_each(function() {
+    beforeEach(function() {
         $this->matcher = new MaximumMatcher(new Formatter());
     });
 

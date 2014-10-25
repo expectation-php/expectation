@@ -9,15 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\matcher\Formatter;
-use stdClass;
+use \stdClass;
 
 describe('Formatter', function() {
 
-    before(function() {
+    beforeEach(function() {
         $this->formatter = new Formatter();
     });
 

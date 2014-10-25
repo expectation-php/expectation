@@ -9,18 +9,16 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\matcher\strategy\InclusionResult;
 use expectation\matcher\strategy\StringInclusionStrategy;
 
 describe('StringInclusionStrategy', function() {
-    before(function() {
+    beforeEach(function() {
         $this->strategy = new StringInclusionStrategy('foo var');
     });
     describe('#match', function() {
-        before(function() {
+        beforeEach(function() {
             $this->result = $this->strategy->match(['foo', 'bar']);
         });
         it('return expectation\matcher\strategy\InclusionResult instance', function() {

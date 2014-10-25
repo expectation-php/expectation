@@ -9,17 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
 use expectation\matcher\method\MethodLoader;
 use expectation\matcher\method\AlreadyRegisteredException;
-use ReflectionClass;
+use \ReflectionClass;
 
 describe('MethodLoader', function() {
 
-    before_each(function() {
+    beforeEach(function() {
         $this->reader = new AnnotationReader();
         $this->loader = new MethodLoader($this->reader);
     });
@@ -27,7 +25,7 @@ describe('MethodLoader', function() {
     describe('load', function() {
         context('when matcher is not duplicated', function() {
             context('when namespace', function() {
-                before_each(function() {
+                beforeEach(function() {
                     $this->loader->registerNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/../../fixture/matcher/basic');
                     $this->container = $this->loader->load();
                 });
@@ -41,7 +39,7 @@ describe('MethodLoader', function() {
                 });
             });
             context('when class', function() {
-                before_each(function() {
+                beforeEach(function() {
                     $this->reflectionClass = new ReflectionClass('expectation\spec\fixture\matcher\single\FixtureSingleMatcher');
                     $this->loader->registerClass($this->reflectionClass);
 
@@ -55,7 +53,7 @@ describe('MethodLoader', function() {
             });
         });
         context('when matcher is duplicated', function() {
-            before_each(function() {
+            beforeEach(function() {
                 $this->loader->registerNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/../../fixture/matcher/basic');
                 $this->loader->registerNamespace('expectation\spec\fixture\matcher\duplicated', __DIR__ . '/../../fixture/matcher/duplicated/');
             });

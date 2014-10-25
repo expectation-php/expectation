@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use expectation\Configuration;
 use Assert\Assertion;
 use Prophecy\Prophet;
@@ -18,7 +16,7 @@ use Prophecy\Prophet;
 describe('Configuration', function() {
 
     describe('__construct', function() {
-        before(function() {
+        beforeEach(function() {
             $this->prophet = new Prophet();
 
             $this->container = $this->prophet->prophesize('expectation\matcher\method\MethodContainerInterface');
@@ -29,7 +27,7 @@ describe('Configuration', function() {
                 'methodContainer' => $this->methodContainer
             ]);
         });
-        after(function() {
+        afterEach(function() {
             $this->prophet->checkPredictions();
         });
         it('should assign methodContainer property', function() {
