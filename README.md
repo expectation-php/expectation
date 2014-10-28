@@ -1,11 +1,11 @@
-expectation
+Expectation
 ===========
 
 **expectation** is the assertion library for unit testing.  
 This library inspired by [pho](https://github.com/danielstjules/pho) of bdd test framework.
 
 [![Build Status](https://travis-ci.org/holyshared/expectation.svg?branch=master)](https://travis-ci.org/holyshared/expectation)
-[![Stories in Ready](https://badge.waffle.io/holyshared/expectation.png?label=ready&title=Ready)](https://waffle.io/holyshared/expectation)
+[![Stories in Ready](https://badge.waffle.io/expectation-php/expectation.svg?label=ready&title=Ready)](http://waffle.io/expectation-php/expectation)
 [![Coverage Status](https://coveralls.io/repos/holyshared/expectation/badge.png?branch=master)](https://coveralls.io/r/holyshared/expectation?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/holyshared/expectation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/holyshared/expectation/?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/53fd58fcf4df150ee0000003/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53fd58fcf4df150ee0000003)
@@ -108,7 +108,7 @@ Basic matchers
 Custom matchers
 ---------------------------
 
-Please inherited the **AbstractMatcher** If you want to create a matcher.   
+Please inherited the **AbstractMatcher** If you want to create a matcher.
 And please implement the method **match**, **getFailureMessage**, of **getNegatedFailureMessage**.
 
 Please use the **Lookup annotations** always in the match method.
