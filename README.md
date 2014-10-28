@@ -4,7 +4,7 @@ Expectation
 **expectation** is the assertion library for unit testing.  
 This library inspired by [pho](https://github.com/danielstjules/pho) of bdd test framework.
 
-[![Build Status](https://travis-ci.org/holyshared/expectation.svg?branch=master)](https://travis-ci.org/holyshared/expectation)
+[![Build Status](https://travis-ci.org/expectation-php/expectation.svg?branch=master)](https://travis-ci.org/expectation-php/expectation)
 [![Stories in Ready](https://badge.waffle.io/expectation-php/expectation.svg?label=ready&title=Ready)](http://waffle.io/expectation-php/expectation)
 [![Coverage Status](https://coveralls.io/repos/holyshared/expectation/badge.png?branch=master)](https://coveralls.io/r/holyshared/expectation?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/holyshared/expectation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/holyshared/expectation/?branch=master)
