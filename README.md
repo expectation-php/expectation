@@ -8,7 +8,7 @@ This library inspired by [pho](https://github.com/danielstjules/pho) of bdd test
 [![Stories in Ready](https://badge.waffle.io/expectation-php/expectation.svg?label=ready&title=Ready)](http://waffle.io/expectation-php/expectation)
 [![Coverage Status](https://coveralls.io/repos/expectation-php/expectation/badge.png)](https://coveralls.io/r/expectation-php/expectation)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/expectation-php/expectation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/expectation-php/expectation/?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/53fd58fcf4df150ee0000003/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53fd58fcf4df150ee0000003)
+[![Dependency Status](https://www.versioneye.com/user/projects/545032df9fc4d53c65000294/badge.svg?style=flat)](https://www.versioneye.com/user/projects/545032df9fc4d53c65000294)
 
 * [Requirements](#requirements)
 * [Installation](#installation)
