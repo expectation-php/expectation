@@ -22,33 +22,75 @@ class ConfigurationLoader
 {
 
     /**
+     * @var ConfigurationBuilder
+     */
+    private $builder;
+
+    /**
+     * @var \PhpCollection\Map
+     */
+    private $configValues;
+
+
+    public function __construct()
+    {
+        $this->builder = new ConfigurationBuilder();
+    }
+
+
+    /**
      * @param string $configurationFilePath
      * @return Configuration
      */
     public function load($configurationFilePath)
     {
+        $this->loadConfiguration($configurationFilePath);
+        $this->applyClassSection();
+        $this->applyNamespaceSection();
+
+        return $this->createConfiguration();
+    }
+
+    /**
+     * @param string $configurationFilePath
+     */
+    private function loadConfiguration($configurationFilePath)
+    {
         $configValues = include $configurationFilePath;
-        $config = new Map($configValues);
+        $this->configValues = new Map($configValues);
+    }
 
-        $builder = new ConfigurationBuilder();
-
-        if ($config->containsKey('classes')) {
-            $value = $config->get('classes');
-
-            foreach ($value->get() as $matcherClassName) {
-                $builder->registerMatcherClass($matcherClassName);
-            }
+    private function applyClassSection()
+    {
+        if ($this->configValues->containsKey('classes') === false) {
+            return;
         }
 
-        if ($config->containsKey('namespaces')) {
-            $value = $config->get('namespaces');
+        $matcherClassNames = $this->configValues->get('classes');
 
-            foreach ($value->get() as $matcherNamespace => $matcherDirectory) {
-                $builder->registerMatcherNamespace($matcherNamespace, $matcherDirectory);
-            }
+        foreach ($matcherClassNames->get() as $matcherClassName) {
+            $this->builder->registerMatcherClass($matcherClassName);
         }
+    }
 
-        return $builder->build();
+    private function applyNamespaceSection()
+    {
+        if ($this->configValues->containsKey('namespaces') === false) {
+            return;
+        }
+        $matcherNamespaces = $this->configValues->get('namespaces');
+
+        foreach ($matcherNamespaces->get() as $matcherNamespace => $matcherDirectory) {
+            $this->builder->registerMatcherNamespace($matcherNamespace, $matcherDirectory);
+        }
+    }
+
+    /**
+     * @return Configuration
+     */
+    private function createConfiguration()
+    {
+        return $this->builder->build();
     }
 
 }
