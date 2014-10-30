@@ -11,7 +11,7 @@
         "phpcollection/phpcollection": "0.4.*"
     },
     "require-dev": {
-        "peridot-php/peridot": "1.0.*",
+        "peridot-php/peridot": "1.2.*",
         "jaz303/phake": "0.6.*",
         "beberlei/assert": "2.0.*",
         "phpspec/prophecy": "@stable",
