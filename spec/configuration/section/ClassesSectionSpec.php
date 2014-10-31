@@ -9,8 +9,22 @@
  * with this source code in the file LICENSE.
  */
 
-xdescribe('ClassesSection', function() {
-    xdescribe('#applyTo', function() {
-        xit("apply the config to builder");
+use expectation\ConfigurationBuilder;
+use expectation\configuration\section\ClassesSection;
+use Assert\Assertion;
+
+describe('ClassesSection', function() {
+    describe('#applyTo', function() {
+        beforeEach(function() {
+            $this->builder = new ConfigurationBuilder();
+            $this->section = new ClassesSection([
+                'expectation\spec\fixture\matcher\basic\FixtureMatcher'
+            ]);
+            $this->section->applyTo($this->builder);
+        });
+        it("apply the config to builder", function() {
+            $classes = $this->builder->getMatcherClasses();
+            Assertion::count($classes, 1);
+        });
     });
 });

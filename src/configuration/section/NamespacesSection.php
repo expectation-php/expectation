@@ -11,15 +11,21 @@
 
 namespace expectation\configuration\section;
 
+use expectation\ConfigurationBuilder;
+use expectation\configuration\AbstractSection;
 use expectation\configuration\SectionInterface;
+
 
 /**
  * Class NamespacesSection
  * @package expectation\configuration\section
  */
-class NamespacesSection implements SectionInterface
+final class NamespacesSection extends AbstractSection implements SectionInterface
 {
 
+    /**
+     * {@inheritdoc}
+     */
     public function applyTo(ConfigurationBuilder $builder)
     {
     }

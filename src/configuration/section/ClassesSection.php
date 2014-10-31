@@ -11,17 +11,37 @@
 
 namespace expectation\configuration\section;
 
+use expectation\ConfigurationBuilder;
+use expectation\configuration\AbstractSection;
 use expectation\configuration\SectionInterface;
 
 /**
  * Class ClassesSection
  * @package expectation\configuration\section
  */
-class ClassesSection implements SectionInterface
+final class ClassesSection extends AbstractSection implements SectionInterface
 {
 
+    /**
+     * {@inheritdoc}
+     */
     public function applyTo(ConfigurationBuilder $builder)
     {
+        $matcherClassNames = $this->getMatcherClassNames();
+
+        foreach($matcherClassNames as $matcherClassName) {
+            $builder->registerMatcherClass($matcherClassName);
+        }
+
+        return $builder;
+    }
+
+    /**
+     * @return array
+     */
+    private function getMatcherClassNames()
+    {
+        return $this->values;
     }
 
 }
