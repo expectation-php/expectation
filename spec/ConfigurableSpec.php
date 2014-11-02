@@ -11,38 +11,16 @@
 
 use Assert\Assertion;
 use expectation\spec\fixture\FixtureExpectation;
-use expectation\ConfigurationBuilder;
-use \stdClass;
 
 describe('Configurable', function() {
-
     describe('configure', function() {
-        context('when with configurator', function() {
-
-            $subject = new stdClass();
-            $subject->callCount = 0;
-
-            FixtureExpectation::configure(function(ConfigurationBuilder $config) use($subject) {
-                $subject->callCount++;
-                $config->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
-            });
-            it('should configurator call once', function() use($subject) {
-                Assertion::same($subject->callCount, 1);
-            });
-            it('should create configuration', function() {
-                Assertion::isInstanceOf(FixtureExpectation::configration(), 'expectation\Configuration');
-            });
+        beforeEach(function() {
+            FixtureExpectation::configure();
         });
-        context('when configurator empty', function() {
-            beforeEach(function() {
-                FixtureExpectation::configure();
-            });
-            it('should create configuration', function() {
-                Assertion::isInstanceOf(FixtureExpectation::configration(), 'expectation\Configuration');
-            });
+        it('should create configuration', function() {
+            Assertion::isInstanceOf(FixtureExpectation::configration(), 'expectation\Configuration');
         });
     });
-
     describe('configureWithFile', function() {
         beforeEach(function() {
             $configPath = __DIR__ . '/fixture/config/config.php';
@@ -52,5 +30,4 @@ describe('Configurable', function() {
             Assertion::isInstanceOf(FixtureExpectation::configration(), 'expectation\Configuration');
         });
     });
-
 });

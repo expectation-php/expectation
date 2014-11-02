@@ -11,23 +11,18 @@
 
 use Assert\Assertion;
 use expectation\Expectation;
-use expectation\ConfigurationBuilder;
 use expectation\spec\fixture\FixtureTestCase;
+
 
 describe('DSL', function() {
 
     describe('expect', function() {
         beforeEach(function() {
-            Expectation::configure(function(ConfigurationBuilder $config) {
-                $config->registerMatcherNamespace(
-                    'expectation\spec\fixture\matcher\basic',
-                    __DIR__ . '/fixture/matcher/basic'
-                );
-            });
+            Expectation::configure();
             $this->testCase = new FixtureTestCase();
         });
-        it('should lookup matcher method', function() {
-            $result = $this->testCase->expect(true)->equals(true);
+        it('lookup matcher method', function() {
+            $result = $this->testCase->expect(true)->toEqual(true);
             Assertion::true($result);
         });
     });

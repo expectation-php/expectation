@@ -9,20 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
-use Assert\Assertion;
 use expectation\Expectation;
-use expectation\ConfigurationBuilder;
+
 
 describe('Expectation', function() {
 
     describe('expect', function() {
         beforeEach(function() {
-            Expectation::configure(function(ConfigurationBuilder $config) {
-                $config->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
-            });
+            Expectation::configure();
         });
-        it('should lookup matcher method', function() {
-            Expectation::expect(true)->equals(true);
+        it('lookup matcher method', function() {
+            Expectation::expect(true)->toEqual(true);
         });
     });
 
