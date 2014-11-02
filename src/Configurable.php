@@ -11,6 +11,10 @@
 
 namespace expectation;
 
+
+use expectation\ConfigurationLoader;
+
+
 /**
  * @package expectation
  */
@@ -54,6 +58,15 @@ trait Configurable
         );
 
         return $builder;
+    }
+
+    /**
+     * @param string $configurationFile
+     */
+    public static function configureWithFile($configurationFile)
+    {
+        $loader = new ConfigurationLoader();
+        self::$configuration = $loader->load($configurationFile);
     }
 
 }

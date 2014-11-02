@@ -43,4 +43,14 @@ describe('Configurable', function() {
         });
     });
 
+    describe('configureWithFile', function() {
+        beforeEach(function() {
+            $configPath = __DIR__ . '/fixture/config/config.php';
+            FixtureExpectation::configureWithFile($configPath);
+        });
+        it('create configuration', function() {
+            Assertion::isInstanceOf(FixtureExpectation::configration(), 'expectation\Configuration');
+        });
+    });
+
 });
