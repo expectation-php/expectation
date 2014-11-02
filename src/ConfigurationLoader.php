@@ -12,6 +12,9 @@
 namespace expectation;
 
 use PhpCollection\Map;
+use expectation\configuration\RootSection;
+use expectation\configuration\section\ClassesSection;
+use expectation\configuration\section\NamespacesSection;
 
 
 /**
@@ -22,9 +25,14 @@ class ConfigurationLoader
 {
 
     /**
-     * @var ConfigurationBuilder
+     * @var \expectation\ConfigurationBuilder
      */
     private $builder;
+
+    /**
+     * @var \expectation\configuration\RootSection
+     */
+    private $rootSection;
 
     /**
      * @var \PhpCollection\Map
@@ -35,8 +43,8 @@ class ConfigurationLoader
     public function __construct()
     {
         $this->builder = new ConfigurationBuilder();
+        $this->rootSection = new RootSection();
     }
-
 
     /**
      * @param string $configurationFilePath
@@ -47,7 +55,6 @@ class ConfigurationLoader
         $this->loadConfiguration($configurationFilePath);
         $this->applyClassSection();
         $this->applyNamespaceSection();
-
         return $this->createConfiguration();
     }
 
@@ -62,27 +69,26 @@ class ConfigurationLoader
 
     private function applyClassSection()
     {
-        if ($this->configValues->containsKey('classes') === false) {
+        $classes = $this->configValues->get('classes');
+
+        if ($classes->isEmpty()) {
             return;
         }
 
-        $matcherClassNames = $this->configValues->get('classes');
-
-        foreach ($matcherClassNames->get() as $matcherClassName) {
-            $this->builder->registerMatcherClass($matcherClassName);
-        }
+        $section = new ClassesSection( $classes->get() );
+        $this->rootSection->addSection($section);
     }
 
     private function applyNamespaceSection()
     {
-        if ($this->configValues->containsKey('namespaces') === false) {
+        $namespaces = $this->configValues->get('namespaces');
+
+        if ($namespaces->isEmpty()) {
             return;
         }
-        $matcherNamespaces = $this->configValues->get('namespaces');
 
-        foreach ($matcherNamespaces->get() as $matcherNamespace => $matcherDirectory) {
-            $this->builder->registerMatcherNamespace($matcherNamespace, $matcherDirectory);
-        }
+        $section = new NamespacesSection( $namespaces->get() );
+        $this->rootSection->addSection($section);
     }
 
     /**
@@ -90,6 +96,7 @@ class ConfigurationLoader
      */
     private function createConfiguration()
     {
+        $this->rootSection->applyTo($this->builder);
         return $this->builder->build();
     }
 
