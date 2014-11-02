@@ -33,10 +33,13 @@ describe('RootSection', function() {
             $this->section = new RootSection([
                 $this->section1, $this->section2
             ]);
-            $this->section->applyTo($this->builder);
+            $this->result = $this->section->applyTo($this->builder);
         });
         it("apply the config to builder", function() {
             $this->prophet->checkPredictions();
+        });
+        it("return expectation\ConfigurationBuilder instance", function() {
+            Assertion::same($this->result, $this->builder);
         });
     });
 });

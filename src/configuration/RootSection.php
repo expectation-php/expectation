@@ -57,8 +57,11 @@ class RootSection implements SectionInterface
      */
     public function applyTo(ConfigurationBuilder $builder)
     {
+        foreach ($this->sections as $section) {
+            $section->applyTo($builder);
+        }
 
-
+        return $builder;
     }
 
 }
