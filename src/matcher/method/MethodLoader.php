@@ -16,6 +16,7 @@ use ReflectionClass;
 use expectation\matcher\annotation\Lookup;
 use PhpCollection\Sequence;
 use expectation\matcher\NamespaceReflection;
+use Zend\Loader\StandardAutoloader;
 
 
 /**
@@ -45,6 +46,11 @@ class MethodLoader
      */
     private $factoryLoader;
 
+    /**
+     * @var StandardAutoloader
+     */
+    private $autoLoader;
+
 
     /**
      * @param \Doctrine\Common\Annotations\Reader $annotationReader
@@ -55,6 +61,7 @@ class MethodLoader
         $this->namespaces = new Sequence();
         $this->registry = new FactoryRegistry();
         $this->factoryLoader = new FactoryLoader($annotationReader);
+        $this->autoLoader = new StandardAutoloader();
     }
 
     /**
@@ -63,6 +70,7 @@ class MethodLoader
      */
     public function registerClass(ReflectionClass $reflectionClass)
     {
+        $this->autoLoader->autoload($reflectionClass->getFileName());
         $this->classes->add($reflectionClass);
         return $this;
     }
@@ -74,6 +82,8 @@ class MethodLoader
      */
     public function registerNamespace($namespace, $directory)
     {
+        $this->autoLoader->registerNamespace($namespace, $directory);
+
         $namespaceReflection = new NamespaceReflection($namespace, $directory);
         $this->namespaces->add($namespaceReflection);
 
@@ -85,6 +95,8 @@ class MethodLoader
      */
     public function load()
     {
+        $this->autoLoader->register();
+
         $factories = $this->factoryLoader->loadFromNamespaces($this->namespaces);
         $this->registry->registerAll($factories);
 
