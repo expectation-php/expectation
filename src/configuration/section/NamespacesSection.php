@@ -28,6 +28,21 @@ final class NamespacesSection extends AbstractSection implements SectionInterfac
      */
     public function applyTo(ConfigurationBuilder $builder)
     {
+        $matcherNamespaces = $this->getMatcherNamespaces();
+
+        foreach($matcherNamespaces as $matcherNamespace => $directoryPath) {
+            $builder->registerMatcherNamespace($matcherNamespace, $directoryPath);
+        }
+
+        return $builder;
+    }
+
+    /**
+     * @return array
+     */
+    private function getMatcherNamespaces()
+    {
+        return $this->values;
     }
 
 }
