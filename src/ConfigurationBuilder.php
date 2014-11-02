@@ -37,6 +37,7 @@ class ConfigurationBuilder
     {
         $this->matcherClasses = new Map();
         $this->matcherNamespaces = new Map();
+        $this->registerMatcherNamespace('\\expectation\\matcher', __DIR__ . '/matcher');
     }
 
     /**

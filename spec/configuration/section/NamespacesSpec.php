@@ -25,7 +25,7 @@ describe('NamespacesSection', function() {
         });
         it("apply the config to builder", function() {
             $namespaces = $this->builder->getMatcherNamespaces();
-            Assertion::count($namespaces, 1);
+            Assertion::count($namespaces, 2);
         });
     });
 });
