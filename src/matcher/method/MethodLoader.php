@@ -37,11 +37,6 @@ class MethodLoader
     private $namespaces;
 
     /**
-     * @var FactoryRegistry
-     */
-    private $registry;
-
-    /**
      * @var \expectation\matcher\method\FactoryLoader
      */
     private $factoryLoader;
@@ -59,9 +54,8 @@ class MethodLoader
     {
         $this->classes = new Sequence();
         $this->namespaces = new Sequence();
-        $this->registry = new FactoryRegistry();
-        $this->factoryLoader = new FactoryLoader($annotationReader);
         $this->autoLoader = new StandardAutoloader();
+        $this->factoryLoader = new FactoryLoader($annotationReader);
     }
 
     /**
@@ -97,13 +91,15 @@ class MethodLoader
     {
         $this->autoLoader->register();
 
+        $registry = new FactoryRegistry();
+
         $factories = $this->factoryLoader->loadFromNamespaces($this->namespaces);
-        $this->registry->registerAll($factories);
+        $registry->registerAll($factories);
 
         $factories = $this->factoryLoader->loadFromClasses($this->classes);
-        $this->registry->registerAll($factories);
+        $registry->registerAll($factories);
 
-        return new MethodContainer($this->registry);
+        return new MethodContainer($registry);
     }
 
 }
