@@ -23,7 +23,9 @@ trait Configurable
      */
     private static $configuration;
 
-
+    /**
+     * {@inheritdoc}
+     */
     public static function configure()
     {
         $builder = new ConfigurationBuilder();
@@ -31,7 +33,7 @@ trait Configurable
     }
 
     /**
-     * @param string $configurationFile
+     * {@inheritdoc}
      */
     public static function configureWithFile($configurationFile)
     {
@@ -41,7 +43,7 @@ trait Configurable
 
 
     /**
-     * @return \expectation\Configuration
+     * {@inheritdoc}
      */
     public static function configration()
     {
