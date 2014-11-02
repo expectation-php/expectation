@@ -15,6 +15,7 @@ use PhpCollection\Map;
 use expectation\configuration\RootSection;
 use expectation\configuration\section\ClassesSection;
 use expectation\configuration\section\NamespacesSection;
+use expectation\configuration\ConfigurationFileNotFoundException;
 
 
 /**
@@ -63,6 +64,9 @@ class ConfigurationLoader
      */
     private function loadConfiguration($configurationFilePath)
     {
+        if (file_exists($configurationFilePath) === false) {
+            throw new ConfigurationFileNotFoundException("File $configurationFilePath not found");
+        }
         $configValues = include $configurationFilePath;
         $this->configValues = new Map($configValues);
     }

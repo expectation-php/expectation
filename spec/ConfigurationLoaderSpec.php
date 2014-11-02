@@ -11,18 +11,35 @@
 
 use Assert\Assertion;
 use expectation\ConfigurationLoader;
+use expectation\configuration\ConfigurationFileNotFoundException;
+
 
 describe('ConfigurationLoader', function() {
     beforeEach(function() {
         $this->loader = new ConfigurationLoader();
     });
     describe('#load', function() {
-        beforeEach(function() {
-            $configPath = __DIR__ . '/fixture/config/config.php';
-            $this->config = $this->loader->load($configPath);
+        context('when file exists', function() {
+            beforeEach(function() {
+                $configPath = __DIR__ . '/fixture/config/config.php';
+                $this->config = $this->loader->load($configPath);
+            });
+            it('return expectation\Configuration instance', function() {
+                Assertion::isInstanceOf($this->config, 'expectation\Configuration');
+            });
         });
-        it('return expectation\Configuration instance', function() {
-            Assertion::isInstanceOf($this->config, 'expectation\Configuration');
+        context('when file not exists', function() {
+            beforeEach(function() {
+                try {
+                    $this->thrownExceptiion = false;
+                    $this->loader->load('font_found_config.php');
+                } catch(ConfigurationFileNotFoundException $e) {
+                    $this->thrownExceptiion = true;
+                }
+            });
+            it('throw ConfigurationFileNotFoundException', function() {
+                Assertion::true($this->thrownExceptiion);
+            });
         });
     });
 });
