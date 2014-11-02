@@ -8,7 +8,8 @@
     "require": {
         "php": ">=5.4.0",
         "doctrine/annotations": "1.2.*",
-        "phpcollection/phpcollection": "0.4.*"
+        "phpcollection/phpcollection": "0.4.*",
+        "zendframework/zend-loader": "2.3.*"
     },
     "require-dev": {
         "peridot-php/peridot": "1.4.*",
