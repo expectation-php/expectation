@@ -3,7 +3,7 @@
     "description": "expectation library for unit testing",
     "version": "1.3.1",
     "keywords": [
-        "expect", "assert", "test"
+        "expect", "assert", "test", "spec", "bdd"
     ],
     "require": {
         "php": ">=5.4.0",
@@ -16,7 +16,9 @@
         "beberlei/assert": "2.0.*",
         "phpspec/prophecy": "@stable",
         "cloak/cloak": "1.3.*",
-        "cloak/coverallskit": "1.3.*"
+        "cloak/coverallskit": "1.3.*",
+        "halleck45/phpmetrics": "dev-master",
+        "hoa/ruler": "dev-master"
     },
     "license": "MIT",
     "authors": [
@@ -43,7 +45,8 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/peridot --grep *Spec.php spec"
+        "test": "vendor/bin/peridot --grep *Spec.php spec",
+        "metrics": "vendor/bin/phpmetrics src"
     },
     "minimum-stability": "stable"
 }
