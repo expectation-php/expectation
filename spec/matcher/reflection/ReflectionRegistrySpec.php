@@ -11,9 +11,9 @@
 
 use Assert\Assertion;
 use \ReflectionMethod;
-use expectation\matcher\method\ReflectionRegistry;
-use expectation\matcher\method\ReflectionNotFoundException;
-use expectation\matcher\method\AlreadyRegisteredException;
+use expectation\matcher\reflection\ReflectionRegistry;
+use expectation\matcher\reflection\ReflectionNotFoundException;
+use expectation\matcher\reflection\AlreadyRegisteredException;
 use \ArrayIterator;
 
 

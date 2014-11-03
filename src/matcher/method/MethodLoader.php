@@ -13,6 +13,8 @@ namespace expectation\matcher\method;
 
 use expectation\matcher\NamespaceReflection;
 use expectation\matcher\annotation\Lookup;
+use expectation\matcher\reflection\ReflectionRegistry;
+use expectation\matcher\reflection\ReflectionLoader;
 use Doctrine\Common\Annotations\Reader;
 use PhpCollection\Sequence;
 use Zend\Loader\StandardAutoloader;
@@ -31,7 +33,7 @@ class MethodLoader
     private $namespaces;
 
     /**
-     * @var \expectation\matcher\method\ReflectionLoader
+     * @var \expectation\matcher\reflection\ReflectionLoader
      */
     private $reflectionLoader;
 

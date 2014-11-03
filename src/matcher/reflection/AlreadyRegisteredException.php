@@ -9,14 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher\method;
+namespace expectation\matcher\reflection;
 
-use Exception;
+use \Exception;
 
-/**
- * Class ReflectionNotFoundException
- * @package expectation\matcher\method
- */
-class ReflectionNotFoundException extends Exception
+class AlreadyRegisteredException extends Exception
 {
 }

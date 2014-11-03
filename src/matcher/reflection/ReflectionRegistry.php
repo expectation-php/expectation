@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher\method;
+namespace expectation\matcher\reflection;
 
 use PhpCollection\Map;
 use \ReflectionMethod;
@@ -18,7 +18,7 @@ use \Iterator;
 
 /**
  * Class ReflectionRegistry
- * @package expectation\matcher\method
+ * @package expectation\matcher\reflection
  */
 class ReflectionRegistry implements ReflectionRegistryInterface
 {

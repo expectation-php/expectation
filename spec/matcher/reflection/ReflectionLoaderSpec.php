@@ -11,7 +11,7 @@
 
 use Assert\Assertion;
 use \ReflectionClass;
-use expectation\matcher\method\ReflectionLoader;
+use expectation\matcher\reflection\ReflectionLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
 
 describe('ReflectionLoader', function() {

@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher\method;
+namespace expectation\matcher\reflection;
 
 use \ReflectionMethod;
 use \Iterator;
@@ -18,7 +18,7 @@ use \Countable;
 
 /**
  * Interface ReflectionRegistryInterface
- * @package expectation\matcher\method
+ * @package expectation\matcher\reflection
  */
 interface ReflectionRegistryInterface extends Countable
 {

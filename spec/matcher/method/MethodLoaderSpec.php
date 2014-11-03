@@ -12,7 +12,7 @@
 use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
 use expectation\matcher\method\MethodLoader;
-use expectation\matcher\method\AlreadyRegisteredException;
+use expectation\matcher\reflection\AlreadyRegisteredException;
 
 
 
@@ -45,14 +45,14 @@ describe('MethodLoader', function() {
                 $this->loader->registerNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/../../fixture/matcher/basic');
                 $this->loader->registerNamespace('expectation\spec\fixture\matcher\duplicated', __DIR__ . '/../../fixture/matcher/duplicated/');
             });
-            it('should throw expectation\matcher\method\AlreadyRegisteredException', function() {
+            it('should throw expectation\matcher\reflection\AlreadyRegisteredException', function() {
                 $throwException = null;
                 try {
                     $this->loader->load();
                 } catch (AlreadyRegisteredException $exception) {
                     $throwException = $exception;
                 }
-                Assertion::isInstanceOf($throwException, 'expectation\matcher\method\AlreadyRegisteredException');
+                Assertion::isInstanceOf($throwException, 'expectation\matcher\reflection\AlreadyRegisteredException');
             });
         });
     });

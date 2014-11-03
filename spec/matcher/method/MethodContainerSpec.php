@@ -21,7 +21,7 @@ describe('MethodContainer', function() {
                 $this->prophet = new Prophet();
                 $this->reflectionMethod = new ReflectionMethod('\\expectation\\spec\\fixture\\matcher\\basic\\FixtureMatcher', 'match');
 
-                $this->registry = $this->prophet->prophesize('expectation\matcher\method\ReflectionRegistryInterface');
+                $this->registry = $this->prophet->prophesize('expectation\matcher\reflection\ReflectionRegistryInterface');
                 $this->registry->get()->withArguments(['toEquals'])
                     ->willReturn($this->reflectionMethod)->shouldBeCalled();
 

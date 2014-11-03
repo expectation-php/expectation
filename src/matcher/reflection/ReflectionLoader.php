@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher\method;
+namespace expectation\matcher\reflection;
 
 use expectation\matcher\annotation\Lookup;
 use Doctrine\Common\Annotations\Reader;
@@ -23,7 +23,7 @@ use \AppendIterator;
 
 /**
  * Class ReflectionLoader
- * @package expectation\matcher\method
+ * @package expectation\matcher\reflection
  */
 class ReflectionLoader
 {
