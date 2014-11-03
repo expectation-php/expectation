@@ -9,16 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use expectation\matcher\Formatter;
 use expectation\matcher\LengthMatcher;
 use Assert\Assertion;
-use ArrayObject;
+use \ArrayObject;
 
 describe('LengthMatcher', function() {
 
-    before(function() {
+    beforeEach(function() {
         $this->matcher = new LengthMatcher(new Formatter());
     });
 

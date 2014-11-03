@@ -14,8 +14,7 @@ namespace expectation;
 use expectation\matcher\method\MethodLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
 use PhpCollection\Map;
-use ReflectionClass;
-use ReflectionException;
+
 
 /**
  * @package expectation
@@ -28,15 +27,11 @@ class ConfigurationBuilder
      */
     private $matcherNamespaces;
 
-    /**
-     * @var \PhpCollection\Map
-     */
-    private $matcherClasses;
 
     public function __construct()
     {
-        $this->matcherClasses = new Map();
         $this->matcherNamespaces = new Map();
+        $this->registerMatcherNamespace('\\expectation\\matcher', __DIR__ . '/matcher');
     }
 
     /**
@@ -59,30 +54,6 @@ class ConfigurationBuilder
     }
 
     /**
-     * @param string $className
-     * @return $this
-     */
-    public function registerMatcherClass($className)
-    {
-        try {
-            $reflectionClass = new ReflectionClass($className);
-        } catch (ReflectionException $exception) {
-            throw new MatcherNotFoundException($exception->getMessage());
-        }
-
-        $this->matcherClasses->set($className, $reflectionClass);
-        return $this;
-    }
-
-    /**
-     * @return Map
-     */
-    public function getMatcherClasses()
-    {
-        return $this->matcherClasses;
-    }
-
-    /**
      * @return \expectation\Configuration
      */
     public function build()
@@ -91,10 +62,6 @@ class ConfigurationBuilder
 
         foreach ($this->matcherNamespaces as $namespace => $directory) {
             $loader->registerNamespace($namespace, $directory);
-        }
-
-        foreach ($this->matcherClasses as $reflectionClass) {
-            $loader->registerClass($reflectionClass);
         }
 
         $config = new Configuration([

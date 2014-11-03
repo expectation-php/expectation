@@ -9,11 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use Prophecy\Prophet;
-use ReflectionMethod;
+use \ReflectionMethod;
 use expectation\matcher\method\FactoryRegistry;
 use expectation\matcher\method\AlreadyRegisteredException;
 
@@ -21,7 +19,7 @@ describe('FactoryRegistry', function() {
 
     describe('register', function() {
         context('when empty', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->prophet = new Prophet();
 
                 $factory = $this->prophet->prophesize('\expectation\matcher\method\MethodFactoryInterface');
@@ -32,7 +30,7 @@ describe('FactoryRegistry', function() {
                 $this->registry = new FactoryRegistry();
                 $this->registry->register('factory', $this->factory);
             });
-            after(function() {
+            afterEach(function() {
                 $this->prophet->checkPredictions();
             });
             it('register factory', function() {
@@ -40,7 +38,7 @@ describe('FactoryRegistry', function() {
             });
         });
         context('when factory is duplicated', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->prophet = new Prophet();
 
                 $factory = $this->prophet->prophesize('\expectation\matcher\method\MethodFactoryInterface');
@@ -52,7 +50,7 @@ describe('FactoryRegistry', function() {
                 $this->registry = new FactoryRegistry();
                 $this->registry->register('factory', $this->factory);
             });
-            after(function() {
+            afterEach(function() {
                 $this->prophet->checkPredictions();
             });
             it('throw expectation\matcher\method\AlreadyRegisteredException', function() {

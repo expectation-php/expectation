@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use Prophecy\Prophet;
 use expectation\matcher\method\MethodContainer;
@@ -19,7 +17,7 @@ describe('MethodContainer', function() {
 
     describe('find', function() {
         context('when factory registered', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->prophet = new Prophet();
 
                 $this->method = $this->prophet->prophesize('expectation\matcher\MethodInterface');
@@ -35,7 +33,7 @@ describe('MethodContainer', function() {
 
                 $this->container = new MethodContainer($this->registry->reveal());
             });
-            after(function() {
+            afterEach(function() {
                 $this->prophet->checkPredictions();
             });
             it('return expectation\matcher\MethodInterface', function() {

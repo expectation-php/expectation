@@ -12,10 +12,10 @@
 namespace expectation\matcher\method;
 
 use Doctrine\Common\Annotations\Reader;
-use ReflectionClass;
 use expectation\matcher\annotation\Lookup;
 use PhpCollection\Sequence;
 use expectation\matcher\NamespaceReflection;
+use Zend\Loader\StandardAutoloader;
 
 
 /**
@@ -28,22 +28,17 @@ class MethodLoader
     /**
      * @var \PhpCollection\Sequence
      */
-    private $classes;
-
-    /**
-     * @var \PhpCollection\Sequence
-     */
     private $namespaces;
-
-    /**
-     * @var FactoryRegistry
-     */
-    private $registry;
 
     /**
      * @var \expectation\matcher\method\FactoryLoader
      */
     private $factoryLoader;
+
+    /**
+     * @var StandardAutoloader
+     */
+    private $autoLoader;
 
 
     /**
@@ -51,20 +46,9 @@ class MethodLoader
      */
     public function __construct(Reader $annotationReader)
     {
-        $this->classes = new Sequence();
         $this->namespaces = new Sequence();
-        $this->registry = new FactoryRegistry();
+        $this->autoLoader = new StandardAutoloader();
         $this->factoryLoader = new FactoryLoader($annotationReader);
-    }
-
-    /**
-     * @param ReflectionClass $reflectionClass
-     * @return $this
-     */
-    public function registerClass(ReflectionClass $reflectionClass)
-    {
-        $this->classes->add($reflectionClass);
-        return $this;
     }
 
     /**
@@ -74,6 +58,8 @@ class MethodLoader
      */
     public function registerNamespace($namespace, $directory)
     {
+        $this->autoLoader->registerNamespace($namespace, $directory);
+
         $namespaceReflection = new NamespaceReflection($namespace, $directory);
         $this->namespaces->add($namespaceReflection);
 
@@ -85,13 +71,14 @@ class MethodLoader
      */
     public function load()
     {
+        $this->autoLoader->register();
+
         $factories = $this->factoryLoader->loadFromNamespaces($this->namespaces);
-        $this->registry->registerAll($factories);
 
-        $factories = $this->factoryLoader->loadFromClasses($this->classes);
-        $this->registry->registerAll($factories);
+        $registry = new FactoryRegistry();
+        $registry->registerAll($factories);
 
-        return new MethodContainer($this->registry);
+        return new MethodContainer($registry);
     }
 
 }

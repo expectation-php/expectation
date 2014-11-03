@@ -9,21 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use expectation\matcher\PrintMatcher;
 use expectation\matcher\Formatter;
 use Assert\Assertion;
 
 describe('PrintMatcher', function() {
 
-    before(function() {
+    beforeEach(function() {
         $this->matcher = new PrintMatcher(new Formatter());
     });
 
     describe('match', function() {
         context('when the same class', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcher->expectValue = 'foo';
             });
             it('should return true', function() {
@@ -33,7 +31,7 @@ describe('PrintMatcher', function() {
             });
         });
         context('when not the same class', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcher->expectValue = 'foo';
             });
             it('should return false', function() {
@@ -45,7 +43,7 @@ describe('PrintMatcher', function() {
     });
 
     describe('getFailureMessage', function() {
-        before(function() {
+        beforeEach(function() {
             $this->matcher->expectValue = 'foo';
         });
         it('should return the message on failure', function() {
@@ -57,7 +55,7 @@ describe('PrintMatcher', function() {
     });
 
     describe('getNegatedFailureMessage', function() {
-        before(function() {
+        beforeEach(function() {
             $this->matcher->expectValue = 'foo';
         });
         it('should return the message on failure', function() {

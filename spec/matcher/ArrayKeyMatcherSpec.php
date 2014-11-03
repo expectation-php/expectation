@@ -9,15 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\matcher\ArrayKeyMatcher;
 use expectation\matcher\Formatter;
 
 describe('ArrayKeyMatcher', function() {
 
-    before_each(function() {
+    beforeEach(function() {
         $this->matcher = new ArrayKeyMatcher(new Formatter());
     });
 

@@ -9,22 +9,20 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
-use ReflectionMethod;
+use \ReflectionMethod;
 use expectation\matcher\method\MethodFactory;
 
 describe('MethodFactory', function() {
 
-    before(function() {
+    beforeEach(function() {
         $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\matcher\\basic\\FixtureMatcher', 'match');
         $this->factory = new MethodFactory($this->method);
     });
 
     describe('withArguments', function() {
         context('when no arugments', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcherMethod = $this->factory->withArguments([]);
             });
             it('should expected is null', function() {
@@ -35,7 +33,7 @@ describe('MethodFactory', function() {
             });
         });
         context('when with one arugments', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcherMethod = $this->factory->withArguments([true]);
             });
             it('should has expected', function() {
@@ -46,7 +44,7 @@ describe('MethodFactory', function() {
             });
         });
         context('when with two arugments', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->matcherMethod = $this->factory->withArguments(["foo", "bar"]);
             });
             it('should has expected', function() {

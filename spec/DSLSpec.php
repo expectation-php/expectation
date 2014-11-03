@@ -9,27 +9,20 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\Expectation;
-use expectation\ConfigurationBuilder;
 use expectation\spec\fixture\FixtureTestCase;
+
 
 describe('DSL', function() {
 
     describe('expect', function() {
-        before(function() {
-            Expectation::configure(function(ConfigurationBuilder $config) {
-                $config->registerMatcherNamespace(
-                    'expectation\spec\fixture\matcher\basic',
-                    __DIR__ . '/fixture/matcher/basic'
-                );
-            });
+        beforeEach(function() {
+            Expectation::configure();
             $this->testCase = new FixtureTestCase();
         });
-        it('should lookup matcher method', function() {
-            $result = $this->testCase->expect(true)->equals(true);
+        it('lookup matcher method', function() {
+            $result = $this->testCase->expect(true)->toEqual(true);
             Assertion::true($result);
         });
     });

@@ -9,15 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
 use expectation\matcher\Formatter;
 use expectation\matcher\RangeMatcher;
 
 describe('RangeMatcher', function() {
 
-    before_each(function() {
+    beforeEach(function() {
         $this->matcher = new RangeMatcher(new Formatter());
         $this->matcher->expectValue = [0, 100];
     });
