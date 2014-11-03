@@ -13,7 +13,8 @@ use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
 use expectation\matcher\method\MethodLoader;
 use expectation\matcher\method\AlreadyRegisteredException;
-use \ReflectionClass;
+
+
 
 describe('MethodLoader', function() {
 
@@ -34,19 +35,6 @@ describe('MethodLoader', function() {
                 });
                 it('should factory loaded', function() {
                     $method = $this->container->find('toEquals', [true]);
-                    Assertion::same($method->expectValue, true);
-                    Assertion::isInstanceOf($method, 'expectation\matcher\MethodInterface');
-                });
-            });
-            context('when class', function() {
-                beforeEach(function() {
-                    $this->reflectionClass = new ReflectionClass('expectation\spec\fixture\matcher\single\FixtureSingleMatcher');
-                    $this->loader->registerClass($this->reflectionClass);
-
-                    $this->container = $this->loader->load();
-                });
-                it('should factory loaded', function() {
-                    $method = $this->container->find('to_eql', [true]);
                     Assertion::same($method->expectValue, true);
                     Assertion::isInstanceOf($method, 'expectation\matcher\MethodInterface');
                 });
