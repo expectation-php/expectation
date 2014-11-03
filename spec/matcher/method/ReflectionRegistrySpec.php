@@ -12,6 +12,7 @@
 use Assert\Assertion;
 use \ReflectionMethod;
 use expectation\matcher\method\ReflectionRegistry;
+use expectation\matcher\method\ReflectionNotFoundException;
 use \ArrayIterator;
 
 
@@ -31,6 +32,22 @@ describe('ReflectionRegistry', function() {
             Assertion::same($this->result, $this->method);
         });
     });
+    describe('#get', function() {
+        context('when reflection not registered', function() {
+            beforeEach(function() {
+                $this->exceptionThrowed = false;
+                $this->registry = new ReflectionRegistry();
 
+                try {
+                    $this->registry->get('not found');
+                } catch (ReflectionNotFoundException $exception) {
+                    $this->exceptionThrowed = true;
+                }
+            });
+            it('throw ReflectionNotFoundException exception', function() {
+                Assertion::true($this->exceptionThrowed);
+            });
+        });
+    });
 
 });
