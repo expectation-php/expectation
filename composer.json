@@ -40,8 +40,6 @@
     "autoload-dev": {
         "psr-4": {
             "expectation\\spec\\fixture\\": "spec/fixture/",
-            "expectation\\spec\\fixture\\matcher\\basic\\": "spec/fixture/matcher/basic/",
-            "expectation\\spec\\fixture\\matcher\\duplicated\\": "spec/fixture/matcher/duplicated/",
             "expectation\\spec\\reporter\\": "spec/reporter/"
         }
     },
