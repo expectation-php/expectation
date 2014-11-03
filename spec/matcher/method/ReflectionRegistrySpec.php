@@ -13,6 +13,7 @@ use Assert\Assertion;
 use \ReflectionMethod;
 use expectation\matcher\method\ReflectionRegistry;
 use expectation\matcher\method\ReflectionNotFoundException;
+use expectation\matcher\method\AlreadyRegisteredException;
 use \ArrayIterator;
 
 
@@ -20,6 +21,25 @@ describe('ReflectionRegistry', function() {
     beforeEach(function() {
         $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\matcher\\basic\\FixtureMatcher', 'match');
     });
+    describe('#register', function() {
+        context('when reflection registered', function() {
+            beforeEach(function() {
+                $this->registry = new ReflectionRegistry();
+                $this->registry->register('toEquals', $this->method);
+                $this->exceptionThrowed = false;
+
+                try {
+                    $this->registry->register('toEquals', $this->method);
+                } catch (AlreadyRegisteredException $exception) {
+                    $this->exceptionThrowed = true;
+                }
+            });
+            it('throw AlreadyRegisteredException exception', function() {
+                Assertion::true($this->exceptionThrowed);
+            });
+        });
+    });
+
     describe('#registerAll', function() {
         beforeEach(function() {
             $this->registry = new ReflectionRegistry();
@@ -29,10 +49,22 @@ describe('ReflectionRegistry', function() {
             $this->result = $this->registry->get('toEquals');
         });
         it('register all reflection', function() {
-            Assertion::same($this->result, $this->method);
+            Assertion::count($this->registry, 1);
         });
     });
     describe('#get', function() {
+        context('when reflection registered', function() {
+            beforeEach(function() {
+                $this->registry = new ReflectionRegistry();
+                $this->registry->registerAll(new ArrayIterator([
+                    'toEquals' => $this->method
+                ]));
+                $this->result = $this->registry->get('toEquals');
+            });
+            it('register all reflection', function() {
+                Assertion::same($this->result, $this->method);
+            });
+        });
         context('when reflection not registered', function() {
             beforeEach(function() {
                 $this->exceptionThrowed = false;
