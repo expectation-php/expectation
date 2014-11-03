@@ -54,8 +54,8 @@ class ConfigurationLoader
     public function load($configurationFilePath)
     {
         $this->loadConfiguration($configurationFilePath);
-        $this->applyClassSection();
         $this->applyNamespaceSection();
+
         return $this->createConfiguration();
     }
 
@@ -69,18 +69,6 @@ class ConfigurationLoader
         }
         $configValues = include $configurationFilePath;
         $this->configValues = new Map($configValues);
-    }
-
-    private function applyClassSection()
-    {
-        $classes = $this->configValues->get('classes');
-
-        if ($classes->isEmpty()) {
-            return;
-        }
-
-        $section = new ClassesSection( $classes->get() );
-        $this->rootSection->addSection($section);
     }
 
     private function applyNamespaceSection()
