@@ -93,7 +93,7 @@ class ReflectionLoader
     private function parseAnnotations(ReflectionClass $classReflection)
     {
         $registry = new Map();
-        $methods = $classReflection->getMethods();
+        $methods = $classReflection->getMethods(ReflectionMethod::IS_PUBLIC);
 
         foreach($methods as $method) {
             $result = $this->parseMethodAnnotations($method);
