@@ -55,12 +55,4 @@ final class Lookup implements AnnotationInterface
         return $this->name;
     }
 
-    /**
-     * @return \expectation\matcher\method\MethodFactoryInterface
-     */
-    public function getMethodFactory(ReflectionMethod $method)
-    {
-        return new MethodFactory($method);
-    }
-
 }
