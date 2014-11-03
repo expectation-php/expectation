@@ -19,26 +19,21 @@ describe('MethodContainer', function() {
         context('when factory registered', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
+                $this->reflectionMethod = new ReflectionMethod('\\expectation\\spec\\fixture\\matcher\\basic\\FixtureMatcher', 'match');
 
-                $this->method = $this->prophet->prophesize('expectation\matcher\MethodInterface');
-                $this->method->setExpectValue()->withArguments([true]);
-
-                $this->factory = $this->prophet->prophesize('expectation\matcher\method\MethodFactoryInterface');
-                $this->factory->withArguments()
-                    ->withArguments([[true]])
-                    ->willReturn($this->method->reveal());
-
-                $this->registry = $this->prophet->prophesize('expectation\matcher\method\FactoryRegistryInterface');
-                $this->registry->get()->withArguments(['toEqual'])->willReturn($this->factory->reveal());
+                $this->registry = $this->prophet->prophesize('expectation\matcher\method\ReflectionRegistryInterface');
+                $this->registry->get()->withArguments(['toEquals'])
+                    ->willReturn($this->reflectionMethod)->shouldBeCalled();
 
                 $this->container = new MethodContainer($this->registry->reveal());
+
+                $this->findResult = $this->container->find('toEquals', [true]);
             });
-            afterEach(function() {
+            it('find the container', function() {
                 $this->prophet->checkPredictions();
             });
             it('return expectation\matcher\MethodInterface', function() {
-                $factory = $this->container->find('toEqual', [true]);
-                Assertion::isInstanceOf($factory, 'expectation\matcher\MethodInterface');
+                Assertion::isInstanceOf($this->findResult, 'expectation\matcher\MethodInterface');
             });
         });
     });

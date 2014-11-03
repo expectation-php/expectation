@@ -11,10 +11,10 @@
 
 namespace expectation\matcher\method;
 
-use Doctrine\Common\Annotations\Reader;
-use expectation\matcher\annotation\Lookup;
-use PhpCollection\Sequence;
 use expectation\matcher\NamespaceReflection;
+use expectation\matcher\annotation\Lookup;
+use Doctrine\Common\Annotations\Reader;
+use PhpCollection\Sequence;
 use Zend\Loader\StandardAutoloader;
 
 
@@ -31,9 +31,9 @@ class MethodLoader
     private $namespaces;
 
     /**
-     * @var \expectation\matcher\method\FactoryLoader
+     * @var \expectation\matcher\method\ReflectionLoader
      */
-    private $factoryLoader;
+    private $reflectionLoader;
 
     /**
      * @var StandardAutoloader
@@ -48,7 +48,7 @@ class MethodLoader
     {
         $this->namespaces = new Sequence();
         $this->autoLoader = new StandardAutoloader();
-        $this->factoryLoader = new FactoryLoader($annotationReader);
+        $this->reflectionLoader = new ReflectionLoader($annotationReader);
     }
 
     /**
@@ -73,10 +73,10 @@ class MethodLoader
     {
         $this->autoLoader->register();
 
-        $factories = $this->factoryLoader->loadFromNamespaces($this->namespaces);
+        $reflections = $this->reflectionLoader->loadFromNamespaces($this->namespaces);
 
-        $registry = new FactoryRegistry();
-        $registry->registerAll($factories);
+        $registry = new ReflectionRegistry();
+        $registry->registerAll($reflections);
 
         return new MethodContainer($registry);
     }

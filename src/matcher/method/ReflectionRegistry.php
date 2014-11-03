@@ -14,14 +14,13 @@ namespace expectation\matcher\method;
 use PhpCollection\Map;
 use \ReflectionMethod;
 use \Iterator;
-use \Countable;
 
 
 /**
  * Class ReflectionRegistry
  * @package expectation\matcher\method
  */
-class ReflectionRegistry implements Countable
+class ReflectionRegistry implements ReflectionRegistryInterface
 {
 
     /**
@@ -36,9 +35,7 @@ class ReflectionRegistry implements Countable
     }
 
     /**
-     * @param string $name
-     * @param ReflectionMethod $reflection
-     * @throws AlreadyRegisteredException
+     * {@inheritdoc}
      */
     public function register($name, ReflectionMethod $reflection)
     {
@@ -51,7 +48,7 @@ class ReflectionRegistry implements Countable
     }
 
     /**
-     * @param Iterator $iterator
+     * {@inheritdoc}
      */
     public function registerAll(Iterator $iterator)
     {
@@ -61,8 +58,7 @@ class ReflectionRegistry implements Countable
     }
 
     /**
-     * @param string $name
-     * @return bool
+     * {@inheritdoc}
      */
     public function contains($name)
     {
@@ -70,7 +66,7 @@ class ReflectionRegistry implements Countable
     }
 
     /**
-     * @return int
+     * {@inheritdoc}
      */
     public function count()
     {
@@ -78,8 +74,7 @@ class ReflectionRegistry implements Countable
     }
 
     /**
-     * @param string $name
-     * @throws FactoryNotFoundException
+     * {@inheritdoc}
      */
     public function get($name)
     {

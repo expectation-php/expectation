@@ -19,15 +19,15 @@ class MethodContainer implements MethodContainerInterface
 {
 
     /**
-     * @var FactoryRegistryInterface
+     * @var ReflectionRegistryInterface
      */
     private $registry;
 
 
     /**
-     * @param FactoryRegistryInterface $registry
+     * @param ReflectionRegistryInterface $registry
      */
-    public function __construct(FactoryRegistryInterface $registry)
+    public function __construct(ReflectionRegistryInterface $registry)
     {
         $this->registry = $registry;
     }
@@ -38,7 +38,9 @@ class MethodContainer implements MethodContainerInterface
      */
     public function find($name, array $arguments)
     {
-        $factory = $this->registry->get($name);
+        $reflection = $this->registry->get($name);
+        $factory = new MethodFactory($reflection);
+
         $method = $factory->withArguments($arguments);
 
         return $method;
