@@ -35,12 +35,12 @@ describe('ConfigurationBuilder', function() {
             $this->builder->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
             $this->configration = $this->builder->build();
         });
-        describe('methodContainer', function() {
-            it('return expectation\matcher\method\MethodContainer instance', function() {
-                Assertion::isInstanceOf($this->configration->getMethodContainer(), 'expectation\matcher\method\MethodResolver');
+        describe('methodResolver', function() {
+            it('return expectation\matcher\method\MethodResolver instance', function() {
+                Assertion::isInstanceOf($this->configration->getMethodResolver(), 'expectation\matcher\method\MethodResolver');
             });
             it('matcher registered', function() {
-                $methodContainer = $this->configration->getMethodContainer();
+                $methodContainer = $this->configration->getMethodResolver();
                 Assertion::isInstanceOf($methodContainer->find('toEquals', [true]), 'expectation\matcher\MethodInterface');
             });
         });

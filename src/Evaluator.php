@@ -58,14 +58,14 @@ class Evaluator implements EvaluatorInterface
     /**
      * @var \expectation\matcher\method\MethodResolverInterface
      */
-    private $container;
+    private $resolver;
 
 
     /**
-     * @param MethodResolverInterface $container
+     * @param MethodResolverInterface $resolver
      */
-    public function __construct(MethodResolverInterface $container) {
-        $this->container = $container;
+    public function __construct(MethodResolverInterface $resolver) {
+        $this->resolver = $resolver;
     }
 
     /**
@@ -93,7 +93,7 @@ class Evaluator implements EvaluatorInterface
             return call_user_func_array([$this, $name], $arguments);
         }
 
-        $matcher = $this->container->find($name, $arguments);
+        $matcher = $this->resolver->find($name, $arguments);
 
         if ($this->negated) {
             return $matcher->negativeMatch($this->actual);

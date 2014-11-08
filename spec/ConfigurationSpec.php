@@ -24,14 +24,14 @@ describe('Configuration', function() {
             $this->methodResolver = $this->resolver->reveal();
 
             $this->configuration = new Configuration([
-                'methodContainer' => $this->methodResolver
+                'methodResolver' => $this->methodResolver
             ]);
         });
         afterEach(function() {
             $this->prophet->checkPredictions();
         });
         it('should assign methodResolver property', function() {
-            Assertion::isInstanceOf($this->configuration->getMethodContainer(), $this->methodResolver);
+            Assertion::isInstanceOf($this->configuration->getMethodResolver(), $this->methodResolver);
         });
     });
 

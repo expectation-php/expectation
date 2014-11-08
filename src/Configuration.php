@@ -24,7 +24,7 @@ class Configuration
     /**
      * @var \expectation\matcher\method\MethodResolverInterface
      */
-    private $methodContainer;
+    private $methodResolver;
 
 
     /**
@@ -38,9 +38,9 @@ class Configuration
     /**
      * @return \expectation\matcher\method\MethodResolverInterface
      */
-    public function getMethodContainer()
+    public function getMethodResolver()
     {
-        return $this->methodContainer;
+        return $this->methodResolver;
     }
 
 }

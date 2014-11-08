@@ -65,7 +65,7 @@ class ConfigurationBuilder
         }
 
         $config = new Configuration([
-            'methodContainer' => $loader->load()
+            'methodResolver' => $loader->load()
         ]);
 
         return $config;
