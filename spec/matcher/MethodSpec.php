@@ -25,7 +25,7 @@ describe('Method', function() {
     describe('positiveMatch', function() {
         context('when result is true', function() {
             it('should return true', function() {
-                $this->matcherMethod->expectValue = true;
+                $this->matcherMethod->setExpectValue(true);
                 $result = $this->matcherMethod->positiveMatch(true);
 
                 Assertion::true($result);
@@ -35,7 +35,7 @@ describe('Method', function() {
             it('should throw expectation\ExpectationException', function() {
                 $throwException = false;
                 try {
-                    $this->matcherMethod->expectValue = false;
+                    $this->matcherMethod->setExpectValue(false);
                     $this->matcherMethod->positiveMatch(true);
                 } catch (ExpectationException $exception) {
                     $throwException = $exception;
@@ -48,7 +48,7 @@ describe('Method', function() {
     describe('negativeMatch', function() {
         context('when result is true', function() {
             it('should return true', function() {
-                $this->matcherMethod->expectValue = true;
+                $this->matcherMethod->setExpectValue(true);
                 $result = $this->matcherMethod->negativeMatch(false);
                 Assertion::true($result);
             });
@@ -57,7 +57,7 @@ describe('Method', function() {
             it('should throw expectation\ExpectationException', function() {
                 $throwException = false;
                 try {
-                    $this->matcherMethod->expectValue = false;
+                    $this->matcherMethod->setExpectValue(false);
                     $this->matcherMethod->negativeMatch(false);
                 } catch (ExpectationException $exception) {
                     $throwException = $exception;

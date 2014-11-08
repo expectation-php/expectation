@@ -13,15 +13,13 @@ namespace expectation\matcher;
 
 use ReflectionMethod;
 use expectation\ExpectationException;
-use expectation\AttributeAccessible;
+
 
 /**
  * @property mixed $expectValue
  */
 class Method implements MethodInterface
 {
-
-    use AttributeAccessible;
 
     /**
      * @var \ReflectionMethod
@@ -65,6 +63,14 @@ class Method implements MethodInterface
     {
         $this->expectValue = $expected;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExpectValue()
+    {
+        return $this->expectValue;
     }
 
     /**
