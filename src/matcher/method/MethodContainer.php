@@ -12,6 +12,8 @@
 namespace expectation\matcher\method;
 
 use expectation\matcher\reflection\ReflectionRegistryInterface;
+use expectation\matcher\MatcherNotFoundException;
+use expectation\matcher\reflection\ReflectionNotFoundException;
 
 
 /**
@@ -35,15 +37,19 @@ class MethodContainer implements MethodContainerInterface
         $this->registry = $registry;
     }
 
+
     /**
-     * @param string $name
-     * @return \expectation\matcher\MethodInterface
+     * {@inheritdoc}
      */
     public function find($name, array $arguments)
     {
-        $reflection = $this->registry->get($name);
-        $factory = new MethodFactory($reflection);
+        try {
+            $reflection = $this->registry->get($name);
+        } catch(ReflectionNotFoundException $exception) {
+            throw new MatcherNotFoundException("Can not use a method called {$name}.", null, $exception);
+        }
 
+        $factory = new MethodFactory($reflection);
         $method = $factory->createWithArguments($arguments);
 
         return $method;

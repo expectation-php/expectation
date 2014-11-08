@@ -11,11 +11,16 @@
 
 namespace expectation\matcher\method;
 
+/**
+ * Interface MethodContainerInterface
+ * @package expectation\matcher\method
+ */
 interface MethodContainerInterface
 {
 
     /**
      * @return \expectation\matcher\MethodInterface
+     * @throws \expectation\matcher\MatcherNotFoundException
      */
     public function find($name, array $arguments);
 
