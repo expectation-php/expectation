@@ -11,6 +11,9 @@
 
 namespace expectation\matcher\method;
 
+use expectation\matcher\reflection\ReflectionRegistryInterface;
+
+
 /**
  * Class MethodContainer
  * @package expectation\matcher\method
