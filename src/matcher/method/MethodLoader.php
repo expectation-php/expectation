@@ -69,7 +69,7 @@ class MethodLoader
     }
 
     /**
-     * @return MethodContainer
+     * @return MethodResolver
      */
     public function load()
     {
@@ -80,7 +80,7 @@ class MethodLoader
         $registry = new ReflectionRegistry();
         $registry->registerAll($reflections);
 
-        return new MethodContainer($registry);
+        return new MethodResolver($registry);
     }
 
 }

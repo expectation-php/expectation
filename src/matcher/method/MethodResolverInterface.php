@@ -12,10 +12,10 @@
 namespace expectation\matcher\method;
 
 /**
- * Interface MethodContainerInterface
+ * Interface MethodResolverInterface
  * @package expectation\matcher\method
  */
-interface MethodContainerInterface
+interface MethodResolverInterface
 {
 
     /**

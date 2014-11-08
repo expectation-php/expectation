@@ -37,7 +37,7 @@ describe('ConfigurationBuilder', function() {
         });
         describe('methodContainer', function() {
             it('return expectation\matcher\method\MethodContainer instance', function() {
-                Assertion::isInstanceOf($this->configration->getMethodContainer(), 'expectation\matcher\method\MethodContainer');
+                Assertion::isInstanceOf($this->configration->getMethodContainer(), 'expectation\matcher\method\MethodResolver');
             });
             it('matcher registered', function() {
                 $methodContainer = $this->configration->getMethodContainer();

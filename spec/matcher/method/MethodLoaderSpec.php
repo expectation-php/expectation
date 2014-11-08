@@ -28,13 +28,13 @@ describe('MethodLoader', function() {
             context('when namespace', function() {
                 beforeEach(function() {
                     $this->loader->registerNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/../../fixture/matcher/basic');
-                    $this->container = $this->loader->load();
+                    $this->resolver = $this->loader->load();
                 });
                 it('should return expectation\matcher\method\MethodContainerInterface instance', function() {
-                    Assertion::isInstanceOf($this->container, 'expectation\matcher\method\MethodContainerInterface');
+                    Assertion::isInstanceOf($this->resolver, 'expectation\matcher\method\MethodResolverInterface');
                 });
                 it('should factory loaded', function() {
-                    $method = $this->container->find('toEquals', [true]);
+                    $method = $this->resolver->find('toEquals', [true]);
                     Assertion::same($method->getExpectValue(), true);
                     Assertion::isInstanceOf($method, 'expectation\matcher\MethodInterface');
                 });

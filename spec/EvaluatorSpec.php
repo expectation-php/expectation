@@ -22,11 +22,11 @@ describe('Evaluator', function() {
             $this->matcher->setExpectValue()->withArguments([true]);
             $this->matcher->positiveMatch()->withArguments([true]);
 
-            $this->container = $this->prophet->prophesize('expectation\matcher\method\MethodContainerInterface');
-            $this->container->find()->withArguments(['toEqual', [true]])
+            $this->resolver = $this->prophet->prophesize('expectation\matcher\method\MethodResolverInterface');
+            $this->resolver->find()->withArguments(['toEqual', [true]])
                 ->willReturn($this->matcher->reveal());
 
-            $this->evaluator = new Evaluator($this->container->reveal());
+            $this->evaluator = new Evaluator($this->resolver->reveal());
         });
 
         afterEach(function() {

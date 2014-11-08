@@ -17,10 +17,10 @@ use expectation\matcher\reflection\ReflectionNotFoundException;
 
 
 /**
- * Class MethodContainer
+ * Class MethodResolver
  * @package expectation\matcher\method
  */
-class MethodContainer implements MethodContainerInterface
+class MethodResolver implements MethodResolverInterface
 {
 
     /**

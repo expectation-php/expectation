@@ -11,9 +11,10 @@
 
 use Assert\Assertion;
 use Prophecy\Prophet;
-use expectation\matcher\method\MethodContainer;
+use expectation\matcher\method\MethodResolver;
 
-describe('MethodContainer', function() {
+
+describe('MethodResolver', function() {
 
     describe('find', function() {
         context('when factory registered', function() {
@@ -25,9 +26,9 @@ describe('MethodContainer', function() {
                 $this->registry->get()->withArguments(['toEquals'])
                     ->willReturn($this->reflectionMethod)->shouldBeCalled();
 
-                $this->container = new MethodContainer($this->registry->reveal());
+                $this->resolver = new MethodResolver($this->registry->reveal());
 
-                $this->findResult = $this->container->find('toEquals', [true]);
+                $this->findResult = $this->resolver->find('toEquals', [true]);
             });
             it('find the container', function() {
                 $this->prophet->checkPredictions();
