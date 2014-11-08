@@ -21,10 +21,10 @@ use Zend\Loader\StandardAutoloader;
 
 
 /**
- * Class MethodLoader
+ * Class MethodResolverLoader
  * @package expectation\matcher\method
  */
-class MethodLoader
+class MethodResolverLoader
 {
 
     /**

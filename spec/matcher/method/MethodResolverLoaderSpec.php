@@ -11,16 +11,16 @@
 
 use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
-use expectation\matcher\method\MethodLoader;
+use expectation\matcher\method\MethodResolverLoader;
 use expectation\matcher\reflection\AlreadyRegisteredException;
 
 
 
-describe('MethodLoader', function() {
+describe('MethodResolverLoader', function() {
 
     beforeEach(function() {
         $this->reader = new AnnotationReader();
-        $this->loader = new MethodLoader($this->reader);
+        $this->loader = new MethodResolverLoader($this->reader);
     });
 
     describe('load', function() {
