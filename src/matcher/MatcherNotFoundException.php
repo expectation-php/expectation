@@ -9,12 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation;
+namespace expectation\matcher;
 
 use LogicException;
 
+
 /**
- * @package expectation
+ * Class MatcherNotFoundException
+ * @package expectation\matcher
  */
 class MatcherNotFoundException extends LogicException
 {
