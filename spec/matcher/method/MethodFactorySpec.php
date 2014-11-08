@@ -20,10 +20,10 @@ describe('MethodFactory', function() {
         $this->factory = new MethodFactory($this->method);
     });
 
-    describe('withArguments', function() {
+    describe('createWithArguments', function() {
         context('when no arugments', function() {
             beforeEach(function() {
-                $this->matcherMethod = $this->factory->withArguments([]);
+                $this->matcherMethod = $this->factory->createWithArguments([]);
             });
             it('should expected is null', function() {
                 Assertion::same($this->matcherMethod->getExpectValue(), null);
@@ -34,7 +34,7 @@ describe('MethodFactory', function() {
         });
         context('when with one arugments', function() {
             beforeEach(function() {
-                $this->matcherMethod = $this->factory->withArguments([true]);
+                $this->matcherMethod = $this->factory->createWithArguments([true]);
             });
             it('should has expected', function() {
                 Assertion::same($this->matcherMethod->getExpectValue(), true);
@@ -45,7 +45,7 @@ describe('MethodFactory', function() {
         });
         context('when with two arugments', function() {
             beforeEach(function() {
-                $this->matcherMethod = $this->factory->withArguments(["foo", "bar"]);
+                $this->matcherMethod = $this->factory->createWithArguments(["foo", "bar"]);
             });
             it('should has expected', function() {
                 Assertion::same($this->matcherMethod->getExpectValue(), ["foo", "bar"]);

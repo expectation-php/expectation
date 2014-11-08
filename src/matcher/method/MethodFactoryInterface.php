@@ -18,7 +18,7 @@ interface MethodFactoryInterface
      * @param array $arguments
      * @return \expectation\matcher\Method
      */
-    public function withArguments(array $arguments);
+    public function createWithArguments(array $arguments);
 
     /**
      * @return ReflectionMethod

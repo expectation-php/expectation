@@ -41,7 +41,7 @@ class MethodContainer implements MethodContainerInterface
         $reflection = $this->registry->get($name);
         $factory = new MethodFactory($reflection);
 
-        $method = $factory->withArguments($arguments);
+        $method = $factory->createWithArguments($arguments);
 
         return $method;
     }
