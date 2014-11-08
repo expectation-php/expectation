@@ -22,13 +22,13 @@ describe('TypeMatcher', function() {
     describe('match', function() {
         context('when the same type', function() {
             it('should return true', function() {
-                $this->matcher->expectValue = 'string';
+                $this->matcher->setExpectValue('string');
                 Assertion::true($this->matcher->match('foo'));
             });
         });
         context('when not the same type', function() {
             it('should return false', function() {
-                $this->matcher->expectValue = 'integer';
+                $this->matcher->setExpectValue('integer');
                 Assertion::false($this->matcher->match('foo'));
             });
         });
@@ -68,7 +68,7 @@ describe('TypeMatcher', function() {
 
     describe('getFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = 'integer';
+            $this->matcher->setExpectValue('integer');
             Assertion::false($this->matcher->match('bar'));
             Assertion::same($this->matcher->getFailureMessage(), "Expected integer, got string");
         });
@@ -76,7 +76,7 @@ describe('TypeMatcher', function() {
 
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = 'integer';
+            $this->matcher->setExpectValue('integer');
             Assertion::true($this->matcher->match(1));
             Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected a type other than integer");
         });

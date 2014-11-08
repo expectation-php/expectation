@@ -25,13 +25,13 @@ describe('InstanceMatcher', function() {
     describe('match', function() {
         context('when the same class', function() {
             it('should return true', function() {
-                $this->matcher->expectValue = '\stdClass';
+                $this->matcher->setExpectValue('\stdClass');
                 Assertion::true($this->matcher->match(new stdClass()));
             });
         });
         context('when not the same class', function() {
             it('should return false', function() {
-                $this->matcher->expectValue = 'expect\matcher\InstanceExpectation';
+                $this->matcher->setExpectValue('expect\matcher\InstanceExpectation');
                 Assertion::false($this->matcher->match(new stdClass()));
             });
         });
@@ -39,7 +39,7 @@ describe('InstanceMatcher', function() {
 
     describe('getFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = '\stdClass';
+            $this->matcher->setExpectValue('\stdClass');
             Assertion::false($this->matcher->match(new Exception('bar')));
             Assertion::same($this->matcher->getFailureMessage(), "Expected an instance of \stdClass, got Exception");
         });
@@ -47,7 +47,7 @@ describe('InstanceMatcher', function() {
 
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = '\stdClass';
+            $this->matcher->setExpectValue('\stdClass');
             Assertion::true($this->matcher->match(new stdClass()));
             Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected an instance other than \stdClass");
         });

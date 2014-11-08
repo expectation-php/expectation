@@ -104,7 +104,7 @@ class Method implements MethodInterface
         $class = $this->method->getDeclaringClass();
 
         $this->matcher = $class->newInstanceArgs([ new Formatter() ]);
-        $this->matcher->setExpectValue($this->expectValue);
+        $this->matcher->setExpectValue($this->getExpectValue());
 
         return $this->method->invokeArgs($this->matcher, [$actual]);
     }

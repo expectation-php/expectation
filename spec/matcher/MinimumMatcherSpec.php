@@ -22,13 +22,13 @@ describe('MinimumMatcher', function() {
     describe('match', function() {
         context('when greater than', function() {
             it('should return true', function() {
-                $this->matcher->expectValue = 1;
+                $this->matcher->setExpectValue(1);
                 Assertion::true($this->matcher->match(2));
             });
         });
         context('when not greater than', function() {
             it('should return false', function() {
-                $this->matcher->expectValue = 2;
+                $this->matcher->setExpectValue(2);
                 Assertion::false($this->matcher->match(1));
             });
         });
@@ -36,7 +36,7 @@ describe('MinimumMatcher', function() {
 
     describe('getFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = 1;
+            $this->matcher->setExpectValue(1);
             Assertion::false($this->matcher->match(0));
             Assertion::same($this->matcher->getFailureMessage(), "Expected 0 to be greater than 1");
         });
@@ -44,7 +44,7 @@ describe('MinimumMatcher', function() {
 
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = 1;
+            $this->matcher->setExpectValue(1);
             Assertion::true($this->matcher->match(2));
             Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected 2 not to be greater than 1");
         });

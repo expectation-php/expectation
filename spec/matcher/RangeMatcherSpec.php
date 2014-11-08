@@ -17,7 +17,7 @@ describe('RangeMatcher', function() {
 
     beforeEach(function() {
         $this->matcher = new RangeMatcher(new Formatter());
-        $this->matcher->expectValue = [0, 100];
+        $this->matcher->setExpectValue([0, 100]);
     });
 
     describe('match', function() {

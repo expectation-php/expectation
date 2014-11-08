@@ -22,7 +22,7 @@ describe('PrintMatcher', function() {
     describe('match', function() {
         context('when the same class', function() {
             beforeEach(function() {
-                $this->matcher->expectValue = 'foo';
+                $this->matcher->setExpectValue('foo');
             });
             it('should return true', function() {
                 Assertion::true($this->matcher->match(function() {
@@ -32,7 +32,7 @@ describe('PrintMatcher', function() {
         });
         context('when not the same class', function() {
             beforeEach(function() {
-                $this->matcher->expectValue = 'foo';
+                $this->matcher->setExpectValue('foo');
             });
             it('should return false', function() {
                 Assertion::false($this->matcher->match(function() {
@@ -44,7 +44,7 @@ describe('PrintMatcher', function() {
 
     describe('getFailureMessage', function() {
         beforeEach(function() {
-            $this->matcher->expectValue = 'foo';
+            $this->matcher->setExpectValue('foo');
         });
         it('should return the message on failure', function() {
             Assertion::false($this->matcher->match(function() {
@@ -56,7 +56,7 @@ describe('PrintMatcher', function() {
 
     describe('getNegatedFailureMessage', function() {
         beforeEach(function() {
-            $this->matcher->expectValue = 'foo';
+            $this->matcher->setExpectValue('foo');
         });
         it('should return the message on failure', function() {
             Assertion::true($this->matcher->match(function() {

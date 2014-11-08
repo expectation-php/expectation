@@ -25,13 +25,13 @@ describe('InclusionMatcher', function() {
         context('when actual is string', function() {
             context('when expect value is string', function() {
                 it('should return true', function() {
-                    $this->matcher->expectValue = 'foo';
+                    $this->matcher->setExpectValue('foo');
                     Assertion::true($this->matcher->match('foobar'));
                 });
             });
             context('when expect value is array', function() {
                 it('should return true', function() {
-                    $this->matcher->expectValue = ['foo'];
+                    $this->matcher->setExpectValue(['foo']);
                     Assertion::true($this->matcher->match('foo'));
                 });
             });
@@ -39,13 +39,13 @@ describe('InclusionMatcher', function() {
         context('when actual is array', function() {
             context('when expect value is string', function() {
                 it('should return true', function() {
-                    $this->matcher->expectValue = 'foo';
+                    $this->matcher->setExpectValue('foo');
                     Assertion::true($this->matcher->match(['foo']));
                 });
             });
             context('when expect value is array', function() {
                 it('should return true', function() {
-                    $this->matcher->expectValue = ['foo'];
+                    $this->matcher->setExpectValue(['foo']);
                     Assertion::true($this->matcher->match(['foo']));
                 });
             });
@@ -66,14 +66,14 @@ describe('InclusionMatcher', function() {
     describe('getFailureMessage', function() {
         context('when actual is string', function() {
             it('should return the message on failure', function() {
-                $this->matcher->expectValue = 'foo';
+                $this->matcher->setExpectValue('foo');
                 Assertion::false($this->matcher->match('barbar'));
                 Assertion::same($this->matcher->getFailureMessage(), "Expected string to contain foo");
             });
         });
         context('when actual is array', function() {
             it('should return the message on failure', function() {
-                $this->matcher->expectValue = 'foo';
+                $this->matcher->setExpectValue('foo');
                 Assertion::false($this->matcher->match(['bar', 'bar1']));
                 Assertion::same($this->matcher->getFailureMessage(), "Expected array to contain foo");
             });
@@ -83,14 +83,14 @@ describe('InclusionMatcher', function() {
     describe('getNegatedFailureMessage', function() {
         context('when actual is string', function() {
             it('should return the message on failure', function() {
-                $this->matcher->expectValue = 'foo';
+                $this->matcher->setExpectValue('foo');
                 Assertion::true($this->matcher->match('foobar'));
                 Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected string not to contain foo");
             });
         });
         context('when actual is array', function() {
             it('should return the message on failure', function() {
-                $this->matcher->expectValue = ['foo'];
+                $this->matcher->setExpectValue(['foo']);
                 Assertion::true($this->matcher->match(['foo']));
                 Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected array not to contain foo");
             });
