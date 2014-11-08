@@ -31,7 +31,7 @@ describe('Configuration', function() {
             $this->prophet->checkPredictions();
         });
         it('should assign methodContainer property', function() {
-            Assertion::isInstanceOf($this->configuration->methodContainer, $this->methodContainer);
+            Assertion::isInstanceOf($this->configuration->getMethodContainer(), $this->methodContainer);
         });
     });
 

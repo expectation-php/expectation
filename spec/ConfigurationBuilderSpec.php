@@ -37,10 +37,10 @@ describe('ConfigurationBuilder', function() {
         });
         describe('methodContainer', function() {
             it('return expectation\matcher\method\MethodContainer instance', function() {
-                Assertion::isInstanceOf($this->configration->methodContainer, 'expectation\matcher\method\MethodContainer');
+                Assertion::isInstanceOf($this->configration->getMethodContainer(), 'expectation\matcher\method\MethodContainer');
             });
             it('matcher registered', function() {
-                $methodContainer = $this->configration->methodContainer;
+                $methodContainer = $this->configration->getMethodContainer();
                 Assertion::isInstanceOf($methodContainer->find('toEquals', [true]), 'expectation\matcher\MethodInterface');
             });
         });

@@ -26,7 +26,7 @@ class Expectation implements ExpectationInterface, ConfiguratorInterface
     public static function expect($actual)
     {
         $config = static::configration();
-        $evaluator = new Evaluator($config->methodContainer);
+        $evaluator = new Evaluator($config->getMethodContainer());
         return $evaluator->that($actual);
     }
 
