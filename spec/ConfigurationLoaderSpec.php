@@ -18,6 +18,8 @@ describe('ConfigurationLoader', function() {
     beforeEach(function() {
         $this->loader = new ConfigurationLoader();
     });
+
+/*
     describe('#load', function() {
         context('when file exists', function() {
             beforeEach(function() {
@@ -42,4 +44,15 @@ describe('ConfigurationLoader', function() {
             });
         });
     });
+*/
+    describe('#loadFromComposerJson', function() {
+        beforeEach(function() {
+            $configPath = __DIR__ . '/fixture/config/composer.json';
+            $this->config = $this->loader->loadFromComposerJson($configPath);
+        });
+        it('return expectation\Configuration instance', function() {
+            Assertion::isInstanceOf($this->config, 'expectation\Configuration');
+        });
+    });
+
 });

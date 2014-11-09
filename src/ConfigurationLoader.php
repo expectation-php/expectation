@@ -16,6 +16,9 @@ use expectation\configuration\RootSection;
 use expectation\configuration\section\ClassesSection;
 use expectation\configuration\section\NamespacesSection;
 use expectation\configuration\ConfigurationFileNotFoundException;
+use Noodlehaus\Config;
+use Eloquent\Pathogen\AbsolutePath;
+use Eloquent\Pathogen\RelativePath;
 
 
 /**
@@ -40,6 +43,11 @@ class ConfigurationLoader
      */
     private $configValues;
 
+    /**
+     * @var \Eloquent\Pathogen\AbsolutePath
+     */
+    private $composerJsonPath;
+
 
     public function __construct()
     {
@@ -47,28 +55,26 @@ class ConfigurationLoader
         $this->rootSection = new RootSection();
     }
 
-    /**
-     * @param string $configurationFilePath
-     * @return Configuration
-     */
-    public function load($configurationFilePath)
+
+    public function loadFromComposerJson($composerJson)
     {
-        $this->loadConfiguration($configurationFilePath);
+        $this->loadJsonConfiguration($composerJson);
         $this->applyNamespaceSection();
 
         return $this->createConfiguration();
     }
 
-    /**
-     * @param string $configurationFilePath
-     */
-    private function loadConfiguration($configurationFilePath)
+    private function loadJsonConfiguration($composerJson)
     {
-        if (file_exists($configurationFilePath) === false) {
-            throw new ConfigurationFileNotFoundException("File $configurationFilePath not found");
+        if (file_exists($composerJson) === false) {
+            throw new ConfigurationFileNotFoundException("File $composerJson not found");
         }
-        $configValues = include $configurationFilePath;
+
+        $config = new Config($composerJson);
+        $configValues = $config->get('extra.expectation', []);
+
         $this->configValues = new Map($configValues);
+        $this->composerJsonPath = AbsolutePath::fromString($composerJson);
     }
 
     private function applyNamespaceSection()
@@ -79,7 +85,18 @@ class ConfigurationLoader
             return;
         }
 
-        $section = new NamespacesSection( $namespaces->get() );
+        $composerJsonDirectoryPath = $this->composerJsonPath->parent()->normalize();
+
+        $namespaces = $namespaces->get();
+        $namespacePaths = [];
+
+        foreach ($namespaces as $namespace => $directory) {
+            $relativePath = RelativePath::fromString($directory);
+            $matcherDirectory = $composerJsonDirectoryPath->resolve($relativePath);
+            $namespacePaths[$namespace] = (string) $matcherDirectory->normalize();
+        }
+
+        $section = new NamespacesSection($namespacePaths);
         $this->rootSection->addSection($section);
     }
 
