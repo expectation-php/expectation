@@ -11,14 +11,11 @@
 
 namespace expectation;
 
-use PhpCollection\Map;
 use expectation\configuration\RootSection;
-use expectation\configuration\section\ClassesSection;
 use expectation\configuration\section\NamespacesSection;
 use expectation\configuration\ConfigurationFileNotFoundException;
 use Noodlehaus\Config;
 use Eloquent\Pathogen\AbsolutePath;
-use Eloquent\Pathogen\RelativePath;
 
 
 /**
@@ -39,7 +36,7 @@ class ConfigurationLoader
     private $rootSection;
 
     /**
-     * @var \PhpCollection\Map
+     * @var \Noodlehaus\Config
      */
     private $configValues;
 
@@ -77,28 +74,16 @@ class ConfigurationLoader
             throw new ConfigurationFileNotFoundException("File $composerJson not found");
         }
 
-        $config = new Config($composerJson);
-        $configValues = $config->get('extra.expectation', []);
-
-        $this->configValues = new Map($configValues);
+        $this->configValues = new Config($composerJson);
         $this->composerJsonPath = AbsolutePath::fromString($composerJson);
     }
 
     private function applyNamespaceSection()
     {
-        $namespaces = $this->configValues->get('namespaces');
-
-        if ($namespaces->isEmpty()) {
-            return;
-        }
-
         $composerJsonDirectoryPath = $this->composerJsonPath->parent()->normalize();
+        $namespaces = $this->configValues->get('extra.expectation.namespaces', []);
 
-        $namespaces = $namespaces->get();
-
-        $section = new NamespacesSection($namespaces);
-        $section->assembleBy($composerJsonDirectoryPath);
-
+        $section = new NamespacesSection($namespaces, (string) $composerJsonDirectoryPath);
         $this->rootSection->addSection($section);
     }
 

@@ -19,8 +19,8 @@ describe('NamespacesSection', function() {
         beforeEach(function() {
             $this->builder = new ConfigurationBuilder();
             $this->section = new NamespacesSection([
-                'expectation\spec\fixture\matcher\single' => __DIR__ . '/../../fixture/matcher/single'
-            ]);
+                'expectation\spec\fixture\matcher\single' => '../../fixture/matcher/single'
+            ], __DIR__);
             $this->section->applyTo($this->builder);
         });
         it("apply the config to builder", function() {

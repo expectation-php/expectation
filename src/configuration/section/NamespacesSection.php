@@ -12,7 +12,6 @@
 namespace expectation\configuration\section;
 
 use expectation\ConfigurationBuilder;
-use expectation\configuration\AbstractSection;
 use expectation\configuration\SectionInterface;
 use Eloquent\Pathogen\AbsolutePath;
 use Eloquent\Pathogen\RelativePath;
@@ -22,15 +21,39 @@ use Eloquent\Pathogen\RelativePath;
  * Class NamespacesSection
  * @package expectation\configuration\section
  */
-final class NamespacesSection extends AbstractSection implements SectionInterface
+final class NamespacesSection implements SectionInterface
 {
 
-    public function assembleBy($composerJsonDirectory)
+    /**
+     * @var string
+     */
+    private $rootDirectory;
+
+
+    /**
+     * @var array
+     */
+    private $namespacePaths;
+
+
+    /**
+     * @param array $values
+     */
+    public function __construct(array $values, $composerJsonDirectory)
+    {
+        $this->rootDirectory = $composerJsonDirectory;
+        $this->assembleNamespaces($values);
+    }
+
+    /**
+     * @param array $matcherNamespaces
+     * @throws \Eloquent\Pathogen\Exception\NonAbsolutePathException
+     * @throws \Eloquent\Pathogen\Exception\NonRelativePathException
+     */
+    private function assembleNamespaces(array $matcherNamespaces)
     {
         $assemblePaths = [];
-
-        $matcherNamespaces = $this->getMatcherNamespaces();
-        $rootDirectoryPath = AbsolutePath::fromString($composerJsonDirectory);
+        $rootDirectoryPath = AbsolutePath::fromString($this->rootDirectory);
 
         foreach ($matcherNamespaces as $namespace => $directory) {
             $relativePath = RelativePath::fromString($directory);
@@ -38,8 +61,9 @@ final class NamespacesSection extends AbstractSection implements SectionInterfac
             $assemblePaths[$namespace] = (string) $matcherDirectory->normalize();
         }
 
-        $this->values = $assemblePaths;
+        $this->namespacePaths = $assemblePaths;
     }
+
 
     /**
      * {@inheritdoc}
@@ -60,7 +84,7 @@ final class NamespacesSection extends AbstractSection implements SectionInterfac
      */
     private function getMatcherNamespaces()
     {
-        return $this->values;
+        return $this->namespacePaths;
     }
 
 }
