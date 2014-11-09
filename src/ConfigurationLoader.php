@@ -55,7 +55,10 @@ class ConfigurationLoader
         $this->rootSection = new RootSection();
     }
 
-
+    /**
+     * @param string $composerJson
+     * @return Configuration
+     */
     public function load($composerJson)
     {
         $this->loadConfiguration($composerJson);
@@ -64,6 +67,10 @@ class ConfigurationLoader
         return $this->createConfiguration();
     }
 
+    /**
+     * @param string $composerJson
+     * @throws \Eloquent\Pathogen\Exception\NonAbsolutePathException
+     */
     private function loadConfiguration($composerJson)
     {
         if (file_exists($composerJson) === false) {
@@ -88,15 +95,10 @@ class ConfigurationLoader
         $composerJsonDirectoryPath = $this->composerJsonPath->parent()->normalize();
 
         $namespaces = $namespaces->get();
-        $namespacePaths = [];
 
-        foreach ($namespaces as $namespace => $directory) {
-            $relativePath = RelativePath::fromString($directory);
-            $matcherDirectory = $composerJsonDirectoryPath->resolve($relativePath);
-            $namespacePaths[$namespace] = (string) $matcherDirectory->normalize();
-        }
+        $section = new NamespacesSection($namespaces);
+        $section->assembleBy($composerJsonDirectoryPath);
 
-        $section = new NamespacesSection($namespacePaths);
         $this->rootSection->addSection($section);
     }
 

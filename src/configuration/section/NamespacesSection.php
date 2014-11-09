@@ -14,6 +14,8 @@ namespace expectation\configuration\section;
 use expectation\ConfigurationBuilder;
 use expectation\configuration\AbstractSection;
 use expectation\configuration\SectionInterface;
+use Eloquent\Pathogen\AbsolutePath;
+use Eloquent\Pathogen\RelativePath;
 
 
 /**
@@ -22,6 +24,22 @@ use expectation\configuration\SectionInterface;
  */
 final class NamespacesSection extends AbstractSection implements SectionInterface
 {
+
+    public function assembleBy($composerJsonDirectory)
+    {
+        $assemblePaths = [];
+
+        $matcherNamespaces = $this->getMatcherNamespaces();
+        $rootDirectoryPath = AbsolutePath::fromString($composerJsonDirectory);
+
+        foreach ($matcherNamespaces as $namespace => $directory) {
+            $relativePath = RelativePath::fromString($directory);
+            $matcherDirectory = $rootDirectoryPath->resolve($relativePath);
+            $assemblePaths[$namespace] = (string) $matcherDirectory->normalize();
+        }
+
+        $this->values = $assemblePaths;
+    }
 
     /**
      * {@inheritdoc}
