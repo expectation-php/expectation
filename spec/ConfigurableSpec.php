@@ -12,6 +12,7 @@
 use Assert\Assertion;
 use expectation\spec\fixture\FixtureExpectation;
 
+
 describe('Configurable', function() {
     describe('configure', function() {
         beforeEach(function() {
@@ -23,7 +24,7 @@ describe('Configurable', function() {
     });
     describe('configureWithFile', function() {
         beforeEach(function() {
-            $configPath = __DIR__ . '/fixture/config/config.php';
+            $configPath = __DIR__ . '/fixture/config/composer.json';
             FixtureExpectation::configureWithFile($configPath);
         });
         it('create configuration', function() {
