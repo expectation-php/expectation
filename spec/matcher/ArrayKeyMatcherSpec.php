@@ -22,7 +22,8 @@ describe('ArrayKeyMatcher', function() {
     describe('match', function() {
         context('when same value', function() {
             it('should return true', function() {
-                $this->matcher->expectValue = 'foo';
+                $this->matcher->setExpectValue('foo');
+
                 Assertion::true($this->matcher->match([
                     'foo' => 'bar'
                 ]));
@@ -30,7 +31,8 @@ describe('ArrayKeyMatcher', function() {
         });
         context('when not same value', function() {
             it('should return false', function() {
-                $this->matcher->expectValue = 'foo';
+                $this->matcher->setExpectValue('foo');
+
                 Assertion::false($this->matcher->match([
                     'bar' => 'foo'
                 ]));
@@ -40,7 +42,7 @@ describe('ArrayKeyMatcher', function() {
 
     describe('getFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = 'foo';
+            $this->matcher->setExpectValue('foo');
             Assertion::false($this->matcher->match([ 'bar' => 'foo' ]));
             Assertion::same($this->matcher->getFailureMessage(), "Expected array to have the key 'foo'");
         });
@@ -48,7 +50,7 @@ describe('ArrayKeyMatcher', function() {
 
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = 'foo';
+            $this->matcher->setExpectValue('foo');
             Assertion::true($this->matcher->match([ 'foo' => 'bar' ]));
             Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected array not to have the key 'foo'");
         });

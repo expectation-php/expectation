@@ -42,11 +42,12 @@ class MethodFactory implements MethodFactoryInterface
      * @param array $arguments
      * @return \expectation\matcher\Method
      */
-    public function withArguments(array $arguments) {
+    public function createWithArguments(array $arguments) {
         $wrapper = new Method($this->method);
 
         if (!empty($arguments)) {
-            $wrapper->expectValue = $this->expectValueFrom($arguments);
+            $expectValue = $this->expectValueFrom($arguments);
+            $wrapper->setExpectValue($expectValue);
         }
 
         return $wrapper;

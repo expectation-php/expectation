@@ -19,19 +19,19 @@ describe('Configuration', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $this->container = $this->prophet->prophesize('expectation\matcher\method\MethodContainerInterface');
-            $this->container->find()->shouldNotBeCalled();
-            $this->methodContainer = $this->container->reveal();
+            $this->resolver = $this->prophet->prophesize('expectation\matcher\method\MethodResolverInterface');
+            $this->resolver->find()->shouldNotBeCalled();
+            $this->methodResolver = $this->resolver->reveal();
 
             $this->configuration = new Configuration([
-                'methodContainer' => $this->methodContainer
+                'methodResolver' => $this->methodResolver
             ]);
         });
         afterEach(function() {
             $this->prophet->checkPredictions();
         });
-        it('should assign methodContainer property', function() {
-            Assertion::isInstanceOf($this->configuration->methodContainer, $this->methodContainer);
+        it('should assign methodResolver property', function() {
+            Assertion::isInstanceOf($this->configuration->getMethodResolver(), $this->methodResolver);
         });
     });
 

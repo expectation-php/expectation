@@ -11,7 +11,7 @@
 
 namespace expectation;
 
-use expectation\matcher\method\MethodContainerInterface;
+use expectation\matcher\method\MethodResolverInterface;
 
 /**
  * @package expectation
@@ -56,15 +56,16 @@ class Evaluator implements EvaluatorInterface
     private $negated = false;
 
     /**
-     * @var \expectation\matcher\method\MethodContainerInterface
+     * @var \expectation\matcher\method\MethodResolverInterface
      */
-    private $container;
+    private $resolver;
+
 
     /**
-     * @param MethodContainerInterface $container
+     * @param MethodResolverInterface $resolver
      */
-    public function __construct(MethodContainerInterface $container) {
-        $this->container = $container;
+    public function __construct(MethodResolverInterface $resolver) {
+        $this->resolver = $resolver;
     }
 
     /**
@@ -92,7 +93,7 @@ class Evaluator implements EvaluatorInterface
             return call_user_func_array([$this, $name], $arguments);
         }
 
-        $matcher = $this->container->find($name, $arguments);
+        $matcher = $this->resolver->find($name, $arguments);
 
         if ($this->negated) {
             return $matcher->negativeMatch($this->actual);

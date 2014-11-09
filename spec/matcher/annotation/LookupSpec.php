@@ -29,11 +29,4 @@ describe('Lookup', function() {
         });
     });
 
-    describe('getMethodFactory', function() {
-        it('should return expectation\matcher\method\MethodFactoryInterface', function() {
-            $factory = $this->annotation->getMethodFactory($this->method);
-            Assertion::isInstanceOf($factory, "expectation\matcher\method\MethodFactoryInterface");
-        });
-    });
-
 });

@@ -11,16 +11,16 @@
 
 use Assert\Assertion;
 use Doctrine\Common\Annotations\AnnotationReader;
-use expectation\matcher\method\MethodLoader;
-use expectation\matcher\method\AlreadyRegisteredException;
+use expectation\matcher\method\MethodResolverLoader;
+use expectation\matcher\reflection\AlreadyRegisteredException;
 
 
 
-describe('MethodLoader', function() {
+describe('MethodResolverLoader', function() {
 
     beforeEach(function() {
         $this->reader = new AnnotationReader();
-        $this->loader = new MethodLoader($this->reader);
+        $this->loader = new MethodResolverLoader($this->reader);
     });
 
     describe('load', function() {
@@ -28,14 +28,14 @@ describe('MethodLoader', function() {
             context('when namespace', function() {
                 beforeEach(function() {
                     $this->loader->registerNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/../../fixture/matcher/basic');
-                    $this->container = $this->loader->load();
+                    $this->resolver = $this->loader->load();
                 });
                 it('should return expectation\matcher\method\MethodContainerInterface instance', function() {
-                    Assertion::isInstanceOf($this->container, 'expectation\matcher\method\MethodContainerInterface');
+                    Assertion::isInstanceOf($this->resolver, 'expectation\matcher\method\MethodResolverInterface');
                 });
                 it('should factory loaded', function() {
-                    $method = $this->container->find('toEquals', [true]);
-                    Assertion::same($method->expectValue, true);
+                    $method = $this->resolver->find('toEquals', [true]);
+                    Assertion::same($method->getExpectValue(), true);
                     Assertion::isInstanceOf($method, 'expectation\matcher\MethodInterface');
                 });
             });
@@ -45,14 +45,14 @@ describe('MethodLoader', function() {
                 $this->loader->registerNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/../../fixture/matcher/basic');
                 $this->loader->registerNamespace('expectation\spec\fixture\matcher\duplicated', __DIR__ . '/../../fixture/matcher/duplicated/');
             });
-            it('should throw expectation\matcher\method\AlreadyRegisteredException', function() {
+            it('should throw expectation\matcher\reflection\AlreadyRegisteredException', function() {
                 $throwException = null;
                 try {
                     $this->loader->load();
                 } catch (AlreadyRegisteredException $exception) {
                     $throwException = $exception;
                 }
-                Assertion::isInstanceOf($throwException, 'expectation\matcher\method\AlreadyRegisteredException');
+                Assertion::isInstanceOf($throwException, 'expectation\matcher\reflection\AlreadyRegisteredException');
             });
         });
     });

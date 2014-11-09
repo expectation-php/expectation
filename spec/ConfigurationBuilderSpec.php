@@ -11,7 +11,7 @@
 
 use Assert\Assertion;
 use expectation\ConfigurationBuilder;
-use expectation\MatcherNotFoundException;
+
 
 describe('ConfigurationBuilder', function() {
 
@@ -35,13 +35,13 @@ describe('ConfigurationBuilder', function() {
             $this->builder->registerMatcherNamespace('expectation\spec\fixture\matcher\basic', __DIR__ . '/fixture/matcher/basic');
             $this->configration = $this->builder->build();
         });
-        describe('methodContainer', function() {
-            it('return expectation\matcher\method\MethodContainer instance', function() {
-                Assertion::isInstanceOf($this->configration->methodContainer, 'expectation\matcher\method\MethodContainer');
+        describe('methodResolver', function() {
+            it('return expectation\matcher\method\MethodResolver instance', function() {
+                Assertion::isInstanceOf($this->configration->getMethodResolver(), 'expectation\matcher\method\MethodResolver');
             });
             it('matcher registered', function() {
-                $methodContainer = $this->configration->methodContainer;
-                Assertion::isInstanceOf($methodContainer->find('toEquals', [true]), 'expectation\matcher\MethodInterface');
+                $methodResolver = $this->configration->getMethodResolver();
+                Assertion::isInstanceOf($methodResolver->find('toEquals', [true]), 'expectation\matcher\MethodInterface');
             });
         });
     });

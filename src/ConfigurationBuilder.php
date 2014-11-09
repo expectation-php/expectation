@@ -11,7 +11,7 @@
 
 namespace expectation;
 
-use expectation\matcher\method\MethodLoader;
+use expectation\matcher\method\MethodResolverLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
 use PhpCollection\Map;
 
@@ -58,14 +58,14 @@ class ConfigurationBuilder
      */
     public function build()
     {
-        $loader = new MethodLoader(new AnnotationReader());
+        $loader = new MethodResolverLoader(new AnnotationReader());
 
         foreach ($this->matcherNamespaces as $namespace => $directory) {
             $loader->registerNamespace($namespace, $directory);
         }
 
         $config = new Configuration([
-            'methodContainer' => $loader->load()
+            'methodResolver' => $loader->load()
         ]);
 
         return $config;

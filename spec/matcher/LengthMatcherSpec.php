@@ -24,13 +24,13 @@ describe('LengthMatcher', function() {
         context('when string type', function() {
             context('when have length', function() {
                 it('should return true', function() {
-                    $this->matcher->expectValue = 3;
+                    $this->matcher->setExpectValue(3);
                     Assertion::true($this->matcher->match('foo'));
                 });
             });
             context('when have not length', function() {
                 it('should return false', function() {
-                    $this->matcher->expectValue = 9999;
+                    $this->matcher->setExpectValue(9999);
                     Assertion::false($this->matcher->match('foo'));
                 });
             });
@@ -38,13 +38,13 @@ describe('LengthMatcher', function() {
         context('when array type', function() {
             context('when have length', function() {
                 it('should return true', function() {
-                    $this->matcher->expectValue = 2;
+                    $this->matcher->setExpectValue(2);
                     Assertion::true($this->matcher->match(array(1, 2)));
                 });
             });
             context('when have not length', function() {
                 it('should return false', function() {
-                    $this->matcher->expectValue = 3;
+                    $this->matcher->setExpectValue(3);
                     Assertion::false($this->matcher->match(array(1, 2)));
                 });
             });
@@ -53,13 +53,13 @@ describe('LengthMatcher', function() {
         context('when Countable type', function() {
             context('when have length', function() {
                 it('should return true', function() {
-                    $this->matcher->expectValue = 2;
+                    $this->matcher->setExpectValue(2);
                     Assertion::true($this->matcher->match(new ArrayObject(array(1, 2))));
                 });
             });
             context('when have not length', function() {
                 it('should return false', function() {
-                    $this->matcher->expectValue = 3;
+                    $this->matcher->setExpectValue(3);
                     Assertion::false($this->matcher->match(new ArrayObject(array(1, 2))));
                 });
             });
@@ -74,14 +74,14 @@ describe('LengthMatcher', function() {
 
     describe('getFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = 3;
+            $this->matcher->setExpectValue(3);
             Assertion::false($this->matcher->match(new ArrayObject(array(1, 2))));
             Assertion::same($this->matcher->getFailureMessage(), "Expected ArrayObject to have a length of 3");
         });
     });
     describe('getNegatedFailureMessage', function() {
         it('should return the message on failure', function() {
-            $this->matcher->expectValue = 2;
+            $this->matcher->setExpectValue(2);
             Assertion::true($this->matcher->match(new ArrayObject(array(1, 2))));
             Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected ArrayObject not to have a length of 2");
         });

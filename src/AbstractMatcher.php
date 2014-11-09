@@ -12,7 +12,7 @@
 namespace expectation;
 
 use expectation\matcher\Formatter;
-use expectation\AttributeAccessible;
+
 
 /**
  * Class AbstractMatcher
@@ -23,8 +23,6 @@ use expectation\AttributeAccessible;
 abstract class AbstractMatcher implements MatcherInterface
 {
 
-    use AttributeAccessible;
-
     /**
      * @var mixed
      */
@@ -33,7 +31,7 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @var mixed
      */
-    private $expectValue;
+    protected $expectValue;
 
     /**
      * @var Formatter

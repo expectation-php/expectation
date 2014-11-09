@@ -11,18 +11,17 @@
 
 namespace expectation\matcher\method;
 
-interface MethodFactoryInterface
+/**
+ * Interface MethodResolverInterface
+ * @package expectation\matcher\method
+ */
+interface MethodResolverInterface
 {
 
     /**
-     * @param array $arguments
-     * @return \expectation\matcher\Method
+     * @return \expectation\matcher\MethodInterface
+     * @throws \expectation\matcher\MatcherNotFoundException
      */
-    public function createWithArguments(array $arguments);
-
-    /**
-     * @return ReflectionMethod
-     */
-    public function getMethod();
+    public function find($name, array $arguments);
 
 }

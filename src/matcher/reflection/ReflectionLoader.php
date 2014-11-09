@@ -9,23 +9,23 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher\method;
+namespace expectation\matcher\reflection;
 
 use expectation\matcher\annotation\Lookup;
 use Doctrine\Common\Annotations\Reader;
 use PhpCollection\SequenceInterface;
 use PhpCollection\Sequence;
-use ReflectionMethod;
-use ReflectionClass;
 use PhpCollection\Map;
-use AppendIterator;
+use \ReflectionMethod;
+use \ReflectionClass;
+use \AppendIterator;
 
 
 /**
- * Class FactoryLoader
- * @package expectation\matcher\method
+ * Class ReflectionLoader
+ * @package expectation\matcher\reflection
  */
-class FactoryLoader
+class ReflectionLoader
 {
 
     /**
@@ -51,40 +51,39 @@ class FactoryLoader
         return $this->parseAnnotations($classReflection);
     }
 
-
     /**
-     * @param PhpCollection\SequenceInterface $namespaceReflections
+     * @param \PhpCollection\SequenceInterface $namespaceReflections
      * @return \AppendIterator
      */
     public function loadFromNamespaces(SequenceInterface $namespaceReflections)
     {
-        $resultFactories = new AppendIterator();
+        $resultMethodReflections = new AppendIterator();
 
         foreach($namespaceReflections as $namespaceReflection) {
             $classReflections = $namespaceReflection->getClassReflections();
 
-            $factories = $this->loadFromClasses(new Sequence($classReflections));
-            $resultFactories->append($factories);
+            $methodReflections = $this->loadFromClasses(new Sequence($classReflections));
+            $resultMethodReflections->append($methodReflections);
         }
 
-        return $resultFactories;
+        return $resultMethodReflections;
     }
 
 
     /**
-     * @param PhpCollection\SequenceInterface $classReflections
+     * @param \PhpCollection\SequenceInterface $classReflections
      * @return \AppendIterator
      */
     public function loadFromClasses(SequenceInterface $classReflections)
     {
-        $resultFactories = new AppendIterator();
+        $resultMethodReflections = new AppendIterator();
 
         foreach ($classReflections as $classReflection) {
-            $factories = $this->loadFromClass($classReflection);
-            $resultFactories->append($factories);
+            $methodReflections = $this->loadFromClass($classReflection);
+            $resultMethodReflections->append($methodReflections);
         }
 
-        return $resultFactories;
+        return $resultMethodReflections;
     }
 
     /**
@@ -94,7 +93,7 @@ class FactoryLoader
     private function parseAnnotations(ReflectionClass $classReflection)
     {
         $registry = new Map();
-        $methods = $classReflection->getMethods();
+        $methods = $classReflection->getMethods(ReflectionMethod::IS_PUBLIC);
 
         foreach($methods as $method) {
             $result = $this->parseMethodAnnotations($method);
@@ -117,11 +116,8 @@ class FactoryLoader
             if (!($annotation instanceof Lookup)) {
                 continue;
             }
-
             $registerName = $annotation->getLookupName();
-            $registerFactory = $annotation->getMethodFactory($method);
-
-            $registry->set($registerName, $registerFactory);
+            $registry->set($registerName, $method);
         }
 
         return $registry;

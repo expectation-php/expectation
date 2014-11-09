@@ -1,7 +1,6 @@
 {
     "name": "expectation/expectation",
     "description": "expectation library for unit testing",
-    "version": "1.3.1",
     "keywords": [
         "expect", "assert", "test", "spec", "bdd"
     ],
@@ -9,12 +8,14 @@
         "php": ">=5.4.0",
         "doctrine/annotations": "1.2.*",
         "phpcollection/phpcollection": "0.4.*",
-        "zendframework/zend-loader": "2.3.*"
+        "zendframework/zend-loader": "2.3.*",
+        "noodlehaus/config": "dev-master",
+        "eloquent/pathogen": "0.6.*"
     },
     "require-dev": {
-        "peridot-php/peridot": "1.4.*",
+        "peridot-php/peridot": "1.7.*",
         "jaz303/phake": "0.6.*",
-        "beberlei/assert": "2.0.*",
+        "beberlei/assert": "2.1.*",
         "phpspec/prophecy": "@stable",
         "cloak/cloak": "1.3.*",
         "cloak/coverallskit": "1.3.*",
