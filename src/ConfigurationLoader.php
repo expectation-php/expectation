@@ -56,15 +56,15 @@ class ConfigurationLoader
     }
 
 
-    public function loadFromComposerJson($composerJson)
+    public function load($composerJson)
     {
-        $this->loadJsonConfiguration($composerJson);
+        $this->loadConfiguration($composerJson);
         $this->applyNamespaceSection();
 
         return $this->createConfiguration();
     }
 
-    private function loadJsonConfiguration($composerJson)
+    private function loadConfiguration($composerJson)
     {
         if (file_exists($composerJson) === false) {
             throw new ConfigurationFileNotFoundException("File $composerJson not found");

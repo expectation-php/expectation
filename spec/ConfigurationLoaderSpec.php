@@ -18,12 +18,10 @@ describe('ConfigurationLoader', function() {
     beforeEach(function() {
         $this->loader = new ConfigurationLoader();
     });
-
-/*
     describe('#load', function() {
         context('when file exists', function() {
             beforeEach(function() {
-                $configPath = __DIR__ . '/fixture/config/config.php';
+                $configPath = __DIR__ . '/fixture/config/composer.json';
                 $this->config = $this->loader->load($configPath);
             });
             it('return expectation\Configuration instance', function() {
@@ -34,7 +32,7 @@ describe('ConfigurationLoader', function() {
             beforeEach(function() {
                 try {
                     $this->thrownExceptiion = false;
-                    $this->loader->load('font_found_config.php');
+                    $this->loader->load('font_found_composer.php');
                 } catch(ConfigurationFileNotFoundException $e) {
                     $this->thrownExceptiion = true;
                 }
@@ -44,15 +42,4 @@ describe('ConfigurationLoader', function() {
             });
         });
     });
-*/
-    describe('#loadFromComposerJson', function() {
-        beforeEach(function() {
-            $configPath = __DIR__ . '/fixture/config/composer.json';
-            $this->config = $this->loader->loadFromComposerJson($configPath);
-        });
-        it('return expectation\Configuration instance', function() {
-            Assertion::isInstanceOf($this->config, 'expectation\Configuration');
-        });
-    });
-
 });
