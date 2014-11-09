@@ -8,7 +8,9 @@
         "php": ">=5.4.0",
         "doctrine/annotations": "1.2.*",
         "phpcollection/phpcollection": "0.4.*",
-        "zendframework/zend-loader": "2.3.*"
+        "zendframework/zend-loader": "2.3.*",
+        "noodlehaus/config": "dev-master",
+        "eloquent/pathogen": "0.6.*"
     },
     "require-dev": {
         "peridot-php/peridot": "1.7.*",
