@@ -7,6 +7,6 @@ before_install:
   - composer self-update
   - composer install
 script:
-  - vendor/bin/robo spec:all
+  - composer test
 after_script:
-  - vendor/bin/robo spec:coveralls
+  - composer coveralls

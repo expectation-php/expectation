@@ -46,8 +46,9 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/peridot --grep *Spec.php spec",
-        "metrics": "vendor/bin/phpmetrics src"
+        "test": "vendor/bin/robo spec:all",
+        "coveralls": "vendor/bin/robo spec:coveralls",
+        "metrics": "vendor/bin/robo php:metrics"
     },
     "minimum-stability": "stable"
 }
