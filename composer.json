@@ -13,7 +13,7 @@
         "eloquent/pathogen": "0.6.*"
     },
     "require-dev": {
-        "peridot-php/peridot": "1.7.*",
+        "peridot-php/peridot": "~1.8",
         "jaz303/phake": "0.6.*",
         "beberlei/assert": "2.1.*",
         "phpspec/prophecy": "@stable",
