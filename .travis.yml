@@ -7,6 +7,6 @@ before_install:
   - composer self-update
   - composer install
 script:
-  - vendor/bin/peridot --grep *Spec.php spec
+  - vendor/bin/robo spec:all
 after_script:
-  - vendor/bin/phake spec:coveralls
+  - vendor/bin/robo spec:coveralls
