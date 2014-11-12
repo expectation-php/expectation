@@ -9,48 +9,46 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
-use ReflectionMethod;
+use \ReflectionMethod;
 use expectation\matcher\method\MethodFactory;
 
 describe('MethodFactory', function() {
 
-    before(function() {
+    beforeEach(function() {
         $this->method = new ReflectionMethod('\\expectation\\spec\\fixture\\matcher\\basic\\FixtureMatcher', 'match');
         $this->factory = new MethodFactory($this->method);
     });
 
-    describe('withArguments', function() {
+    describe('createWithArguments', function() {
         context('when no arugments', function() {
-            before(function() {
-                $this->matcherMethod = $this->factory->withArguments([]);
+            beforeEach(function() {
+                $this->matcherMethod = $this->factory->createWithArguments([]);
             });
             it('should expected is null', function() {
-                Assertion::same($this->matcherMethod->expectValue, null);
+                Assertion::same($this->matcherMethod->getExpectValue(), null);
             });
             it('should return \expectation\matcher\MethodInterface', function() {
                 Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');
             });
         });
         context('when with one arugments', function() {
-            before(function() {
-                $this->matcherMethod = $this->factory->withArguments([true]);
+            beforeEach(function() {
+                $this->matcherMethod = $this->factory->createWithArguments([true]);
             });
             it('should has expected', function() {
-                Assertion::same($this->matcherMethod->expectValue, true);
+                Assertion::same($this->matcherMethod->getExpectValue(), true);
             });
             it('should return \expectation\matcher\MethodInterface', function() {
                 Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');
             });
         });
         context('when with two arugments', function() {
-            before(function() {
-                $this->matcherMethod = $this->factory->withArguments(["foo", "bar"]);
+            beforeEach(function() {
+                $this->matcherMethod = $this->factory->createWithArguments(["foo", "bar"]);
             });
             it('should has expected', function() {
-                Assertion::same($this->matcherMethod->expectValue, ["foo", "bar"]);
+                Assertion::same($this->matcherMethod->getExpectValue(), ["foo", "bar"]);
             });
             it('should return \expectation\matcher\MethodInterface', function() {
                 Assertion::isInstanceOf($this->matcherMethod, '\expectation\matcher\MethodInterface');

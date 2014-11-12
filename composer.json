@@ -1,22 +1,26 @@
 {
     "name": "expectation/expectation",
     "description": "expectation library for unit testing",
-    "version": "1.3.0",
     "keywords": [
-        "expect", "assert", "test"
+        "expect", "assert", "test", "spec", "bdd"
     ],
     "require": {
         "php": ">=5.4.0",
         "doctrine/annotations": "1.2.*",
-        "phpcollection/phpcollection": "0.4.*"
+        "phpcollection/phpcollection": "0.4.*",
+        "zendframework/zend-loader": "2.3.*",
+        "noodlehaus/config": "dev-master",
+        "eloquent/pathogen": "0.6.*"
     },
     "require-dev": {
-        "v2e4lisp/preview": "2.*",
+        "peridot-php/peridot": "1.7.*",
         "jaz303/phake": "0.6.*",
-        "beberlei/assert": "2.0.*",
+        "beberlei/assert": "2.1.*",
         "phpspec/prophecy": "@stable",
         "cloak/cloak": "1.3.*",
-        "cloak/coverallskit": "1.3.*"
+        "cloak/coverallskit": "1.3.*",
+        "halleck45/phpmetrics": "dev-master",
+        "hoa/ruler": "dev-master"
     },
     "license": "MIT",
     "authors": [
@@ -37,13 +41,12 @@
     "autoload-dev": {
         "psr-4": {
             "expectation\\spec\\fixture\\": "spec/fixture/",
-            "expectation\\spec\\fixture\\matcher\\basic\\": "spec/fixture/matcher/basic/",
-            "expectation\\spec\\fixture\\matcher\\duplicated\\": "spec/fixture/matcher/duplicated/",
             "expectation\\spec\\reporter\\": "spec/reporter/"
         }
     },
     "scripts": {
-        "test": "vendor/bin/preview -c config/coverage.php spec"
+        "test": "vendor/bin/peridot --grep *Spec.php spec",
+        "metrics": "vendor/bin/phpmetrics src"
     },
     "minimum-stability": "stable"
 }

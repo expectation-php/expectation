@@ -9,11 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher\method;
+namespace expectation\matcher;
 
-use Exception;
-use ReflectionMethod;
+use LogicException;
 
-class AlreadyRegisteredException extends Exception
+
+/**
+ * Class MatcherNotFoundException
+ * @package expectation\matcher
+ */
+class MatcherNotFoundException extends LogicException
 {
 }

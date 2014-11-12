@@ -9,22 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Preview\DSL\BDD;
-
 use Assert\Assertion;
-use ReflectionClass;
-use expectation\matcher\method\FactoryLoader;
+use \ReflectionClass;
+use expectation\matcher\reflection\ReflectionLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
 
-describe('FactoryLoader', function() {
+describe('ReflectionLoader', function() {
 
-    before(function () {
+    beforeEach(function () {
         $this->className = '\expectation\spec\fixture\matcher\single\FixtureSingleMatcher';
     });
-
     describe('loadFromClass', function() {
-        before(function () {
-            $loader = new FactoryLoader(new AnnotationReader());
+        beforeEach(function () {
+            $loader = new ReflectionLoader(new AnnotationReader());
             $this->result = $loader->loadFromClass(new ReflectionClass($this->className));
         });
         it('return \ArrayIterator instance', function() {

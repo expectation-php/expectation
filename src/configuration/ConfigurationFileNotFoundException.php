@@ -9,20 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\spec\fixture;
+namespace expectation\configuration;
 
-use expectation\AttributeAccessible;
+use \UnexpectedValueException;
 
-class FixtureObject
+/**
+ * Class ConfigurationFileNotFoundException
+ * @package expectation\configuration
+ */
+class ConfigurationFileNotFoundException extends UnexpectedValueException
 {
-
-    use AttributeAccessible;
-
-    private $name;
-
-    protected function setName($name)
-    {
-        $this->name = $name;
-    }
-
 }

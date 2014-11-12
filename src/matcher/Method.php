@@ -13,15 +13,13 @@ namespace expectation\matcher;
 
 use ReflectionMethod;
 use expectation\ExpectationException;
-use expectation\AttributeAccessible;
+
 
 /**
  * @property mixed $expectValue
  */
 class Method implements MethodInterface
 {
-
-    use AttributeAccessible;
 
     /**
      * @var \ReflectionMethod
@@ -68,6 +66,14 @@ class Method implements MethodInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getExpectValue()
+    {
+        return $this->expectValue;
+    }
+
+    /**
      * @param $actual
      * @return boolean
      * @throw \expectation\ExpectationException
@@ -98,7 +104,7 @@ class Method implements MethodInterface
         $class = $this->method->getDeclaringClass();
 
         $this->matcher = $class->newInstanceArgs([ new Formatter() ]);
-        $this->matcher->setExpectValue($this->expectValue);
+        $this->matcher->setExpectValue($this->getExpectValue());
 
         return $this->method->invokeArgs($this->matcher, [$actual]);
     }

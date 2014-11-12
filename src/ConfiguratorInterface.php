@@ -18,10 +18,17 @@ interface ConfiguratorInterface
 {
 
     /**
-     * @param callable $callback
      * @return void
      */
-    public static function configure(callable $callback = null);
+    public static function configure();
+
+
+    /**
+     * @param string $configurationFile
+     * @return void
+     */
+    public static function configureWithFile($configurationFile);
+
 
     /**
      * @return Configuration

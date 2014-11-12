@@ -9,14 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher\method;
+namespace expectation\matcher\reflection;
 
-interface MethodContainerInterface
+use \Exception;
+
+class AlreadyRegisteredException extends Exception
 {
-
-    /**
-     * @return \expectation\matcher\MethodInterface
-     */
-    public function find($name, array $arguments);
-
 }

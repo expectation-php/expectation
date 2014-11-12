@@ -11,6 +11,7 @@
 
 namespace expectation;
 
+
 /**
  * @package expectation
  */
@@ -23,37 +24,30 @@ trait Configurable
     private static $configuration;
 
     /**
-     * @param callable $callback
+     * {@inheritdoc}
      */
-    public static function configure(callable $callback = null)
+    public static function configure()
     {
-
-        $builder = static::builder();
-
-        if (isset($callback)) {
-            call_user_func_array($callback, [$builder]);
-        }
-
+        $builder = new ConfigurationBuilder();
         self::$configuration = $builder->build();
     }
 
     /**
-     * @return \expectation\Configuration
+     * {@inheritdoc}
+     */
+    public static function configureWithFile($configurationFile)
+    {
+        $loader = new ConfigurationLoader();
+        self::$configuration = $loader->load($configurationFile);
+    }
+
+
+    /**
+     * {@inheritdoc}
      */
     public static function configration()
     {
         return self::$configuration;
-    }
-
-    private static function builder()
-    {
-        $builder = new ConfigurationBuilder();
-        $builder->registerMatcherNamespace(
-            '\\expectation\\matcher',
-            __DIR__ . '/matcher'
-        );
-
-        return $builder;
     }
 
 }

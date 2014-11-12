@@ -14,23 +14,33 @@ namespace expectation;
 /**
  * Class Configuration
  * @package expectation
- * @property-read mixed $methodContainer
  */
 class Configuration
 {
 
-    use AttributeAccessible;
+    use Populatable;
+
 
     /**
-     * @var MatcherMethodContainerInterface
+     * @var \expectation\matcher\method\MethodResolverInterface
      */
-    private $methodContainer;
+    private $methodResolver;
 
+
+    /**
+     * @param array $values
+     */
     public function __construct(array $values)
     {
-        foreach($values as $name => $value) {
-            $this->$name = $value;
-        }
+        $this->populate($values);
+    }
+
+    /**
+     * @return \expectation\matcher\method\MethodResolverInterface
+     */
+    public function getMethodResolver()
+    {
+        return $this->methodResolver;
     }
 
 }
