@@ -7,6 +7,6 @@ before_install:
   - composer self-update
   - composer install
 script:
-  - vendor/bin/peridot --grep *Spec.php spec
+  - composer test
 after_script:
-  - vendor/bin/phake spec:coveralls
+  - composer coveralls

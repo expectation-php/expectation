@@ -13,14 +13,14 @@
         "eloquent/pathogen": "0.6.*"
     },
     "require-dev": {
-        "peridot-php/peridot": "1.7.*",
-        "jaz303/phake": "0.6.*",
+        "peridot-php/peridot": "~1.8",
         "beberlei/assert": "2.1.*",
         "phpspec/prophecy": "@stable",
         "cloak/cloak": "1.3.*",
         "cloak/coverallskit": "1.3.*",
-        "halleck45/phpmetrics": "dev-master",
-        "hoa/ruler": "dev-master"
+        "halleck45/php-metrics": "1.0.*",
+        "hoa/ruler": "dev-master",
+        "codegyre/robo": "0.4.*"
     },
     "license": "MIT",
     "authors": [
@@ -45,8 +45,9 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/peridot --grep *Spec.php spec",
-        "metrics": "vendor/bin/phpmetrics src"
+        "test": "vendor/bin/robo spec:all",
+        "coveralls": "vendor/bin/robo spec:coveralls",
+        "metrics": "vendor/bin/robo php:metrics"
     },
     "minimum-stability": "stable"
 }
