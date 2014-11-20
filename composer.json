@@ -15,11 +15,10 @@
     "require-dev": {
         "peridot-php/peridot": "~1.8",
         "beberlei/assert": "2.1.*",
-        "phpspec/prophecy": "@stable",
+        "phpspec/prophecy": "1.3.*",
         "cloak/cloak": "1.3.*",
         "cloak/coverallskit": "1.3.*",
-        "halleck45/php-metrics": "1.0.*",
-        "hoa/ruler": "dev-master",
+        "halleck45/php-metrics": "dev-master",
         "codegyre/robo": "0.4.*"
     },
     "license": "MIT",
