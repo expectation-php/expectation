@@ -43,7 +43,7 @@ class RootSection implements SectionInterface
     }
 
     /**
-     * @param SectionInterface[] $section
+     * @param SectionInterface[] $sections
      */
     public function addAllSection(array $sections)
     {
