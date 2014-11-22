@@ -16,6 +16,7 @@ use expectation\matcher\method\MethodResolverInterface;
 /**
  * @package expectation
  * @method boolean toEqual() toEqual(mixed $expected)
+ * @method boolean toBe() toBe(mixed $expected)
  * @method boolean toBeTrue() toBeTrue()
  * @method boolean toBeFalse() toBeFalse()
  * @method boolean toBeNull() toBeNull()
