@@ -34,8 +34,8 @@ class MaximumMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
-        return $this->actualValue < $this->expectValue;
+        $this->setActualValue($actual);
+        return $this->getActualValue() < $this->getExpectValue();
     }
 
     /**
@@ -59,8 +59,8 @@ class MaximumMatcher extends AbstractMatcher
      */
     private function getMessageFromTemplate($template)
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
+        $actual = $this->formatter->toString($this->getActualValue());
+        $expected = $this->formatter->toString($this->getExpectValue());
 
         return sprintf($template, $actual, $expected);
     }

@@ -31,17 +31,20 @@ class TypeMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
+        $this->setActualValue($actual);
+
+        $actualValue = $this->getActualValue();
+        $expectValue = $this->getExpectValue();
 
         /**
          * is_float(1.1) => true
          * is_double(1.1) => true
          */
-        if (in_array($this->expectValue, ['float', 'double'])) {
-            $result = is_float($this->actualValue) || is_double($this->actualValue);
+        if (in_array($expectValue, ['float', 'double'])) {
+            $result = is_float($actualValue) || is_double($actualValue);
         } else {
-            $detectType = gettype($this->actualValue);
-            $result = ($detectType === $this->expectValue);
+            $detectType = gettype($actualValue);
+            $result = ($detectType === $expectValue);
         }
 
         return $result;
@@ -92,8 +95,8 @@ class TypeMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        $type = gettype($this->actualValue);
-        return "Expected {$this->expectValue}, got {$type}";
+        $type = gettype($this->getActualValue());
+        return "Expected {$this->getExpectValue()}, got {$type}";
     }
 
     /**
@@ -101,7 +104,7 @@ class TypeMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        return "Expected a type other than {$this->expectValue}";
+        return "Expected a type other than {$this->getExpectValue()}";
     }
 
 }

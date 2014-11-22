@@ -42,10 +42,10 @@ class LengthMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
+        $this->setActualValue($actual);
 
-        $that = $this->actualValue;
-        $expected = $this->expectValue;
+        $that = $this->getActualValue();
+        $expected = $this->getExpectValue();
 
         if (is_string($that) === true) {
             $this->length = mb_strlen($that);
@@ -76,7 +76,7 @@ class LengthMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        return "Expected {$this->type} to have a length of {$this->expectValue}";
+        return "Expected {$this->type} to have a length of {$this->getExpectValue()}";
     }
 
     /**
@@ -84,7 +84,7 @@ class LengthMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        return "Expected {$this->type} not to have a length of {$this->expectValue}";
+        return "Expected {$this->type} not to have a length of {$this->getExpectValue()}";
     }
 
 }

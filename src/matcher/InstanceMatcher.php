@@ -30,8 +30,12 @@ class InstanceMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
-        return $this->actualValue instanceof $this->expectValue;
+        $this->setActualValue($actual);
+
+        $actualValue = $this->getActualValue();
+        $expectValue = $this->getExpectValue();
+
+        return $actualValue instanceof $expectValue;
     }
 
     /**
@@ -39,8 +43,8 @@ class InstanceMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        $className = get_class($this->actualValue);
-        return "Expected an instance of {$this->expectValue}, got {$className}";
+        $className = get_class($this->getActualValue());
+        return "Expected an instance of {$this->getExpectValue()}, got {$className}";
     }
 
     /**
@@ -48,7 +52,7 @@ class InstanceMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        return "Expected an instance other than {$this->expectValue}";
+        return "Expected an instance other than {$this->getExpectValue()}";
     }
 
 }
