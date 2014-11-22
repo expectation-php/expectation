@@ -55,6 +55,7 @@ class MaximumMatcher extends AbstractMatcher
     }
 
     /**
+     * @param string $template
      * @return string
      */
     private function getMessageFromTemplate($template)
