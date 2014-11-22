@@ -23,6 +23,7 @@ class EqualMatcher extends AbstractMatcher
 
     /**
      * @Lookup(name="toEqual")
+     * @Lookup(name="toBe")
      * @param mixed $actual
      */
     public function match($actual)
