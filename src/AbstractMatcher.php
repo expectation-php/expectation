@@ -26,12 +26,12 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @var mixed
      */
-    protected $actualValue;
+    private $actualValue;
 
     /**
      * @var mixed
      */
-    protected $expectValue;
+    private $expectValue;
 
     /**
      * @var Formatter
