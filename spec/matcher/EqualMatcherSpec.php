@@ -12,21 +12,19 @@
 use Assert\Assertion;
 use expectation\matcher\EqualMatcher;
 use expectation\matcher\Formatter;
-use expectation\spec\helper\AnnotationHelper;
-use \ReflectionMethod;
+use expectation\spec\helper\MatcherHelper;
 
 
 describe('EqualMatcher', function() {
     beforeEach(function() {
-        $this->helper = new AnnotationHelper();
         $this->matcher = new EqualMatcher(new Formatter());
+        $this->matcherHelper = new MatcherHelper($this->matcher);
     });
 
     describe('#match', function() {
         describe('annotations', function() {
             beforeEach(function() {
-                $this->method = new ReflectionMethod($this->matcher, 'match');
-                $this->annotations = $this->helper->getLookupAnnotations($this->method);
+                $this->annotations = $this->matcherHelper->getAnnotations('match');
             });
             it('have toEqual', function() {
                 Assertion::keyExists($this->annotations, 'toEqual');
@@ -52,8 +50,7 @@ describe('EqualMatcher', function() {
     describe('#matchTrue', function() {
         describe('annotations', function() {
             beforeEach(function() {
-                $this->method = new ReflectionMethod($this->matcher, 'matchTrue');
-                $this->annotations = $this->helper->getLookupAnnotations($this->method);
+                $this->annotations = $this->matcherHelper->getAnnotations('matchTrue');
             });
             it('have toBeTrue', function() {
                 Assertion::keyExists($this->annotations, 'toBeTrue');
@@ -67,8 +64,7 @@ describe('EqualMatcher', function() {
     describe('#matchFalse', function() {
         describe('annotations', function() {
             beforeEach(function() {
-                $this->method = new ReflectionMethod($this->matcher, 'matchFalse');
-                $this->annotations = $this->helper->getLookupAnnotations($this->method);
+                $this->annotations = $this->matcherHelper->getAnnotations('matchFalse');
             });
             it('have toBeFalse', function() {
                 Assertion::keyExists($this->annotations, 'toBeFalse');
@@ -82,8 +78,7 @@ describe('EqualMatcher', function() {
     describe('#matchNull', function() {
         describe('annotations', function() {
             beforeEach(function() {
-                $this->method = new ReflectionMethod($this->matcher, 'matchNull');
-                $this->annotations = $this->helper->getLookupAnnotations($this->method);
+                $this->annotations = $this->matcherHelper->getAnnotations('matchNull');
             });
             it('have toBeNull', function() {
                 Assertion::keyExists($this->annotations, 'toBeNull');

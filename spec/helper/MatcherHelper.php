@@ -11,18 +11,25 @@
 
 namespace expectation\spec\helper;
 
+use expectation\MatcherInterface;
 use expectation\matcher\annotation\Lookup;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\Reader;
+use \ReflectionClass;
 use \ReflectionMethod;
 
 
 /**
- * Class AnnotationHelper
+ * Class MatcherHelper
  * @package expectation\spec\helper
  */
-class AnnotationHelper
+class MatcherHelper
 {
+
+    /**
+     * @var ReflectionClass
+     */
+    private $matcher;
 
     /**
      * @var Reader
@@ -30,13 +37,24 @@ class AnnotationHelper
     private $annotationReader;
 
 
-    public function __construct()
+    public function __construct(MatcherInterface $matcher)
     {
+        $this->matcher = new ReflectionClass($matcher);
         $this->annotationReader = new AnnotationReader();
     }
 
+    public function getAnnotations($method)
+    {
+        $method = $this->matcher->getMethod($method);
+        return $this->parseAnnotations($method);
+    }
 
-    public function getLookupAnnotations(ReflectionMethod $reflection)
+
+    /**
+     * @param ReflectionMethod $reflection
+     * @return array
+     */
+    private function parseAnnotations(ReflectionMethod $reflection)
     {
         $lookupAnnotations = [];
         $annotations = $this->annotationReader->getMethodAnnotations($reflection);
