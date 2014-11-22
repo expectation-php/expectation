@@ -11,15 +11,26 @@
 
 use expectation\matcher\PrintMatcher;
 use expectation\matcher\Formatter;
+use expectation\spec\helper\MatcherHelper;
 use Assert\Assertion;
 
 describe('PrintMatcher', function() {
 
     beforeEach(function() {
         $this->matcher = new PrintMatcher(new Formatter());
+        $this->matcherHelper = new MatcherHelper($this->matcher);
     });
 
     describe('match', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('match');
+            });
+            it('have toPrint', function() {
+                Assertion::keyExists($this->annotations, 'toPrint');
+            });
+        });
+
         context('when the same class', function() {
             beforeEach(function() {
                 $this->matcher->setExpectValue('foo');
