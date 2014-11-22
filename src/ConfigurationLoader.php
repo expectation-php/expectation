@@ -41,7 +41,7 @@ class ConfigurationLoader
     private $configValues;
 
     /**
-     * @var \Eloquent\Pathogen\AbsolutePath
+     * @var \Eloquent\Pathogen\AbsolutePathInterface
      */
     private $composerJsonPath;
 
