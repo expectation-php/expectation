@@ -19,11 +19,17 @@ describe('DSL', function() {
     describe('expect', function() {
         beforeEach(function() {
             Expectation::configure();
+
+            $this->throwException = null;
             $this->testCase = new FixtureTestCase();
         });
         it('lookup matcher method', function() {
-            $result = $this->testCase->expect(true)->toEqual(true);
-            Assertion::true($result);
+            try {
+                $this->testCase->expect(true)->toEqual(true);
+            } catch (ExpectationException $exception) {
+                $this->throwException = $exception;
+            }
+            Assertion::same($this->throwException, null);
         });
     });
 

@@ -88,18 +88,23 @@ class Evaluator implements EvaluatorInterface
         return $this;
     }
 
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return bool|mixed
+     */
     public function __call($name, array $arguments)
     {
         if (method_exists($this, $name)) {
             return call_user_func_array([$this, $name], $arguments);
         }
 
-        $matcher = $this->resolver->find($name, $arguments);
+        $method = $this->resolver->find($name, $arguments);
 
         if ($this->negated) {
-            return $matcher->negativeMatch($this->actual);
+            $method->negativeMatch($this->actual);
         } else {
-            return $matcher->positiveMatch($this->actual);
+            $method->positiveMatch($this->actual);
         }
     }
 
