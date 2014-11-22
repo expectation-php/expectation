@@ -12,16 +12,27 @@
 use Assert\Assertion;
 use expectation\matcher\ExceptionMatcher;
 use expectation\matcher\Formatter;
+use expectation\spec\helper\MatcherHelper;
 use \Exception;
 use \UnderflowException;
+
 
 describe('ExceptionMatcher', function() {
 
     beforeEach(function() {
         $this->matcher = new ExceptionMatcher(new Formatter());
+        $this->matcherHelper = new MatcherHelper($this->matcher);
     });
 
     describe('match', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('match');
+            });
+            it('have toThrow', function() {
+                Assertion::keyExists($this->annotations, 'toThrow');
+            });
+        });
         context('when thrown an exception', function() {
             it('should return true', function() {
                 $this->matcher->setExpectValue('Exception');
