@@ -70,7 +70,7 @@ describe('Method', function() {
         });
         context('when the condition is not match', function() {
             beforeEach(function() {
-                $this->throwException = false;
+                $this->throwException = null;
                 $this->matcherMethod->setExpectValue(false);
             });
 
