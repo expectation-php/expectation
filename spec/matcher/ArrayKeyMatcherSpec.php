@@ -12,14 +12,24 @@
 use Assert\Assertion;
 use expectation\matcher\ArrayKeyMatcher;
 use expectation\matcher\Formatter;
+use expectation\spec\helper\MatcherHelper;
+
 
 describe('ArrayKeyMatcher', function() {
-
     beforeEach(function() {
         $this->matcher = new ArrayKeyMatcher(new Formatter());
+        $this->matcherHelper = new MatcherHelper($this->matcher);
     });
 
     describe('match', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('match');
+            });
+            it('have toHaveKey', function() {
+                Assertion::keyExists($this->annotations, 'toHaveKey');
+            });
+        });
         context('when same value', function() {
             it('should return true', function() {
                 $this->matcher->setExpectValue('foo');
