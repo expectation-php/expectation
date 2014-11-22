@@ -11,10 +11,9 @@
 
 namespace expectation\matcher\annotation;
 
-use ReflectionMethod;
-use expectation\BadPropertyAccessException;
-use expectation\matcher\method\MethodFactory;
 use expectation\matcher\AnnotationInterface;
+use expectation\Populatable;
+
 
 /**
  * @Annotation
@@ -29,6 +28,9 @@ use expectation\matcher\AnnotationInterface;
 final class Lookup implements AnnotationInterface
 {
 
+    use Populatable;
+
+
     /**
      * @var string
      */
@@ -39,12 +41,7 @@ final class Lookup implements AnnotationInterface
      */
     public function __construct(array $values)
     {
-        foreach($values as $name => $value) {
-            if (!property_exists($this, $name)) {
-                throw new BadPropertyAccessException($name);
-            }
-            $this->$name = $value;
-        }
+        $this->populate($values);
     }
 
     /**
