@@ -18,6 +18,7 @@ use \ReflectionMethod;
 
 describe('EqualMatcher', function() {
     beforeEach(function() {
+        $this->helper = new AnnotationHelper();
         $this->matcher = new EqualMatcher(new Formatter());
     });
 
@@ -25,7 +26,6 @@ describe('EqualMatcher', function() {
         describe('annotations', function() {
             beforeEach(function() {
                 $this->method = new ReflectionMethod($this->matcher, 'match');
-                $this->helper = new AnnotationHelper();
                 $this->annotations = $this->helper->getLookupAnnotations($this->method);
             });
             it('have toEqual', function() {
@@ -53,7 +53,6 @@ describe('EqualMatcher', function() {
         describe('annotations', function() {
             beforeEach(function() {
                 $this->method = new ReflectionMethod($this->matcher, 'matchTrue');
-                $this->helper = new AnnotationHelper();
                 $this->annotations = $this->helper->getLookupAnnotations($this->method);
             });
             it('have toBeTrue', function() {
@@ -69,7 +68,6 @@ describe('EqualMatcher', function() {
         describe('annotations', function() {
             beforeEach(function() {
                 $this->method = new ReflectionMethod($this->matcher, 'matchFalse');
-                $this->helper = new AnnotationHelper();
                 $this->annotations = $this->helper->getLookupAnnotations($this->method);
             });
             it('have toBeFalse', function() {
@@ -85,7 +83,6 @@ describe('EqualMatcher', function() {
         describe('annotations', function() {
             beforeEach(function() {
                 $this->method = new ReflectionMethod($this->matcher, 'matchNull');
-                $this->helper = new AnnotationHelper();
                 $this->annotations = $this->helper->getLookupAnnotations($this->method);
             });
             it('have toBeNull', function() {
