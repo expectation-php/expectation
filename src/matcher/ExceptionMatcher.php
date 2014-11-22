@@ -36,10 +36,10 @@ class ExceptionMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
+        $this->setActualValue($actual);
 
-        $callable = $this->actualValue;
-        $expected = $this->expectValue;
+        $callable = $this->getActualValue();
+        $expected = $this->getExpectValue();
 
         try {
             $callable();
@@ -62,7 +62,7 @@ class ExceptionMatcher extends AbstractMatcher
             $explanation = "got $class";
         }
 
-        return "Expected {$this->expectValue} to be thrown, $explanation";
+        return "Expected {$this->getExpectValue()} to be thrown, $explanation";
     }
 
     /**
@@ -70,7 +70,7 @@ class ExceptionMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        return "Expected {$this->expectValue} not to be thrown";
+        return "Expected {$this->getExpectValue()} not to be thrown";
     }
 
 }
