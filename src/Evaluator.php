@@ -25,7 +25,6 @@ use expectation\matcher\method\MethodResolverInterface;
  * @method boolean toBeString() toBeString()
  * @method boolean toBeInteger() toBeInteger()
  * @method boolean toBeFloat() toBeFloat()
- * @method boolean toBeDouble() toBeDouble()
  * @method boolean toBeBoolean() toBeBoolean()
  * @method boolean toBeAnInstanceOf() toBeAnInstanceOf(string $expected)
  * @method boolean toThrow() toThrow(string $expected)

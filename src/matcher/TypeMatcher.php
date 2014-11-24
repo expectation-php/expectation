@@ -36,16 +36,9 @@ class TypeMatcher extends AbstractMatcher
         $actualValue = $this->getActualValue();
         $expectValue = $this->getExpectValue();
 
-        /**
-         * is_float(1.1) => true
-         * is_double(1.1) => true
-         */
-        if (in_array($expectValue, ['float', 'double'])) {
-            $result = is_float($actualValue) || is_double($actualValue);
-        } else {
-            $detectType = gettype($actualValue);
-            $result = ($detectType === $expectValue);
-        }
+        $detectType = $this->detectType($actualValue);
+
+        $result = ($detectType === $expectValue);
 
         return $result;
     }
@@ -75,14 +68,6 @@ class TypeMatcher extends AbstractMatcher
     }
 
     /**
-     * @Lookup(name="toBeDouble")
-     */
-    public function matchDouble($actual)
-    {
-        return $this->setExpectValue('double')->match($actual);
-    }
-
-    /**
      * @Lookup(name="toBeBoolean")
      */
     public function matchBoolean($actual)
@@ -91,12 +76,26 @@ class TypeMatcher extends AbstractMatcher
     }
 
     /**
+     * @param mixed $value
+     * @return string
+     */
+    private function detectType($value)
+    {
+        $detectType = gettype($value);
+        $detectType = ($detectType === 'double') ? 'float' : $detectType;
+
+        return $detectType;
+    }
+
+    /**
      * @return string
      */
     public function getFailureMessage()
     {
-        $type = gettype($this->getActualValue());
-        return "Expected {$this->getExpectValue()}, got {$type}";
+        $actualValue = $this->getActualValue();
+        $detectType = $this->detectType($actualValue);
+
+        return "Expected {$this->getExpectValue()}, got {$detectType}";
     }
 
     /**
