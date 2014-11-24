@@ -80,10 +80,9 @@ class Method implements MethodInterface
      */
     public function positiveMatch($actual)
     {
-        if ($this->call($actual)) {
-            return;
+        if ($this->call($actual) === false) {
+            $this->throwFailureException();
         }
-        $this->throwFailureException();
     }
 
     /**
@@ -93,15 +92,14 @@ class Method implements MethodInterface
      */
     public function negativeMatch($actual)
     {
-        if ($this->call($actual) === false) {
-            return;
+        if ($this->call($actual) === true) {
+            $this->throwNagativeFailureException();
         }
-        $this->throwNagativeFailureException();
     }
 
     /**
      * @param mixed $actual
-     * @return mixed
+     * @return boolean
      */
     private function call($actual)
     {
