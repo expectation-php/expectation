@@ -75,22 +75,6 @@ describe('TypeMatcher', function() {
             Assertion::true($this->matcher->matchInteger(1));
         });
     });
-    describe('matchDouble', function() {
-        describe('annotations', function() {
-            beforeEach(function() {
-                $this->annotations = $this->matcherHelper->getAnnotations('matchDouble');
-            });
-            it('have toBeDouble', function() {
-                Assertion::keyExists($this->annotations, 'toBeDouble');
-            });
-        });
-
-        it('should return true', function() {
-            $doubleValue = 1.1;
-            $doubleValue = (double) $doubleValue;
-            Assertion::true($this->matcher->matchDouble($doubleValue));
-        });
-    });
 
     describe('matchFloat', function() {
         describe('annotations', function() {
@@ -101,10 +85,8 @@ describe('TypeMatcher', function() {
                 Assertion::keyExists($this->annotations, 'toBeFloat');
             });
         });
-
-        it('should return true', function() {
+        it('return true', function() {
             $floatValue = 1.1;
-            $floatValue = (float) $floatValue;
             Assertion::true($this->matcher->matchFloat($floatValue));
         });
     });
