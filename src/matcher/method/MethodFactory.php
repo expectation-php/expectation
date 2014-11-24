@@ -27,7 +27,16 @@ class MethodFactory implements MethodFactoryInterface
      */
     public function __construct(ReflectionMethod $method)
     {
+        $this->setMethod($method);
+    }
+
+    /**
+     * @param ReflectionMethod $method
+     */
+    private function setMethod(ReflectionMethod $method)
+    {
         $this->method = $method;
+        return $this;
     }
 
     /**
@@ -43,7 +52,7 @@ class MethodFactory implements MethodFactoryInterface
      * @return \expectation\matcher\Method
      */
     public function createWithArguments(array $arguments) {
-        $wrapper = new Method($this->method);
+        $wrapper = new Method($this->getMethod());
 
         if (!empty($arguments)) {
             $expectValue = $this->expectValueFrom($arguments);
