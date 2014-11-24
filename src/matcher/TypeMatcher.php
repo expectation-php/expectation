@@ -36,8 +36,7 @@ class TypeMatcher extends AbstractMatcher
         $actualValue = $this->getActualValue();
         $expectValue = $this->getExpectValue();
 
-        $detectType = gettype($actualValue);
-        $detectType = ($detectType === 'double') ? 'float' : $detectType;
+        $detectType = $this->detectType($actualValue);
 
         $result = ($detectType === $expectValue);
 
@@ -77,12 +76,26 @@ class TypeMatcher extends AbstractMatcher
     }
 
     /**
+     * @param mixed $value
+     * @return string
+     */
+    private function detectType($value)
+    {
+        $detectType = gettype($value);
+        $detectType = ($detectType === 'double') ? 'float' : $detectType;
+
+        return $detectType;
+    }
+
+    /**
      * @return string
      */
     public function getFailureMessage()
     {
-        $type = gettype($this->getActualValue());
-        return "Expected {$this->getExpectValue()}, got {$type}";
+        $actualValue = $this->getActualValue();
+        $detectType = $this->detectType($actualValue);
+
+        return "Expected {$this->getExpectValue()}, got {$detectType}";
     }
 
     /**
