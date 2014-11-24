@@ -60,8 +60,8 @@ class MaximumMatcher extends AbstractMatcher
      */
     private function getMessageFromTemplate($template)
     {
-        $actual = $this->formatter->toString($this->getActualValue());
-        $expected = $this->formatter->toString($this->getExpectValue());
+        $actual = $this->getFormatter()->toString($this->getActualValue());
+        $expected = $this->getFormatter()->toString($this->getExpectValue());
 
         return sprintf($template, $actual, $expected);
     }

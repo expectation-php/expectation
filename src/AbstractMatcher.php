@@ -36,12 +36,31 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @var Formatter
      */
-    protected $formatter;
+    private $formatter;
 
 
+    /**
+     * @param Formatter $formatter
+     */
     public function __construct(Formatter $formatter)
     {
+        $this->setFormatter($formatter);
+    }
+
+    /**
+     * @param Formatter $formatter
+     */
+    protected function setFormatter(Formatter $formatter)
+    {
         $this->formatter = $formatter;
+    }
+
+    /**
+     * @return Formatter
+     */
+    protected function getFormatter()
+    {
+        return $this->formatter;
     }
 
     /**
@@ -56,7 +75,7 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @return mixed
      */
-    public function getActualValue()
+    protected function getActualValue()
     {
         return $this->actualValue;
     }
@@ -73,7 +92,7 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @return mixed
      */
-    public function getExpectValue()
+    protected function getExpectValue()
     {
         return $this->expectValue;
     }

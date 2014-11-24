@@ -61,8 +61,8 @@ class EqualMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        $actual = $this->formatter->toString($this->getActualValue());
-        $expected = $this->formatter->toString($this->getExpectValue());
+        $actual = $this->getFormatter()->toString($this->getActualValue());
+        $expected = $this->getFormatter()->toString($this->getExpectValue());
         return "Expected {$actual} to be {$expected}";
     }
 
@@ -71,8 +71,8 @@ class EqualMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        $actual = $this->formatter->toString($this->getActualValue());
-        $expected = $this->formatter->toString($this->getExpectValue());
+        $actual = $this->getFormatter()->toString($this->getActualValue());
+        $expected = $this->getFormatter()->toString($this->getExpectValue());
         return "Expected {$actual} not to be {$expected}";
     }
 
