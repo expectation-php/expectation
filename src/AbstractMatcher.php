@@ -36,7 +36,7 @@ abstract class AbstractMatcher implements MatcherInterface
     /**
      * @var Formatter
      */
-    protected $formatter;
+    private $formatter;
 
 
     public function __construct(Formatter $formatter)

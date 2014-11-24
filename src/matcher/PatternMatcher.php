@@ -112,8 +112,8 @@ class PatternMatcher extends AbstractMatcher
      */
     private function createResultMessage($prefixMessage)
     {
-        $actual = $this->formatter->toString($this->getActualValue());
-        $expected = $this->formatter->toString($this->getExpectValue());
+        $actual = $this->getFormatter()->toString($this->getActualValue());
+        $expected = $this->getFormatter()->toString($this->getExpectValue());
 
         $message  = $prefixMessage . $this->resultMessages[$this->matchType];
 
