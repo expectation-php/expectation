@@ -12,7 +12,7 @@
 use Assert\Assertion;
 use Prophecy\Prophet;
 use expectation\matcher\method\MethodResolver;
-
+use expectation\matcher\MatcherNotFoundException;
 
 describe('MethodResolver', function() {
 
@@ -35,6 +35,32 @@ describe('MethodResolver', function() {
             });
             it('return expectation\matcher\MethodInterface', function() {
                 Assertion::isInstanceOf($this->findResult, 'expectation\matcher\MethodInterface');
+            });
+        });
+        context('when factory not registered', function() {
+            beforeEach(function() {
+                $this->prophet = new Prophet();
+                $this->reflectionMethod = new ReflectionMethod('\\expectation\\spec\\fixture\\matcher\\basic\\FixtureMatcher', 'match');
+
+                $this->registry = $this->prophet->prophesize('expectation\matcher\reflection\ReflectionRegistryInterface');
+                $this->registry->get()->withArguments(['toEquals'])
+                    ->willThrow('expectation\matcher\reflection\ReflectionNotFoundException');
+
+                $this->resolver = new MethodResolver($this->registry->reveal());
+
+                $this->throwException = null;
+
+                try {
+                    $this->resolver->find('toEquals', [true]);
+                } catch (MatcherNotFoundException $exception) {
+                    $this->throwException = $exception;
+                }
+            });
+            it('find the container', function() {
+                $this->prophet->checkPredictions();
+            });
+            it('throw expectation\matcher\MatcherNotFoundException', function() {
+                Assertion::isInstanceOf($this->throwException, 'expectation\matcher\MatcherNotFoundException');
             });
         });
     });
