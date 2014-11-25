@@ -10,7 +10,7 @@ class RoboFile extends Tasks
 
     public function specAll()
     {
-        return $this->taskExec('vendor/bin/peridot --grep *Spec.php spec')->run();
+        return $this->taskExec('vendor/bin/peridot spec')->run();
     }
 
     public function phpMetrics()
