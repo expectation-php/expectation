@@ -40,7 +40,8 @@
     "autoload-dev": {
         "psr-4": {
             "expectation\\spec\\fixture\\": "spec/fixture/",
-            "expectation\\spec\\reporter\\": "spec/reporter/"
+            "expectation\\spec\\reporter\\": "spec/reporter/",
+            "expectation\\spec\\helper\\": "spec/helper/"
         }
     },
     "scripts": {
@@ -50,4 +51,3 @@
     },
     "minimum-stability": "stable"
 }
-

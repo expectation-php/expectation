@@ -9,35 +9,24 @@
  * with this source code in the file LICENSE.
  */
 
-namespace expectation\matcher\annotation;
+namespace expectation\spec\fixture;
 
-use expectation\matcher\AnnotationInterface;
 use expectation\Populatable;
 
-
 /**
- * @Annotation
- * @Target({"METHOD"})
- * @Attributes(
- *   @Attribute("name", required = true, type = "string")
- * )
- *
- * @package expectation\matcher\annotation
- * @author Noritaka Horio <holy.shared.design@gmail.com>
+ * Class FixturePopulatableObject
+ * @package expectation\spec\fixture
  */
-final class Lookup implements AnnotationInterface
+class FixturePopulatableObject
 {
 
     use Populatable;
 
-
-    /**
-     * @var string
-     */
     private $name;
 
     /**
      * @param array $values
+     * @throws \expectation\BadPropertyAccessException
      */
     public function __construct(array $values)
     {
@@ -47,7 +36,7 @@ final class Lookup implements AnnotationInterface
     /**
      * @return string
      */
-    public function getLookupName()
+    public function getName()
     {
         return $this->name;
     }

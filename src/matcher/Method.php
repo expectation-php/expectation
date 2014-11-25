@@ -75,30 +75,32 @@ class Method implements MethodInterface
 
     /**
      * @param $actual
-     * @return boolean
+     * @return void
      * @throw \expectation\ExpectationException
      */
     public function positiveMatch($actual)
     {
-        if ($this->call($actual)) {
-            return true;
+        if ($this->call($actual) === false) {
+            $this->throwFailureException();
         }
-        $this->throwFailureException();
     }
 
     /**
      * @param $actual
-     * @return boolean
+     * @return void
      * @throw \expectation\ExpectationException
      */
     public function negativeMatch($actual)
     {
-        if ($this->call($actual) === false) {
-            return true;
+        if ($this->call($actual) === true) {
+            $this->throwNagativeFailureException();
         }
-        $this->throwNagativeFailureException();
     }
 
+    /**
+     * @param mixed $actual
+     * @return boolean
+     */
     private function call($actual)
     {
         $class = $this->method->getDeclaringClass();
@@ -106,15 +108,21 @@ class Method implements MethodInterface
         $this->matcher = $class->newInstanceArgs([ new Formatter() ]);
         $this->matcher->setExpectValue($this->getExpectValue());
 
-        return $this->method->invokeArgs($this->matcher, [$actual]);
+        return $this->method->invokeArgs($this->matcher, [ $actual ]);
     }
 
+    /**
+     * @throw \expectation\ExpectationException
+     */
     private function throwFailureException()
     {
         $message = $this->matcher->getFailureMessage();
         throw new ExpectationException($message);
     }
 
+    /**
+     * @throw \expectation\ExpectationException
+     */
     private function throwNagativeFailureException()
     {
         $message = $this->matcher->getNegatedFailureMessage();

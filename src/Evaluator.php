@@ -16,6 +16,7 @@ use expectation\matcher\method\MethodResolverInterface;
 /**
  * @package expectation
  * @method boolean toEqual() toEqual(mixed $expected)
+ * @method boolean toBe() toBe(mixed $expected)
  * @method boolean toBeTrue() toBeTrue()
  * @method boolean toBeFalse() toBeFalse()
  * @method boolean toBeNull() toBeNull()
@@ -24,7 +25,6 @@ use expectation\matcher\method\MethodResolverInterface;
  * @method boolean toBeString() toBeString()
  * @method boolean toBeInteger() toBeInteger()
  * @method boolean toBeFloat() toBeFloat()
- * @method boolean toBeDouble() toBeDouble()
  * @method boolean toBeBoolean() toBeBoolean()
  * @method boolean toBeAnInstanceOf() toBeAnInstanceOf(string $expected)
  * @method boolean toThrow() toThrow(string $expected)
@@ -87,18 +87,23 @@ class Evaluator implements EvaluatorInterface
         return $this;
     }
 
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return bool|mixed
+     */
     public function __call($name, array $arguments)
     {
         if (method_exists($this, $name)) {
             return call_user_func_array([$this, $name], $arguments);
         }
 
-        $matcher = $this->resolver->find($name, $arguments);
+        $method = $this->resolver->find($name, $arguments);
 
         if ($this->negated) {
-            return $matcher->negativeMatch($this->actual);
+            $method->negativeMatch($this->actual);
         } else {
-            return $matcher->positiveMatch($this->actual);
+            $method->positiveMatch($this->actual);
         }
     }
 

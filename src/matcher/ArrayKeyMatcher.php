@@ -27,8 +27,8 @@ class ArrayKeyMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
-        return array_key_exists($this->expectValue, $this->actualValue);
+        $this->setActualValue($actual);
+        return array_key_exists($this->getExpectValue(), $this->getActualValue());
     }
 
     /**
@@ -36,7 +36,7 @@ class ArrayKeyMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        $expectValue = $this->formatter->toString($this->expectValue);
+        $expectValue = $this->getFormatter()->toString($this->getExpectValue());
         return "Expected array to have the key {$expectValue}";
     }
 
@@ -45,7 +45,7 @@ class ArrayKeyMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        $expectValue = $this->formatter->toString($this->expectValue);
+        $expectValue = $this->getFormatter()->toString($this->getExpectValue());
         return "Expected array not to have the key {$expectValue}";
     }
 

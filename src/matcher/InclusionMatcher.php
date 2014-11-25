@@ -50,12 +50,15 @@ class InclusionMatcher extends AbstractMatcher
             throw new InvalidArgumentException('Argument must be an array or string');
         }
 
-        $this->actualValue = $actual;
+        $this->setActualValue($actual);
 
-        $expectValues = (is_array($this->expectValue))
-            ? $this->expectValue : [$this->expectValue];
+        $actualValue = $this->getActualValue();
+        $expectValue = $this->getExpectValue();
 
-        $strategy = $this->createStrategyFromActual($this->actualValue);
+        $expectValues = (is_array($expectValue))
+            ? $expectValue : [ $expectValue ];
+
+        $strategy = $this->createStrategyFromActual($actualValue);
         $this->matchResult = $strategy->match($expectValues);
 
         return $this->matchResult->isMatched();
@@ -93,11 +96,12 @@ class InclusionMatcher extends AbstractMatcher
     private function createStrategyFromActual($actual)
     {
         $strategy = null;
+        $actualValue = $this->getActualValue();
 
-        if (is_string($this->actualValue)) {
+        if (is_string($actualValue)) {
             $this->type = 'string';
             $strategy = new StringInclusionStrategy($actual);
-        } else if (is_array($this->actualValue)) {
+        } else if (is_array($actualValue)) {
             $this->type = 'array';
             $strategy = new ArrayInclusionStrategy($actual);
         }

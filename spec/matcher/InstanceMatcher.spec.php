@@ -11,6 +11,7 @@
 
 use expectation\matcher\InstanceMatcher;
 use expectation\matcher\Formatter;
+use expectation\spec\helper\MatcherHelper;
 use Assert\Assertion;
 use \stdClass;
 use \Exception;
@@ -20,9 +21,19 @@ describe('InstanceMatcher', function() {
 
     beforeEach(function() {
         $this->matcher = new InstanceMatcher(new Formatter());
+        $this->matcherHelper = new MatcherHelper($this->matcher);
     });
 
     describe('match', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('match');
+            });
+            it('have toBeAnInstanceOf', function() {
+                Assertion::keyExists($this->annotations, 'toBeAnInstanceOf');
+            });
+        });
+
         context('when the same class', function() {
             it('should return true', function() {
                 $this->matcher->setExpectValue('\stdClass');

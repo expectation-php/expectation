@@ -31,18 +31,14 @@ class TypeMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
+        $this->setActualValue($actual);
 
-        /**
-         * is_float(1.1) => true
-         * is_double(1.1) => true
-         */
-        if (in_array($this->expectValue, ['float', 'double'])) {
-            $result = is_float($this->actualValue) || is_double($this->actualValue);
-        } else {
-            $detectType = gettype($this->actualValue);
-            $result = ($detectType === $this->expectValue);
-        }
+        $actualValue = $this->getActualValue();
+        $expectValue = $this->getExpectValue();
+
+        $detectType = $this->detectType($actualValue);
+
+        $result = ($detectType === $expectValue);
 
         return $result;
     }
@@ -72,14 +68,6 @@ class TypeMatcher extends AbstractMatcher
     }
 
     /**
-     * @Lookup(name="toBeDouble")
-     */
-    public function matchDouble($actual)
-    {
-        return $this->setExpectValue('double')->match($actual);
-    }
-
-    /**
      * @Lookup(name="toBeBoolean")
      */
     public function matchBoolean($actual)
@@ -88,12 +76,26 @@ class TypeMatcher extends AbstractMatcher
     }
 
     /**
+     * @param mixed $value
+     * @return string
+     */
+    private function detectType($value)
+    {
+        $detectType = gettype($value);
+        $detectType = ($detectType === 'double') ? 'float' : $detectType;
+
+        return $detectType;
+    }
+
+    /**
      * @return string
      */
     public function getFailureMessage()
     {
-        $type = gettype($this->actualValue);
-        return "Expected {$this->expectValue}, got {$type}";
+        $actualValue = $this->getActualValue();
+        $detectType = $this->detectType($actualValue);
+
+        return "Expected {$this->getExpectValue()}, got {$detectType}";
     }
 
     /**
@@ -101,7 +103,7 @@ class TypeMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        return "Expected a type other than {$this->expectValue}";
+        return "Expected a type other than {$this->getExpectValue()}";
     }
 
 }

@@ -48,8 +48,8 @@ class PatternMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
-        return (preg_match($this->getMatchPattern(), $this->actualValue) === 1);
+        $this->setActualValue($actual);
+        return (preg_match($this->getMatchPattern(), $this->getActualValue()) === 1);
     }
 
     /**
@@ -94,10 +94,10 @@ class PatternMatcher extends AbstractMatcher
     private function getMatchPattern()
     {
         if ($this->matchType === self::PATTERN) {
-            return $this->expectValue;
+            return $this->getExpectValue();
         }
 
-        $keyword = preg_quote($this->expectValue, "/");
+        $keyword = preg_quote($this->getExpectValue(), "/");
 
         if ($this->matchType === self::PREFIX) {
             return "/^{$keyword}/";
@@ -112,8 +112,8 @@ class PatternMatcher extends AbstractMatcher
      */
     private function createResultMessage($prefixMessage)
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
+        $actual = $this->getFormatter()->toString($this->getActualValue());
+        $expected = $this->getFormatter()->toString($this->getExpectValue());
 
         $message  = $prefixMessage . $this->resultMessages[$this->matchType];
 
