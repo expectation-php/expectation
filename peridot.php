@@ -13,7 +13,6 @@ AnnotationRegistry::registerLoader(function($class) {
     $sourcePath = __DIR__ . "/" . $classPath . ".php";
 
     if (!is_file($sourcePath)) {
-        var_dump($sourcePath);
         return false;
     }
     require_once $sourcePath;
