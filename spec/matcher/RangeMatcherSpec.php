@@ -12,15 +12,27 @@
 use Assert\Assertion;
 use expectation\matcher\Formatter;
 use expectation\matcher\RangeMatcher;
+use expectation\spec\helper\MatcherHelper;
+
 
 describe('RangeMatcher', function() {
 
     beforeEach(function() {
         $this->matcher = new RangeMatcher(new Formatter());
         $this->matcher->setExpectValue([0, 100]);
+        $this->matcherHelper = new MatcherHelper($this->matcher);
     });
 
     describe('match', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('match');
+            });
+            it('have toBeWithin', function() {
+                Assertion::keyExists($this->annotations, 'toBeWithin');
+            });
+        });
+
         context('when match suffix', function() {
             it('should return true', function() {
                 Assertion::true($this->matcher->match(0));

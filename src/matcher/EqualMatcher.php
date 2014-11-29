@@ -23,16 +23,18 @@ class EqualMatcher extends AbstractMatcher
 
     /**
      * @Lookup(name="toEqual")
+     * @Lookup(name="toBe")
      * @param mixed $actual
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
-        return $this->expectValue === $this->actualValue;
+        $this->setActualValue($actual);
+        return $this->getExpectValue() === $this->getActualValue();
     }
 
     /**
      * @Lookup(name="toBeTrue")
+     * @Lookup(name="toBeTruthy")
      */
     public function matchTrue($actual)
     {
@@ -41,6 +43,7 @@ class EqualMatcher extends AbstractMatcher
 
     /**
      * @Lookup(name="toBeFalse")
+     * @Lookup(name="toBeFalsy")
      */
     public function matchFalse($actual)
     {
@@ -60,8 +63,8 @@ class EqualMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
+        $actual = $this->getFormatter()->toString($this->getActualValue());
+        $expected = $this->getFormatter()->toString($this->getExpectValue());
         return "Expected {$actual} to be {$expected}";
     }
 
@@ -70,8 +73,8 @@ class EqualMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
+        $actual = $this->getFormatter()->toString($this->getActualValue());
+        $expected = $this->getFormatter()->toString($this->getExpectValue());
         return "Expected {$actual} not to be {$expected}";
     }
 

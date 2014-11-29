@@ -33,9 +33,12 @@ class RangeMatcher extends AbstractMatcher
      */
     public function match($actual)
     {
-        $this->actualValue = $actual;
-        list($from, $to) = $this->expectValue;
-        return ($this->actualValue >= $from && $this->actualValue <= $to);
+        $this->setActualValue($actual);
+
+        $actualValue = $this->getActualValue();
+
+        list($from, $to) = $this->getExpectValue();
+        return ($actualValue >= $from && $actualValue <= $to);
     }
 
     /**
@@ -60,8 +63,8 @@ class RangeMatcher extends AbstractMatcher
      */
     private function formatMessage($template)
     {
-        list($from, $to) = $this->expectValue;
-        return sprintf($template, $this->actualValue, $from, $to);
+        list($from, $to) = $this->getExpectValue();
+        return sprintf($template, $this->getActualValue(), $from, $to);
     }
 
 }

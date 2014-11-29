@@ -11,6 +11,7 @@
 
 use expectation\matcher\Formatter;
 use expectation\matcher\LengthMatcher;
+use expectation\spec\helper\MatcherHelper;
 use Assert\Assertion;
 use \ArrayObject;
 
@@ -18,9 +19,18 @@ describe('LengthMatcher', function() {
 
     beforeEach(function() {
         $this->matcher = new LengthMatcher(new Formatter());
+        $this->matcherHelper = new MatcherHelper($this->matcher);
     });
 
     describe('match', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('match');
+            });
+            it('have toHaveLength', function() {
+                Assertion::keyExists($this->annotations, 'toHaveLength');
+            });
+        });
         context('when string type', function() {
             context('when have length', function() {
                 it('should return true', function() {
@@ -67,6 +77,14 @@ describe('LengthMatcher', function() {
     });
 
     describe('matchEmpty', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('matchEmpty');
+            });
+            it('have toBeEmpty', function() {
+                Assertion::keyExists($this->annotations, 'toBeEmpty');
+            });
+        });
         it('should return true', function() {
             Assertion::true($this->matcher->matchEmpty([]));
         });

@@ -23,46 +23,64 @@ describe('Method', function() {
     });
 
     describe('positiveMatch', function() {
-        context('when result is true', function() {
-            it('should return true', function() {
+        context('when conditions are matched', function() {
+            beforeEach(function() {
+                $this->throwException = null;
                 $this->matcherMethod->setExpectValue(true);
-                $result = $this->matcherMethod->positiveMatch(true);
-
-                Assertion::true($result);
             });
-        });
-        context('when result is false', function() {
-            it('should throw expectation\ExpectationException', function() {
-                $throwException = false;
+            it('not throw exception', function() {
                 try {
-                    $this->matcherMethod->setExpectValue(false);
                     $this->matcherMethod->positiveMatch(true);
                 } catch (ExpectationException $exception) {
-                    $throwException = $exception;
+                    $this->throwException = true;
                 }
-                Assertion::isInstanceOf($throwException, 'expectation\ExpectationException');
+                Assertion::same($this->throwException, null);
+            });
+        });
+        context('when the condition is not match', function() {
+            beforeEach(function() {
+                $this->throwException = null;
+                $this->matcherMethod->setExpectValue(false);
+            });
+            it('throw expectation\ExpectationException', function() {
+                try {
+                    $this->matcherMethod->positiveMatch(true);
+                } catch (ExpectationException $exception) {
+                    $this->throwException = $exception;
+                }
+                Assertion::isInstanceOf($this->throwException, 'expectation\ExpectationException');
             });
         });
     });
 
     describe('negativeMatch', function() {
-        context('when result is true', function() {
-            it('should return true', function() {
+        context('when conditions are matched', function() {
+            beforeEach(function() {
+                $this->throwException = null;
                 $this->matcherMethod->setExpectValue(true);
-                $result = $this->matcherMethod->negativeMatch(false);
-                Assertion::true($result);
             });
-        });
-        context('when result is false', function() {
-            it('should throw expectation\ExpectationException', function() {
-                $throwException = false;
+            it('not throw exception', function() {
                 try {
-                    $this->matcherMethod->setExpectValue(false);
                     $this->matcherMethod->negativeMatch(false);
                 } catch (ExpectationException $exception) {
-                    $throwException = $exception;
+                    $this->throwException = $exception;
                 }
-                Assertion::isInstanceOf($throwException, 'expectation\ExpectationException');
+                Assertion::same($this->throwException, null);
+            });
+        });
+        context('when the condition is not match', function() {
+            beforeEach(function() {
+                $this->throwException = null;
+                $this->matcherMethod->setExpectValue(false);
+            });
+
+            it('throw expectation\ExpectationException', function() {
+                try {
+                    $this->matcherMethod->negativeMatch(false);
+                } catch (ExpectationException $exception) {
+                    $this->throwException = $exception;
+                }
+                Assertion::isInstanceOf($this->throwException, 'expectation\ExpectationException');
             });
         });
     });

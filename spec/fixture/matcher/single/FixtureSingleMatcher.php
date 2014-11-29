@@ -13,12 +13,15 @@ namespace expectation\spec\fixture\matcher\single;
 
 use expectation\AbstractMatcher;
 use expectation\matcher\annotation\Lookup;
+use expectation\spec\fixture\matcher\annotation\Fixture;
+
 
 class FixtureSingleMatcher extends AbstractMatcher
 {
 
     /**
      * @Lookup(name="to_eql")
+     * @Fixture
      * @param mixed $actual
      */
     public function match($actual)

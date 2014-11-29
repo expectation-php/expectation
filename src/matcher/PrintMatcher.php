@@ -32,9 +32,9 @@ class PrintMatcher extends AbstractMatcher
     {
         ob_start();
         $actual();
-        $this->actualValue = ob_get_clean();
+        $this->setActualValue(ob_get_clean());
 
-        return ($this->actualValue === $this->expectValue);
+        return ($this->getActualValue() === $this->getExpectValue());
     }
 
     /**
@@ -42,8 +42,8 @@ class PrintMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
-        $actual = $this->formatter->toString($this->actualValue);
-        $expected = $this->formatter->toString($this->expectValue);
+        $actual = $this->getFormatter()->toString($this->getActualValue());
+        $expected = $this->getFormatter()->toString($this->getExpectValue());
         return "Expected {$expected}, got {$actual}";
     }
 
@@ -52,7 +52,7 @@ class PrintMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
-        $expected = $this->formatter->toString($this->expectValue);
+        $expected = $this->getFormatter()->toString($this->getExpectValue());
         return "Expected output other than {$expected}";
     }
 

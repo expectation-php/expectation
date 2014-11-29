@@ -12,14 +12,28 @@
 use Assert\Assertion;
 use expectation\matcher\Formatter;
 use expectation\matcher\MaximumMatcher;
+use expectation\spec\helper\MatcherHelper;
 
 describe('MaximumMatcher', function() {
 
     beforeEach(function() {
         $this->matcher = new MaximumMatcher(new Formatter());
+        $this->matcherHelper = new MatcherHelper($this->matcher);
     });
 
     describe('match', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('match');
+            });
+            it('have toBeLessThan', function() {
+                Assertion::keyExists($this->annotations, 'toBeLessThan');
+            });
+            it('have toBeBelow', function() {
+                Assertion::keyExists($this->annotations, 'toBeBelow');
+            });
+        });
+
         context('when less than', function() {
             it('should return true', function() {
                 $this->matcher->setExpectValue(2);

@@ -11,6 +11,7 @@
 
 use expectation\matcher\InclusionMatcher;
 use expectation\matcher\Formatter;
+use expectation\spec\helper\MatcherHelper;
 use Assert\Assertion;
 use \stdClass;
 use \InvalidArgumentException;
@@ -19,9 +20,18 @@ describe('InclusionMatcher', function() {
 
     beforeEach(function() {
         $this->matcher = new InclusionMatcher(new Formatter());
+        $this->matcherHelper = new MatcherHelper($this->matcher);
     });
 
     describe('match', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('match');
+            });
+            it('have toContain', function() {
+                Assertion::keyExists($this->annotations, 'toContain');
+            });
+        });
         context('when actual is string', function() {
             context('when expect value is string', function() {
                 it('should return true', function() {

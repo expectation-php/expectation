@@ -12,22 +12,60 @@
 use Assert\Assertion;
 use expectation\matcher\Formatter;
 use expectation\matcher\PatternMatcher;
+use expectation\spec\helper\MatcherHelper;
 
 describe('PatternMatcher', function() {
 
+    beforeEach(function() {
+        $this->matcher = new PatternMatcher(new Formatter());
+        $this->matcherHelper = new MatcherHelper($this->matcher);
+    });
+
     describe('match', function() {
-        beforeEach(function() {
-            $this->matcher = new PatternMatcher(new Formatter());
-            $this->matcher->setExpectValue('/foo/');
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('match');
+            });
+            it('have toMatch', function() {
+                Assertion::keyExists($this->annotations, 'toMatch');
+            });
         });
         context('when match pattern', function() {
+            beforeEach(function() {
+                $this->matcher->setExpectValue('/foo/');
+            });
             it('should return true', function() {
                 Assertion::true($this->matcher->match('foobar'));
             });
         });
         context('when not match pattern', function() {
+            beforeEach(function() {
+                $this->matcher->setExpectValue('/foo/');
+            });
             it('should return false', function() {
                 Assertion::false($this->matcher->match('barbar'));
+            });
+        });
+    });
+
+    describe('matchPrefix', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('matchPrefix');
+            });
+            it('have toStartWith', function() {
+                Assertion::keyExists($this->annotations, 'toStartWith');
+            });
+        });
+    });
+
+    describe('matchSuffix', function() {
+        describe('annotations', function() {
+            beforeEach(function() {
+                $this->annotations = $this->matcherHelper->getAnnotations('matchSuffix');
+            });
+            it('have toEndWith', function() {
+                Assertion::keyExists($this->annotations, 'toEndWith');
             });
         });
     });
@@ -35,7 +73,6 @@ describe('PatternMatcher', function() {
     describe('getFailureMessage', function() {
         context('when pattern unmatch', function() {
             beforeEach(function() {
-                $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->setExpectValue('/foo/');
             });
             it('should return the message on failure', function() {
@@ -45,7 +82,6 @@ describe('PatternMatcher', function() {
         });
         context('when prefix unmatch', function() {
             beforeEach(function() {
-                $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->setExpectValue('foo');
             });
             it('should return the message on failure', function() {
@@ -55,7 +91,6 @@ describe('PatternMatcher', function() {
         });
         context('when suffix unmatch', function() {
             beforeEach(function() {
-                $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->setExpectValue('foo');
             });
             it('should return the message on failure', function() {
@@ -68,7 +103,6 @@ describe('PatternMatcher', function() {
     describe('getNegatedFailureMessage', function() {
         context('when pattern unmatch', function() {
             beforeEach(function() {
-                $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->setExpectValue('/foo/');
             });
             it('should return the message on failure', function() {
@@ -78,7 +112,6 @@ describe('PatternMatcher', function() {
         });
         context('when prefix unmatch', function() {
             beforeEach(function() {
-                $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->setExpectValue('foo');
             });
             it('should return the message on failure', function() {
@@ -88,7 +121,6 @@ describe('PatternMatcher', function() {
         });
         context('when suffix unmatch', function() {
             beforeEach(function() {
-                $this->matcher = new PatternMatcher(new Formatter());
                 $this->matcher->setExpectValue('foo');
             });
             it('should return the message on failure', function() {

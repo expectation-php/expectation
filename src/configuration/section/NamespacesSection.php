@@ -35,9 +35,9 @@ final class NamespacesSection implements SectionInterface
      */
     private $namespacePaths;
 
-
     /**
      * @param array $values
+     * @param string $composerJsonDirectory
      */
     public function __construct(array $values, $composerJsonDirectory)
     {
