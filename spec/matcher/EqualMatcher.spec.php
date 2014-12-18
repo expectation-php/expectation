@@ -55,6 +55,9 @@ describe('EqualMatcher', function() {
             it('have toBeTrue', function() {
                 Assertion::keyExists($this->annotations, 'toBeTrue');
             });
+            it('have toBeTruthy', function() {
+                Assertion::keyExists($this->annotations, 'toBeTruthy');
+            });
         });
         it('return true', function() {
             Assertion::true($this->matcher->matchTrue(true));
@@ -68,6 +71,9 @@ describe('EqualMatcher', function() {
             });
             it('have toBeFalse', function() {
                 Assertion::keyExists($this->annotations, 'toBeFalse');
+            });
+            it('have toBeFalsy', function() {
+                Assertion::keyExists($this->annotations, 'toBeFalsy');
             });
         });
         it('return true', function() {

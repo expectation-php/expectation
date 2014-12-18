@@ -34,6 +34,7 @@ class EqualMatcher extends AbstractMatcher
 
     /**
      * @Lookup(name="toBeTrue")
+     * @Lookup(name="toBeTruthy")
      */
     public function matchTrue($actual)
     {
@@ -42,6 +43,7 @@ class EqualMatcher extends AbstractMatcher
 
     /**
      * @Lookup(name="toBeFalse")
+     * @Lookup(name="toBeFalsy")
      */
     public function matchFalse($actual)
     {
