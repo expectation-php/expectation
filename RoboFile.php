@@ -1,12 +1,15 @@
 <?php
 
 use \Robo\Tasks;
-use coverallskit\Configuration;
-use coverallskit\ReportBuilder;
+use \coverallskit\robo\CoverallsKitTasks;
 
-
+/**
+ * Class RoboFile
+ */
 class RoboFile extends Tasks
 {
+
+    use CoverallsKitTasks;
 
     public function specAll()
     {
@@ -18,11 +21,13 @@ class RoboFile extends Tasks
         return $this->taskExec('vendor/bin/phpmetrics src')->run();
     }
 
-    public function specCoveralls()
+    public function coverallsUpload()
     {
-        $configuration = Configuration::loadFromFile('coveralls.toml');
-        $builder = ReportBuilder::fromConfiguration($configuration);
-        $builder->build()->save()->upload();
+        $result = $this->taskCoverallsKit()
+            ->configure('coveralls.toml')
+            ->run();
+
+        return $result;
     }
 
 }
