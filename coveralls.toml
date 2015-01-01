@@ -1,8 +1,8 @@
 repositoryDirectory = "."
 
 [reportFile]
-output = "coveralls.json"
+output = "tmp/coveralls.json"
 
 [reportFile.input]
 type = "lcov"
-file = "report.lcov"
+file = "tmp/report.lcov"

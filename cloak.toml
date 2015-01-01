@@ -16,7 +16,7 @@ lowUpperBound = 35.0
 
 # LcovReporter
 [reporter.lcov]
-outputFilePath = "report.lcov"
+outputFilePath = "tmp/report.lcov"
 
 # ProcessingTimeReporter
 [reporter.processingTime]
