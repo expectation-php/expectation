@@ -16,7 +16,7 @@
         "peridot-php/peridot": "~1.8",
         "beberlei/assert": "~2.3",
         "phpspec/prophecy": "~1.3",
-        "cloak/cloak": "~1.4",
+        "cloak/peridot-cloak": "~1.0",
         "cloak/robo-coveralls-kit": "~1.0",
         "robo-peridot/robo-peridot": "~1.0",
         "halleck45/php-metrics": "~1.1",
