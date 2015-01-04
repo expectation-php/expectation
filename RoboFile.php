@@ -2,6 +2,8 @@
 
 use \Robo\Tasks;
 use \coverallskit\robo\CoverallsKitTasks;
+use \peridot\robo\PeridotTasks;
+
 
 /**
  * Class RoboFile
@@ -10,10 +12,16 @@ class RoboFile extends Tasks
 {
 
     use CoverallsKitTasks;
+    use PeridotTasks;
+
 
     public function specAll()
     {
-        return $this->taskExec('vendor/bin/peridot spec')->run();
+        $result = $this->taskPeridot()
+            ->directoryPath('spec')
+            ->run();
+
+        return $result;
     }
 
     public function phpMetrics()
