@@ -1,8 +1,8 @@
 <?php
 
 use \Robo\Tasks;
-use \coverallskit\robo\CoverallsKitTasks;
-use \peridot\robo\PeridotTasks;
+use \coverallskit\robo\loadTasks as CoverallsKitTasks;
+use \peridot\robo\loadTasks as PeridotTasks;
 
 
 /**
@@ -32,7 +32,7 @@ class RoboFile extends Tasks
     public function coverallsUpload()
     {
         $result = $this->taskCoverallsKit()
-            ->configure('coveralls.toml')
+            ->configureBy('coveralls.toml')
             ->run();
 
         return $result;
