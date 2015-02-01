@@ -45,6 +45,8 @@ class TruthyMatcher extends AbstractMatcher
      */
     public function getFailureMessage()
     {
+        $actual = $this->getFormatter()->toString($this->getActualValue());
+        return "Expected truthy value, got {$actual}";
     }
 
     /**
@@ -52,6 +54,8 @@ class TruthyMatcher extends AbstractMatcher
      */
     public function getNegatedFailureMessage()
     {
+        $actual = $this->getFormatter()->toString($this->getActualValue());
+        return "Expected falsey value, got {$actual}";
     }
 
 }

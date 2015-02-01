@@ -58,4 +58,18 @@ describe('TruthyMatcher', function() {
         });
     });
 
+    describe('getFailureMessage', function() {
+        it('should return the message on failure', function() {
+            Assertion::false($this->matcher->match(false));
+            Assertion::same($this->matcher->getFailureMessage(), "Expected truthy value, got false");
+        });
+    });
+
+    describe('getNegatedFailureMessage', function() {
+        it('should return the message on failure', function() {
+            Assertion::true($this->matcher->match(true));
+            Assertion::same($this->matcher->getNegatedFailureMessage(), "Expected falsey value, got true");
+        });
+    });
+
 });
