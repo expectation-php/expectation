@@ -20,11 +20,20 @@ use expectation\matcher\annotation\Lookup;
  * @property mixed $expectValue
  * @author Noritaka Horio <holy.shared.design@gmail.com>
  */
-class TruthyMatcher extends AbstractMatcher
+class VariableMatcher extends AbstractMatcher
 {
 
     /**
-     * @Lookup(name="toBeTruthy")
+     * @var string
+     */
+    private $matchType;
+
+    /**
+     * @var string
+     */
+    private $negatedMatchType;
+
+    /**
      * @param mixed $actual
      * @return boolean
      */
@@ -41,12 +50,38 @@ class TruthyMatcher extends AbstractMatcher
     }
 
     /**
+     * @Lookup(name="toBeTruthy")
+     * @param mixed $actual
+     * @return boolean
+     */
+    public function matchTruthy($actual)
+    {
+        $this->matchType = 'truthy';
+        $this->negatedMatchType = 'falsey';
+
+        return $this->match($actual);
+    }
+
+    /**
+     * @Lookup(name="toBeFalsey")
+     * @param mixed $actual
+     * @return boolean
+     */
+    public function matchFalsey($actual)
+    {
+        $this->matchType = 'falsey';
+        $this->negatedMatchType = 'truthy';
+
+        return $this->match($actual) === false;
+    }
+
+    /**
      * @return string
      */
     public function getFailureMessage()
     {
         $actual = $this->getFormatter()->toString($this->getActualValue());
-        return "Expected truthy value, got {$actual}";
+        return "Expected {$this->matchType} value, got {$actual}";
     }
 
     /**
@@ -55,7 +90,7 @@ class TruthyMatcher extends AbstractMatcher
     public function getNegatedFailureMessage()
     {
         $actual = $this->getFormatter()->toString($this->getActualValue());
-        return "Expected falsey value, got {$actual}";
+        return "Expected {$this->negatedMatchType} value, got {$actual}";
     }
 
 }
