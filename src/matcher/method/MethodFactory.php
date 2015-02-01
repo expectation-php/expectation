@@ -14,6 +14,11 @@ namespace expectation\matcher\method;
 use ReflectionMethod;
 use expectation\matcher\Method;
 
+
+/**
+ * Class MethodFactory
+ * @package expectation\matcher\method
+ */
 class MethodFactory implements MethodFactoryInterface
 {
 

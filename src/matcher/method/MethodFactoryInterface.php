@@ -11,6 +11,10 @@
 
 namespace expectation\matcher\method;
 
+/**
+ * Interface MethodFactoryInterface
+ * @package expectation\matcher\method
+ */
 interface MethodFactoryInterface
 {
 
@@ -21,7 +25,7 @@ interface MethodFactoryInterface
     public function createWithArguments(array $arguments);
 
     /**
-     * @return ReflectionMethod
+     * @return \ReflectionMethod
      */
     public function getMethod();
 
