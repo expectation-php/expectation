@@ -31,6 +31,13 @@ class TruthyMatcher extends AbstractMatcher
     public function match($actual)
     {
         $this->setActualValue($actual);
+        $actualValue = $this->getActualValue();
+
+        if (is_bool($actualValue)) {
+            return $actualValue !== false;
+        }
+
+        return isset($actualValue);
     }
 
     /**

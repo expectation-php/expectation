@@ -31,6 +31,31 @@ describe('TruthyMatcher', function() {
                 Assertion::keyExists($this->annotations, 'toBeTruthy');
             });
         });
+        context('when actual is true', function() {
+            it('return true', function() {
+                Assertion::true($this->matcher->match(true));
+            });
+        });
+        context('when actual is false', function() {
+            it('return false', function() {
+                Assertion::false($this->matcher->match(false));
+            });
+        });
+        context('when actual is blank', function() {
+            it('return true', function() {
+                Assertion::true($this->matcher->match(''));
+            });
+        });
+        context('when actual is null', function() {
+            it('return false', function() {
+                Assertion::false($this->matcher->match(null));
+            });
+        });
+        context('when actual is 0', function() {
+            it('return true', function() {
+                Assertion::true($this->matcher->match(0));
+            });
+        });
     });
 
 });
