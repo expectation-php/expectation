@@ -6,18 +6,21 @@ includes = ["src"]
 # Exclude source files.
 excludes = ["vendor", "spec"]
 
+[report]
+reportDirectory = "./tmp"
+
+[report.coverageBounds]
+satisfactory = 80.0
+critical = 50.0
 
 [reporter]
 
 # TextReporter
 [reporter.text]
-highLowerBound = 70.0
-lowUpperBound = 35.0
 
 # LcovReporter
 [reporter.lcov]
-outputFilePath = "tmp/report.lcov"
+fileName = "report.lcov"
 
 # ProcessingTimeReporter
 [reporter.processingTime]
-
