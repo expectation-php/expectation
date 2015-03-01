@@ -9,11 +9,11 @@
         "doctrine/annotations": "~1.2",
         "phpcollection/phpcollection": "~0.4",
         "zendframework/zend-loader": "~2.3",
-        "noodlehaus/config": "~0.1",
+        "noodlehaus/config": "~0.7",
         "eloquent/pathogen": "~0.6"
     },
     "require-dev": {
-        "peridot-php/peridot": "~1.14",
+        "peridot-php/peridot": "~1.15",
         "beberlei/assert": "~2.3",
         "phpspec/prophecy": "~1.3",
         "cloak/peridot-cloak": "~1.1",
