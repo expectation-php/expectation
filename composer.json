@@ -9,7 +9,7 @@
         "doctrine/annotations": "~1.2",
         "phpcollection/phpcollection": "~0.4",
         "zendframework/zend-loader": "~2.3",
-        "noodlehaus/config": "~0.7",
+        "hassankhan/config": "~0.8",
         "eloquent/pathogen": "~0.6"
     },
     "require-dev": {
