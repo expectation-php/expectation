@@ -19,5 +19,7 @@ AnnotationRegistry::registerLoader(function($class) {
 });
 
 return function(EventEmitterInterface $emitter) {
-    CloakPlugin::create('cloak.toml')->registerTo($emitter);
+    if (defined('HHVM_VERSION') === false) {
+        CloakPlugin::create('.cloak.toml')->registerTo($emitter);
+    }
 };
