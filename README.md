@@ -14,6 +14,8 @@ This library inspired by [pho](https://github.com/danielstjules/pho) of bdd test
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/expectation-php/expectation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/expectation-php/expectation/?branch=master)
 [![Stories in Ready](https://badge.waffle.io/expectation-php/expectation.svg?label=ready&title=Ready)](http://waffle.io/expectation-php/expectation)
 
+This package is not longer being maintained.  
+Please use the [expect](https://github.com/expectation-php/expect) instead.
 
 * [Installation](https://github.com/expectation-php/expectation/wiki/Installation)
 * [Basic usage](https://github.com/expectation-php/expectation/wiki/Basic-usage)
